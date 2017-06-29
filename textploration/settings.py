@@ -57,7 +57,9 @@ ROOT_URLCONF = 'textploration.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'textploration/templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
