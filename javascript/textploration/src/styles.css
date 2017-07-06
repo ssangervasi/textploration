@@ -1,0 +1,55 @@
+body {
+  background: black;
+}
+
+.input-text,
+input,
+button,
+a {
+  background: none;
+  font-family: monospace;
+  color: rgb(180, 245, 180);
+}
+.input-text input {
+  border: none;
+}
+.input-text label::after {
+  content: ">> ";
+}
+
+.screen {
+  background: rgb(10, 28, 15);
+  /* in order: x offset, y offset, blur size, spread size, color */
+  box-shadow:
+    -5px -3px 40px 6px rgb(180, 245, 180),
+    -5px -3px 40px 20px rgba(140, 210, 140, .8)
+    ;
+  font-family: monospace;
+  color: rgb(180, 245, 180);
+  border: double;
+  border-radius: 1.2rem;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+.section {
+  border-radius: .8rem;
+  padding: .2rem .5rem;
+  margin: .2rem;
+}
+
+.title {
+  text-align: center;
+}
+
+.adventurer {
+  /*background: #ABD;*/
+}
+
+.worlds {
+  /*background: #DBA;*/
+}
+
+.worlds li .selected {
+  /*background: #DBD;*/
+}
