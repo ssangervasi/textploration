@@ -1,0 +1,36 @@
+{% load static %}
+
+{% spaceless %}
+<!doctype html>
+
+<html lang="en">
+{% block html %}
+  <head>
+  {% block head %}
+    {% block meta %}
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endblock meta %}
+    
+    <title>
+      {% block title %}Textploration{% endblock title %}
+    </title>
+
+    {% block favicon %}
+    <link rel="icon" type="image/x-icon" href="{% static 'txpn/favicon.ico' %}">
+    {% endblock favicon %}
+    
+    <base href="/">
+  {% endblock head %}
+  </head>
+
+  <body>
+  {% block body %}
+  {% endblock body %}
+  {% block scripts %}
+  {% endblock scripts %}
+  </body>
+
+</html>
+{% endblock html %}
+{% endspaceless %}

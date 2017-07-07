@@ -1,0 +1,14 @@
+<div class="container screen">
+  <div class="title section">
+    <h1>
+      {{ title | titlecase }}
+      <br/>
+      <small>{{ subtitle }}</small>
+    </h1>
+  </div>
+
+  <a routerLink="/adventurers">Adventurer</a>
+  <router-outlet></router-outlet>
+  <a routerLink="/worlds">Worlds</a>
+  <router-outlet></router-outlet>
+</div>

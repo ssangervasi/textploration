@@ -1,0 +1,16 @@
+{% extends "textploration/base.template.html" %}
+{% load static %}
+
+{% block body %}
+  {# Angular entrypoint. #}
+  <app-root></app-root>
+{% endblock body %}
+
+{% block scripts %}  
+  {# Angular source files. #}
+  <script type="text/javascript" src="{% static 'txpn/inline.bundle.js' %}"></script>
+  <script type="text/javascript" src="{% static 'txpn/polyfills.bundle.js' %}"></script>
+  <script type="text/javascript" src="{% static 'txpn/styles.bundle.js' %}"></script>
+  <script type="text/javascript" src="{% static 'txpn/vendor.bundle.js' %}"></script>
+  <script type="text/javascript" src="{% static 'txpn/main.bundle.js' %}"></script>
+{% endblock scripts %}

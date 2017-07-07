@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { World } from './world';
 
 @Component({
-  selector: 'txtp-world-detail',
+  selector: 'txpn-world-detail',
   templateUrl: './world-detail.component.html',
   // styleUrls: ['./world-detail.component.css']
   styleUrls: []

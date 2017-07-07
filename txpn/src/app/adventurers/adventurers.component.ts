@@ -4,7 +4,7 @@ import { Adventurer } from './adventurer';
 import { AdventurerService } from './adventurer.service';
 
 @Component({
-  selector: 'txtp-adventurers',
+  selector: 'txpn-adventurers',
   templateUrl: './adventurers.component.html',
   styleUrls: ['./adventurers.component.css'],
   // providers: [AdventurerService],

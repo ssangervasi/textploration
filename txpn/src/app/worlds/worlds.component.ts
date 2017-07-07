@@ -8,7 +8,7 @@ import { World } from './world'
 import { WorldService } from './world.service'
 
 @Component({
-  selector: 'txtp-worlds',
+  selector: 'txpn-worlds',
   templateUrl: './worlds.component.html',
   styleUrls: ['./worlds.component.css'],
   // providers: [WorldService, AdventurerService],
