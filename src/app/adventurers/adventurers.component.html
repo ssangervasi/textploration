@@ -1,0 +1,11 @@
+<div class="adventurer section">
+  <h2>Create your Adventurer</h2>
+  <div class="input-text">
+    <label for="idAdventurer"></label>
+    <input id="idAdventurer"
+           [(ngModel)]="adventurer.name"
+           placeholder="Adven Von Turer">        
+  </div>
+
+  <button (click)="onSelectAdventurer(adventurer)">Done</button>
+</div>
