@@ -8,6 +8,7 @@ import { AdventurersComponent } from 'app/adventurers/adventurers.component';
 import { AdventurerService } from 'app/adventurers/adventurer.service';
 import { WorldsComponent } from 'app/worlds/worlds.component';
 import { WorldDetailComponent } from 'app/worlds/world-detail.component';
+import { WorldService } from 'app/worlds/world.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,10 @@ import { WorldDetailComponent } from 'app/worlds/world-detail.component';
       },
     ]),
   ],
-  providers: [AdventurerService],
+  providers: [
+    AdventurerService,
+    WorldService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

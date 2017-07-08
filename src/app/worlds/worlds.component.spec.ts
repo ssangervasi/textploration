@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
+import { AdventurerService } from 'app/adventurers/adventurer.service';
+
+import { WorldService } from './world.service';
 import { WorldsComponent } from './worlds.component';
+import { WorldDetailComponent } from './world-detail.component';
 
 describe('WorldsComponent', () => {
   let component: WorldsComponent;
@@ -8,7 +13,15 @@ describe('WorldsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WorldsComponent ]
+      declarations: [
+        WorldsComponent,
+        WorldDetailComponent,
+      ],
+      imports: [ FormsModule ],
+      providers: [
+        AdventurerService,
+        WorldService,
+      ],
     })
     .compileComponents();
   }));

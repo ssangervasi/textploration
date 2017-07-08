@@ -5,11 +5,6 @@ import { resolveLater } from 'app/utils/async';
 
 import { Adventurer } from './adventurer';
 
-
-class Subscription {
-
-}
-
 @Injectable()
 export class AdventurerService {
   private adventurer: Adventurer;
@@ -17,8 +12,15 @@ export class AdventurerService {
 
   newAdventurer$ = this.newAdventurerSource.asObservable();
 
+  createDefaultAdventurer(): Adventurer {
+    return new Adventurer('');
+  }
+
   getAdventurer(): Adventurer {
-    return this.adventurer || new Adventurer('');
+    if (!this.adventurer) {
+      this.adventurer = this.createDefaultAdventurer();
+    }
+    return this.adventurer;
   }
 
   setAdventurer(adventurer: Adventurer): void {
