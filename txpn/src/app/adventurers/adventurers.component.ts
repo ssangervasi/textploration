@@ -7,7 +7,6 @@ import { AdventurerService } from './adventurer.service';
   selector: 'txpn-adventurers',
   templateUrl: './adventurers.component.html',
   styleUrls: ['./adventurers.component.css'],
-  // providers: [AdventurerService],
 })
 export class AdventurersComponent implements OnInit {
   adventurer: Adventurer;

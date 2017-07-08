@@ -11,8 +11,6 @@ import { WorldService } from './world.service'
   selector: 'txpn-worlds',
   templateUrl: './worlds.component.html',
   styleUrls: ['./worlds.component.css'],
-  // providers: [WorldService, AdventurerService],
-  providers: [WorldService],
 })
 export class WorldsComponent implements OnInit, OnDestroy {
   adventurer: Adventurer;
