@@ -1,4 +1,4 @@
-import { Adventurer } from './adventurer'
+import { Adventurer } from '.'
 
 describe('adventurer constructor', () => {
   let a = new Adventurer('my name');

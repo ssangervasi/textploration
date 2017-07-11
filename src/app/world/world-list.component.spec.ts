@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { AdventurerService } from 'app/adventurers/adventurer.service';
+import { AdventurerService } from 'app/adventurer/adventurer.service';
 
 import { WorldService } from './world.service';
-import { WorldsComponent } from './worlds.component';
+import { WorldListComponent } from './world-list.component';
 import { WorldDetailComponent } from './world-detail.component';
 
-describe('WorldsComponent', () => {
-  let component: WorldsComponent;
-  let fixture: ComponentFixture<WorldsComponent>;
+describe('WorldListComponent', () => {
+  let component: WorldListComponent;
+  let fixture: ComponentFixture<WorldListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        WorldsComponent,
+        WorldListComponent,
         WorldDetailComponent,
       ],
       imports: [ FormsModule ],
@@ -27,7 +27,7 @@ describe('WorldsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WorldsComponent);
+    fixture = TestBed.createComponent(WorldListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

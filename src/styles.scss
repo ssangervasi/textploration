@@ -1,14 +1,36 @@
+@import "node_modules/unsemantic/grid";
+
+// Colors
+$color_green: rgb(180, 245, 180);
+$color_blue: rgb(180, 180, 245);
+$color_red: rgb(245, 180, 180);
+$color_purple: rgb(245, 180, 245);
+// Font
+$font_size: 1.2rem;
+$font_family: monospace;
+$font_list: $font_size, $font_family;
+
+
 body {
   background: black;
 }
 
-.input-text,
-input,
-button,
-a {
+@mixin text_normalize {
   background: none;
-  font-family: monospace;
-  color: rgb(180, 245, 180);
+  font: $font_list;
+  color: $color_green;
+}
+
+a {
+  color: $color_blue;
+
+  &:visited {
+    color: $color_purple;
+  }
+}
+
+input, button {
+  @include text_normalize;
 }
 .input-text input {
   border: none;
@@ -24,8 +46,8 @@ a {
     -5px -3px 40px 6px rgb(180, 245, 180),
     -5px -3px 40px 20px rgba(140, 210, 140, .8)
     ;
-  font-family: monospace;
-  color: rgb(180, 245, 180);
+  font: $font_list;
+  color: $color_green;
   border: double;
   border-radius: 1.2rem;
   padding: 2rem;

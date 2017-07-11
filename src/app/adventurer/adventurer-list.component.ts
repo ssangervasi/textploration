@@ -4,11 +4,11 @@ import { Adventurer } from './adventurer';
 import { AdventurerService } from './adventurer.service';
 
 @Component({
-  selector: 'txpn-adventurers',
-  templateUrl: './adventurers.component.html',
-  styleUrls: ['./adventurers.component.css'],
+  selector: 'txpn-adventurer-list',
+  templateUrl: './adventurer-list.component.html',
+  styleUrls: ['./adventurer-list.component.css'],
 })
-export class AdventurersComponent implements OnInit {
+export class AdventurerListComponent implements OnInit {
   adventurer: Adventurer;
 
   constructor(private adventurerService: AdventurerService) {}
