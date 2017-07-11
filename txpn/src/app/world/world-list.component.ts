@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription }   from 'rxjs/Subscription';
 
-import { Adventurer } from 'app/adventurers/adventurer'
-import { AdventurerService } from 'app/adventurers/adventurer.service'
+import { Adventurer } from 'app/adventurer/adventurer';
+import { AdventurerService } from 'app/adventurer/adventurer.service';
 
-import { World } from './world'
-import { WorldService } from './world.service'
+import { World } from './world';
+import { WorldService } from './world.service';
 
 @Component({
   selector: 'txpn-worlds',
-  templateUrl: './worlds.component.html',
-  styleUrls: ['./worlds.component.css'],
+  templateUrl: './world-list.component.html',
+  styleUrls: ['./world-list.component.css'],
 })
-export class WorldsComponent implements OnInit, OnDestroy {
+export class WorldListComponent implements OnInit, OnDestroy {
   adventurer: Adventurer;
   adventurerSubscription: Subscription;
   worlds: World[];

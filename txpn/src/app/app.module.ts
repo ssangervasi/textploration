@@ -1,40 +1,19 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 
-import { AppComponent } from 'app/app.component';
-import { AdventurersComponent } from 'app/adventurers/adventurers.component';
-import { AdventurerService } from 'app/adventurers/adventurer.service';
-import { WorldsComponent } from 'app/worlds/worlds.component';
-import { WorldDetailComponent } from 'app/worlds/world-detail.component';
-import { WorldService } from 'app/worlds/world.service';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AdventurerModule } from './adventurer/adventurer.module';
+import { WorldModule } from './world/world.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AdventurersComponent,
-    WorldsComponent,
-    WorldDetailComponent,
-  ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    FormsModule,
-    RouterModule.forRoot([
-      {
-        path: 'adventurers',
-        component: AdventurersComponent,
-      },
-      {
-        path: 'worlds',
-        component: WorldsComponent,
-      },
-    ]),
+    WorldModule,
+    AdventurerModule,
   ],
-  providers: [
-    AdventurerService,
-    WorldService
-  ],
-  bootstrap: [AppComponent]
+  declarations: [ AppComponent ],
+  bootstrap: [ AppComponent ],
 })
 export class AppModule { }
