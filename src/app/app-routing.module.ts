@@ -1,25 +1,17 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AdventurerListComponent } from 'app/adventurer/adventurer-list.component'
-import { WorldListComponent } from 'app/world/world-list.component';
+import { ConsoleComponent } from 'app/shared/console/console.component';
 
 const appRoutes: Routes = [
-  { path: 'adventure',
-    component: AdventurerListComponent,
-  },
-  { path: 'adventurer-list',
-    component: AdventurerListComponent,
-  },
-  { path: 'world-list',
-    component: WorldListComponent,
-  },
   { path: '',
-    redirectTo: '/adventure',
+    redirectTo: '/adventurer-list',
     pathMatch: 'full',
   },
-]
-const routerOptions = { enableTracing: isDevMode() }
+];
+// const enableTracing: boolean = isDevMode();
+const enableTracing: boolean = false;
+const routerOptions = { enableTracing: enableTracing };
 
 @NgModule({
   imports: [

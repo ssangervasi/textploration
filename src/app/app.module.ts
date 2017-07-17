@@ -3,17 +3,20 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AdventureModule } from './adventure/adventure.module';
 import { AdventurerModule } from './adventurer/adventurer.module';
 import { WorldModule } from './world/world.module';
 
 @NgModule({
   imports: [
-    AppRoutingModule,
+    AdventureModule,
+    AdventurerModule,
     BrowserModule,
     WorldModule,
-    AdventurerModule,
+    // Must be last set of routes.
+    AppRoutingModule,
   ],
-  declarations: [ AppComponent ],
-  bootstrap: [ AppComponent ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -1,0 +1,20 @@
+<div class="console_container">
+  <div class="console_history">
+    
+  </div>
+  
+  <div class="console_input">
+    <label class="console_prompt"
+           id="idConsolePrompt"
+           for="idConsoleCommand">
+      {{ adventurer?.name }}$
+    </label>
+
+    <input type="text"
+           name="consoleCommand"
+           id="idConsoleCommand"
+           txpnConsoleInput
+           [(ngModel)]="command.rawText"
+    >
+  </div>
+</div>
