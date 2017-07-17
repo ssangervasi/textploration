@@ -6,15 +6,20 @@
       <small>{{ subtitle }}</small>
     </h1>
   </div>
-
-  <div class="grid-container">
-    <div class="grid-10">
-      <a routerLink="/adventurer-list">Adventure</a>  
+  
+  <div class="nav-bar">
+    <div class="nav-item">
+      <a routerLink="/adventure">Adventure</a>  
     </div>
-    <div class="grid-10">
+    <div class="nav-item">
       <a routerLink="/world-list">Explore</a>
     </div>
-      <a routerLink="/adventurer-list">Adventure</a>  
+    <div class="nav-item">
+      <a routerLink="/adventurer-list">Create</a>  
+    </div>
+    <div class="nav-item">
+      <a routerLink="/adventurer-list">Log in</a>  
+    </div>
   </div>
   <router-outlet></router-outlet>
 </div>

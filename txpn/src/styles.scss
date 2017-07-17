@@ -1,10 +1,15 @@
 @import "node_modules/unsemantic/grid";
 
 // Colors
-$color_green: rgb(180, 245, 180);
-$color_blue: rgb(180, 180, 245);
-$color_red: rgb(245, 180, 180);
-$color_purple: rgb(245, 180, 245);
+$green: rgb(180, 245, 180);
+$dark_green: rgb(140, 210, 140);
+$darker_green: rgb(40, 60, 40);
+$black_green: rgb(10, 28, 15);
+
+$blue: rgb(180, 180, 245);
+$red: rgb(245, 180, 180);
+$purple: rgb(245, 180, 245);
+$grey: rgb(80, 80, 80);
 // Font
 $font_size: 1.2rem;
 $font_family: monospace;
@@ -18,14 +23,17 @@ body {
 @mixin text_normalize {
   background: none;
   font: $font_list;
-  color: $color_green;
+  color: $green;
 }
 
 a {
-  color: $color_blue;
+  color: $green;
 
-  &:visited {
-    color: $color_purple;
+  &:hover {
+    color: rgba($dark_green, .9);
+  }
+  &:active {
+    color: $dark_green;
   }
 }
 
@@ -40,18 +48,31 @@ input, button {
 }
 
 .screen {
-  background: rgb(10, 28, 15);
+  background: $black_green;
   /* in order: x offset, y offset, blur size, spread size, color */
   box-shadow:
-    -5px -3px 40px 6px rgb(180, 245, 180),
-    -5px -3px 40px 20px rgba(140, 210, 140, .8)
-    ;
+    -5px -3px 40px 6px $green,
+    -5px -3px 40px 20px rgba($dark_green, .8)
+  ;
   font: $font_list;
-  color: $color_green;
+  color: $green;
   border: double;
   border-radius: 1.2rem;
   padding: 2rem;
   margin: 2rem;
+}
+
+.nav-bar {
+  @extend .grid-container;
+
+  .nav-item {
+    @extend .grid-20;
+    @extend .tablet-grid-25;
+    @extend .mobile-grid-50;
+    
+    padding-bottom: 5px;
+    text-align: center;
+  }
 }
 
 .section {

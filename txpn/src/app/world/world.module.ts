@@ -4,12 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { WorldDetailComponent, } from './world-detail.component';
 import { WorldListComponent } from './world-list.component';
+import { WorldRoutingModule } from './world-routing.module';
 import { WorldService } from './world.service';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    WorldRoutingModule,
   ],
   declarations: [
     WorldListComponent,

@@ -1,28 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Adventurer } from './adventurer';
-import { AdventurerService } from './adventurer.service';
-
 @Component({
   selector: 'txpn-adventurer-list',
   templateUrl: './adventurer-list.component.html',
-  styleUrls: ['./adventurer-list.component.css'],
+  styleUrls: ['./adventurer-list.component.scss']
 })
 export class AdventurerListComponent implements OnInit {
-  adventurer: Adventurer;
 
-  constructor(private adventurerService: AdventurerService) {}
+  constructor() { }
 
-  ngOnInit(): void {
-    this.getAdventurer();
+  ngOnInit() {
   }
 
-  getAdventurer(): void {
-    this.adventurer = this.adventurerService.getAdventurer();
-  }
-
-  onSelectAdventurer(adventurer: Adventurer): void {
-    this.adventurerService.setAdventurer(adventurer);
-    this.getAdventurer();
-  }
 }
