@@ -1,10 +1,15 @@
-<div class="console_container">
-  <div class="console_history">
-    
-  </div>
+<div class="console-container">
   
-  <div class="console_input">
-    <label class="console_prompt"
+  <div class="console-history">
+    <ol>
+      <li *ngFor="let pastCommand of history">
+        {{ pastCommand.rawText }}
+      </li>
+    </ol>
+  </div>
+
+  <div class="console-input">
+    <label class="console-prompt"
            id="idConsolePrompt"
            for="idConsoleCommand">
       {{ adventurer?.name }}$

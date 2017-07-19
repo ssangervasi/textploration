@@ -2,27 +2,37 @@
 
 // Colors
 $green: rgb(180, 245, 180);
-$dark_green: rgb(140, 210, 140);
-$darker_green: rgb(40, 60, 40);
-$black_green: rgb(10, 28, 15);
+$dark-green: rgb(140, 210, 140);
+$darker-green: rgb(40, 60, 40);
+$black-green: rgb(10, 28, 15);
 
 $blue: rgb(180, 180, 245);
 $red: rgb(245, 180, 180);
 $purple: rgb(245, 180, 245);
 $grey: rgb(80, 80, 80);
 // Font
-$font_size: 1.2rem;
-$font_family: monospace;
-$font_list: $font_size, $font_family;
+$font-family: monospace;
+$font-size: 1.1rem;
+$font-settings: $font-size $font-family;
 
+html {
+  // Chrome workaround: if the font family is not defined
+  // in the root element, scaling in the body elements
+  // becomes inconsistent.
+  font-family: $font-family;
+}
 
 body {
+  font: $font-settings;
+  color: $green;
   background: black;
 }
 
-@mixin text_normalize {
+@mixin text-normalize {
   background: none;
-  font: $font_list;
+  font: $font-settings;
+  border: none;
+  border-bottom: 1px solid;
   color: $green;
 }
 
@@ -30,15 +40,15 @@ a {
   color: $green;
 
   &:hover {
-    color: rgba($dark_green, .9);
+    color: rgba($dark-green, .9);
   }
   &:active {
-    color: $dark_green;
+    color: $dark-green;
   }
 }
 
 input, button {
-  @include text_normalize;
+  @include text-normalize;
 }
 .input-text input {
   border: none;
@@ -48,14 +58,14 @@ input, button {
 }
 
 .screen {
-  background: $black_green;
+  // font: $font-settings;
+  // color: $green;
+  background: $black-green;
   /* in order: x offset, y offset, blur size, spread size, color */
   box-shadow:
     -5px -3px 40px 6px $green,
-    -5px -3px 40px 20px rgba($dark_green, .8)
+    -5px -3px 40px 20px rgba($dark-green, .8)
   ;
-  font: $font_list;
-  color: $green;
   border: double;
   border-radius: 1.2rem;
   padding: 2rem;
@@ -72,6 +82,28 @@ input, button {
     
     padding-bottom: 5px;
     text-align: center;
+  }
+}
+
+.console-container {
+  // @extend .grid-container;
+  word-break: all;
+}
+
+.console-history {
+  height: 10rem;
+  max-height: 50rem;
+  resize: vertical;
+  overflow-y: scroll;
+  ul, ol {
+    @extend .grid-parent;
+    list-style: none;
+  }
+}
+
+.console-input {
+  input {
+    width: 90%;
   }
 }
 
