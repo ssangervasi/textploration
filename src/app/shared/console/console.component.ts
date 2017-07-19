@@ -12,14 +12,22 @@ import {
   providers: [ConsoleService],
 })
 export class ConsoleComponent implements OnInit {
-  command: ConsoleCommand = new ConsoleCommand('');
+  command: ConsoleCommand;
+  history: ConsoleCommand[];
 
   constructor(public consoleService: ConsoleService) {
-    console.log('Component exists!');
+    console.log('Component exists!', this.consoleService);
+    this.command = consoleService.getCommand();
     consoleService.commandUpdate$.subscribe(
       command => {
         this.command = command;
       });
+    consoleService.commandSubmit$.subscribe(() => this.getHistory());
+    this.getHistory();
+  }
+
+  getHistory(): void {
+    this.history = this.consoleService.getHistory();
   }
 
   ngOnInit() { }
