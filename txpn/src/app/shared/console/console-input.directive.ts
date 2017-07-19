@@ -15,7 +15,7 @@ import {
   selector: '[txpnConsoleInput]',
 })
 export class ConsoleInputDirective {
-
+  
   constructor(private consoleService: ConsoleService) {
     console.log('Directive exists!');
   }
