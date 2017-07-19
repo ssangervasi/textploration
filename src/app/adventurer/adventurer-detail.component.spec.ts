@@ -9,20 +9,21 @@ import { FormsModule } from '@angular/forms';
 import { Adventurer } from './adventurer';
 import { AdventurerService } from './adventurer.service';
 import { AdventurerServiceMock } from './adventurer.service.mock';
-import { AdventurerListComponent } from './adventurer-list.component';
+import { AdventurerDetailComponent } from './adventurer-detail.component';
 
-describe('AdventurerListComponent', () => {
-  let component: AdventurerListComponent;
-  let fixture: ComponentFixture<AdventurerListComponent>;
+describe('AdventurerDetailComponent', () => {
+  let component: AdventurerDetailComponent;
+  let fixture: ComponentFixture<AdventurerDetailComponent>;
   let adventurerService: AdventurerServiceMock;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AdventurerListComponent,
+        AdventurerDetailComponent,
       ],
       imports: [ FormsModule ],
-      providers: [ AdventurerService
+      providers: [
+        AdventurerService
         // {
         //   provide: AdventurerService,
         //   useValue: new AdventurerServiceMock(),
@@ -33,7 +34,7 @@ describe('AdventurerListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdventurerListComponent);
+    fixture = TestBed.createComponent(AdventurerDetailComponent);
     component = fixture.componentInstance;
     adventurerService = fixture.debugElement.injector.get(AdventurerService);
     // spyAdventurerService = new SpyAdventurerService(
