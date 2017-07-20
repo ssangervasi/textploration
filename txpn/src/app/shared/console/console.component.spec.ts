@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { SharedModule } from 'app/shared/shared.module';
+
 import { ConsoleComponent } from './console.component';
 
 describe('ConsoleComponent', () => {
@@ -8,7 +10,7 @@ describe('ConsoleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConsoleComponent ]
+      imports: [ SharedModule ],
     })
     .compileComponents();
   }));

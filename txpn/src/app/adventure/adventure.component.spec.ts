@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { SharedModule } from 'app/shared/shared.module';
+
 import { AdventureComponent } from './adventure.component';
 
 describe('AdventureComponent', () => {
@@ -8,7 +10,8 @@ describe('AdventureComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdventureComponent ]
+      declarations: [ AdventureComponent ],
+      imports: [ SharedModule ],
     })
     .compileComponents();
   }));
