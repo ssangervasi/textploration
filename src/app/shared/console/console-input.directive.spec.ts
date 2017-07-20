@@ -66,4 +66,18 @@ describe('ConsoleInputDirective', () => {
     );
     expect(consoleServiceSpy.submit).toHaveBeenCalled();
   });
+
+  it('should send `downHistory` to service on `keyup.arrowdown`', () => {
+    directiveEl.nativeElement.dispatchEvent(
+      new KeyboardEvent('keyup', {'key': 'arrowdown'})
+    );
+    expect(consoleServiceSpy.downHistory).toHaveBeenCalled();
+  });
+
+  it('should send `upHistory` to service on `keyup.arrowup`', () => {
+    directiveEl.nativeElement.dispatchEvent(
+      new KeyboardEvent('keyup', {'key': 'arrowup'})
+    );
+    expect(consoleServiceSpy.upHistory).toHaveBeenCalled();
+  });
 });
