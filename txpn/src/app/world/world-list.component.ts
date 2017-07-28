@@ -22,7 +22,8 @@ export class WorldListComponent implements OnInit, OnDestroy {
               private adventurerService: AdventurerService) {}
 
   ngOnInit(): void {
-    this.getWorlds();
+    this.initWorlds();
+    this.initAdventurer();
     this.subscribeToAdventurer();
   }
 
@@ -30,14 +31,21 @@ export class WorldListComponent implements OnInit, OnDestroy {
     this.adventurerSubscription.unsubscribe();
   }
 
-  getWorlds(): void {
+  initWorlds(): void {
     this.worldService.getWorlds().then(
       worlds => this.worlds = worlds
     );
   }
 
+  initAdventurer(): void {
+    this.adventurerService.getAdventurer().then(
+      adventurer => {
+        this.adventurer = adventurer;
+      }
+    );
+  }
+
   subscribeToAdventurer(): void {
-    this.adventurer = this.adventurerService.getAdventurer();
     this.adventurerSubscription = this.adventurerService.newAdventurer$.subscribe(
       adventurer => this.adventurer = adventurer
     );
