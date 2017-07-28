@@ -16,11 +16,11 @@ export class AdventurerService {
     return new Adventurer('');
   }
 
-  getAdventurer(): Adventurer {
+  getAdventurer(): Promise<Adventurer> {
     if (!this.adventurer) {
       this.adventurer = this.createDefaultAdventurer();
     }
-    return this.adventurer;
+    return Promise.resolve(this.adventurer);
   }
 
   setAdventurer(adventurer: Adventurer): void {

@@ -1,3 +1,34 @@
 <h2>Adventure</h2>
 
+<section>
+  <h3>Overview</h3>
+  <dl>
+    <dt>Adventurer</dt>
+      <dd>{{ adventurer?.name || 'Anon' }}</dd>
+    <dt>World</dt>
+      <dd>{{ world?.name }} </dd>
+    <dt>Region</dt>
+      <dd>{{ region?.name }}</dd>
+  </dl>
+</section>
+
+<section>
+  <h3>
+    <small>Room: </small>{{ room?.name }}
+  </h3>
+  <p>{{ room?.description }}</p>
+  
+  <ol class="list--style-none">
+    <li *ngFor="let door of room?.doors">
+      <button id="door-{{ door.id }}"
+              (click)="openDoor(door)">
+        {{ door.number }}
+      </button>
+      <label for="door-{{ door.id }}">
+        {{ door.name }}
+      </label>
+    </li>
+  </ol>
+</section>
+
 <txpn-console></txpn-console>

@@ -14,15 +14,17 @@ export class AdventurerDetailComponent implements OnInit {
   constructor(private adventurerService: AdventurerService) {}
 
   ngOnInit(): void {
-    this.getAdventurer();
+    this.initAdventurer();
   }
 
-  getAdventurer(): void {
-    this.adventurer = this.adventurerService.getAdventurer();
+  initAdventurer(): void {
+    this.adventurerService.getAdventurer().then(
+      adventurer => {
+        this.adventurer = adventurer;
+      });
   }
 
   onSelectAdventurer(adventurer: Adventurer): void {
     this.adventurerService.setAdventurer(adventurer);
-    this.getAdventurer();
   }
 }

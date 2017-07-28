@@ -1,10 +1,10 @@
-@import "node_modules/unsemantic/grid";
+@import "~unsemantic/grid";
 
 // Colors
 $green: rgb(180, 245, 180);
-$dark-green: rgb(140, 210, 140);
-$darker-green: rgb(40, 60, 40);
-$black-green: rgb(10, 28, 15);
+$green-dark: rgb(140, 210, 140);
+$green-darker: rgb(40, 60, 40);
+$green-black: rgb(10, 28, 15);
 
 $blue: rgb(180, 180, 245);
 $red: rgb(245, 180, 180);
@@ -40,10 +40,10 @@ a {
   color: $green;
 
   &:hover {
-    color: rgba($dark-green, .9);
+    color: rgba($green-dark, .9);
   }
   &:active {
-    color: $dark-green;
+    color: $green-dark;
   }
 }
 
@@ -60,11 +60,11 @@ input, button {
 .screen {
   // font: $font-settings;
   // color: $green;
-  background: $black-green;
+  background: $green-black;
   /* in order: x offset, y offset, blur size, spread size, color */
   box-shadow:
     -5px -3px 40px 6px $green,
-    -5px -3px 40px 20px rgba($dark-green, .8)
+    -5px -3px 40px 20px rgba($green-dark, .8)
   ;
   border: double;
   border-radius: 1.2rem;
@@ -96,8 +96,12 @@ input, button {
   overflow-y: scroll;
   ul, ol {
     @extend .grid-parent;
-    list-style: none;
+    @extend .list--style-none;
   }
+}
+
+.list--style-none {
+  list-style: none;
 }
 
 .console-input {

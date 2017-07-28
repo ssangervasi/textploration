@@ -7,9 +7,6 @@ xdescribe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ AppModule ],
-      // declarations: [
-      //   AppComponent
-      // ],
     }).compileComponents();
   }));
 
