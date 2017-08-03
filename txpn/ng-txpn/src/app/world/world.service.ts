@@ -1,31 +1,35 @@
 import { Injectable } from '@angular/core';
 
-import { resolveLater } from 'app/utils/async'
+import { resolveLater } from 'app/utils/async';
 
-import { World } from './world'
-import * as RegionTypes from './region'
+import { World } from './world';
+import { Region } from './region';
+import { Room } from './room';
+import { Door } from './door';
 
 
-const entranceHall: RegionTypes.Room = {
+const entranceHall: Room = {
   name: 'Entrance Hall',
   description: 'The spooky spooks.',
   doors: [],
 };
 
-const checkoutCounter: RegionTypes.Room = {
+// throw butts;
+
+const checkoutCounter: Room = {
   name: 'Checkout Counter',
   description: "Don't stay here too long...",
   doors: [],
 };
 
-const d2CheckoutCounter: RegionTypes.Door = {
+const d2CheckoutCounter: Door = {
   id: '1,1',
   name: 'Library Front Door',
   number: 1,
   destination: checkoutCounter,
 };
 
-const d2EntranceHall: RegionTypes.Door = {
+const d2EntranceHall: Door = {
   id: '1,1',
   name: 'Library Front Door',
   number: 1,
@@ -35,7 +39,7 @@ const d2EntranceHall: RegionTypes.Door = {
 checkoutCounter.doors.push(d2EntranceHall);
 entranceHall.doors.push(d2CheckoutCounter);
 
-const nvpl: RegionTypes.Region = {
+const nvpl: Region = {
   name: 'Nightvale Public Library',
   rooms: [
     entranceHall,
