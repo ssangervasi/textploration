@@ -1,0 +1,20 @@
+<div class="worlds section">
+  <h2>Choose a world:</h2>
+  
+  <h3>
+    <span *ngIf="adventurer && adventurer.name;">
+      {{ adventurer.name }} ({{ adventurer.id }}) is off to...
+    </span>
+  </h3>
+  
+  <ul>
+    <li *ngFor="let world of worlds">
+      <h2 [class.selected]="world === selectedWorld"
+          (click)="onSelectWorld(world)">
+        {{ world.name }}
+      </h2>
+    </li>
+  </ul>  
+
+  <txpn-world-detail [world]="selectedWorld"></txpn-world-detail>
+</div>

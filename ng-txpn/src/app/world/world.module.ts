@@ -6,11 +6,13 @@ import { WorldDetailComponent, } from './world-detail.component';
 import { WorldListComponent } from './world-list.component';
 import { WorldRoutingModule } from './world-routing.module';
 import { WorldService } from './world.service';
+import { Door } from './door';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    // Door,
     WorldRoutingModule,
   ],
   declarations: [
@@ -19,6 +21,9 @@ import { WorldService } from './world.service';
   ],
   providers: [
     WorldService,
+  ],
+  exports: [
+    // Door,
   ],
 })
 export class WorldModule { }

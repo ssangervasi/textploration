@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { Adventurer } from 'app/adventurer/adventurer';
 import { World } from 'app/world/world';
-import { Door, Room, Region } from 'app/world/region';
+import { Region } from 'app/world/region';
+import { Door } from 'app/world/door';
+import { Room } from 'app/world/Room';
 
 import { AdventureService } from './adventure.service';
 
