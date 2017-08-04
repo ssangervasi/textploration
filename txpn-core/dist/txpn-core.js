@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["txpnCore"] = factory();
+	else
+		root["txpnCore"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -75,13 +85,44 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Room = undefined;
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _Door = __webpack_require__(1);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Room = exports.Room = function Room() {
+var Room = exports.Room = function Room(values) {
   _classCallCheck(this, Room);
+
+  if (values.id == null) {
+    values.id = new UID();
+  }
+  Object.assign(this, values);
 };
+
+var idCounter = 1;
+var idMap = new WeakMap();
+
+var UID = function () {
+  function UID() {
+    _classCallCheck(this, UID);
+
+    idMap.set(this, idCounter++);
+  }
+
+  _createClass(UID, [{
+    key: 'toString',
+    value: function toString() {
+      var id = idMap.get(this);
+      if (id != null) {
+        return id.toFixed();
+      }
+      return '';
+    }
+  }]);
+
+  return UID;
+}();
 
 /***/ }),
 /* 1 */
@@ -187,6 +228,20 @@ Object.defineProperty(exports, 'User', {
     return _User.User;
   }
 });
+exports.backThatAssUp = backThatAssUp;
+exports.popThatAss = popThatAss;
+var butts = exports.butts = ['Booty', 'Ass', 'Rump'];
+
+var tempButts = void 0;
+backThatAssUp();
+
+function backThatAssUp() {
+  tempButts = [].concat(butts);
+}
+
+function popThatAss() {
+  return butts.pop();
+}
 
 /***/ }),
 /* 4 */
@@ -278,3 +333,4 @@ var User = exports.User = function User() {
 
 /***/ })
 /******/ ]);
+});

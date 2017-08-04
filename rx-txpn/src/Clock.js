@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 
+import { bindy } from './ComponentUtils';
+
 type ClockProps = {
   locales?: string | Array<string>,
   options?: Object,
@@ -10,14 +12,6 @@ type ClockState = {
   date: Date,
   paused: boolean,
 };
-
-function bindy(that: Object, ...funcs: Function[]): void {
-  let toBind = {}
-  funcs.forEach(func => {
-    toBind[func.name] = func.bind(that);
-  });
-  Object.assign(that, toBind);
-}
 
 export class Clock extends Component {
   state: ClockState;
