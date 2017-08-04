@@ -3,12 +3,14 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    path: path.join(__dirname, 'dist'),
+    filename: 'txpn-core.js',
+    library: 'TxpnCore',
+    libraryTarget: 'umd',
   },
   module: {
     rules: [
-      { test: /\.js$/,
+      { test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
@@ -24,6 +26,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
-    modules: ['node_modules'],
+    modules: [
+      path.join(__dirname, 'src'),
+      'node_modules',
+    ],
   },
+  // https://webpack.js.org/guides/author-libraries/#add-externals
+  externals: [],
 };

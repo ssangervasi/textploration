@@ -2,12 +2,15 @@
   "name": "txpn-core",
   "version": "0.1.0",
   "private": true,
+  "main": "./dist/txpn-core.js",
   "dependencies": {
+    "ajv": "^5.2.2",
     "flow-bin": "^0.51.1"
   },
   "description": "Core data model and game engine for txpn, the Textploration browser client.",
   "scripts": {
     "build": "webpack",
+    "watch": "webpack --watch",
     "flow": "flow",
     "test": "jest"
   },
