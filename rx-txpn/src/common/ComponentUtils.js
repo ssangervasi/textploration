@@ -1,6 +1,7 @@
  // @flow
  
-// Note: Correct scenario for the danger`Function` type
+// Note: Possibly correct scenario for the dangerous `Function` type,
+// as we really don't care what kind of function this is.
 type MapNameToFunction = { [string]: Function };
 
 export function bindy(

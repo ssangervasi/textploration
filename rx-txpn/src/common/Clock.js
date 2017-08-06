@@ -13,7 +13,7 @@ type ClockState = {
   paused: boolean,
 };
 
-export class Clock extends Component {
+class Clock extends Component {
   state: ClockState;
   props: ClockProps;
   timerId: number;
@@ -75,3 +75,5 @@ export class Clock extends Component {
     );
   }
 }
+
+export default Clock;

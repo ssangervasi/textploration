@@ -6,5 +6,5 @@
 [libs]
 
 [options]
-
+emoji=true
 [lints]
