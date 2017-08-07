@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: path.join(__dirname, 'src/txpn-core/index.js'),
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'lib'),
     filename: 'txpn-core.js',
     library: 'TxpnCore',
     libraryTarget: 'umd',
@@ -11,10 +11,11 @@ module.exports = {
   module: {
     rules: [
       { test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules|bower_components|lib)/,
         use: {
           loader: 'babel-loader',
           options: {
+            // Presets are applied in bottom-up order. Jeez.
             presets: [
               'es2015',
               'flow',

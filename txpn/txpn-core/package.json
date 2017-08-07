@@ -2,7 +2,8 @@
   "name": "txpn-core",
   "version": "0.1.0",
   "private": true,
-  "main": "./dist/txpn-core.js",
+  "main": "lib/txpn-core.js",
+  "module": "src/txpn-core/index.js",
   "dependencies": {},
   "description": "Core data model and game engine for txpn, the Textploration browser client.",
   "scripts": {
