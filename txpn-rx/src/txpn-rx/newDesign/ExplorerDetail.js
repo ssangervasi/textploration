@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Explorer } from 'txpn-core/dataModel';
+import { Explorer } from 'txpn-rx/core/dataModel';
 
 import { TxpnInput } from 'txpn-rx/common/TxpnInput';
 import { bindy } from 'txpn-rx/common/ComponentUtils';
@@ -10,6 +10,7 @@ export class ExplorerDetail extends Component {
   state: Explorer;
   constructor(props: { explorer: Explorer }) {
     super(props);
+    // $FlowFixMe
     this.state = {
       name: props.explorer.name || '',
       ...props.explorer
