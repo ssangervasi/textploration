@@ -1,8 +1,8 @@
 // // @flow
 
-import 'txpn-rx/core';
+import 'txpn/core';
 
-import { SampleData } from 'txpn-rx/core';
+import { SampleData } from 'txpn/core';
 
 // // Yes
 // import 'txpn-core';

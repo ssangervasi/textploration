@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 
-import { Explorer } from 'txpn-rx/core/dataModel';
+import { Explorer } from 'txpn/core/dataModel';
 
-import { TxpnInput } from 'txpn-rx/common/TxpnInput';
-import { bindy } from 'txpn-rx/common/ComponentUtils';
+import { TxpnInput } from 'txpn/common/TxpnInput';
+import { bindy } from 'txpn/common/ComponentUtils';
 
 export class ExplorerDetail extends Component {
   state: Explorer;
