@@ -1,17 +1,17 @@
 // @flow
 import React, { Component } from 'react';
 
-import { bindy } from './ComponentUtils';
+import { bindy } from 'txpn/common/utils';
 
-type TxpnInputProps = {
+type InputProps = {
   value: string,
   setValue: (value: string) => void,
 };
 
-export class TxpnInput extends Component {
-  props: TxpnInputProps;
+export class Input extends Component {
+  props: InputProps;
   
-  constructor(props: TxpnInputProps) {
+  constructor(props: InputProps) {
     super(props);
     bindy(this, this.handleChange);
   }

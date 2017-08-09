@@ -7,6 +7,6 @@ export default class Region {
   rooms: Room[];
 
   constructor(values: {...Region}) {
-    Object.assign(values);
+    Object.assign(this, values);
   }
 }

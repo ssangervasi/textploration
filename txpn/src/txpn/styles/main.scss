@@ -28,7 +28,7 @@ a {
   &:hover {
     color: rgba($green-dark, .9);
   }
-  &:active {
+  &.active {
     color: $green-dark;
   }
 }

@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { bindy } from './ComponentUtils';
+import { bindy } from 'txpn/common/utils';
 
 type ClockProps = {
   locales?: string | Array<string>,

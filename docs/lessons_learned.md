@@ -9,7 +9,7 @@
 
 ### NPM
 
-- `npm link path/to/package` is useful for local development.
+- `npm link path/to/package` is useful for local development. However, having the source code of another package installed can cause issues during compilation.
 
 ### React
 

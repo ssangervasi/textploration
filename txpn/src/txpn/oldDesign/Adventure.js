@@ -49,8 +49,8 @@ const Adventure = ({ explorer, world, region, room }) => {
         </ol>
       </section>
 
-      <TxpnConsole />
     </div>
+      // <TxpnConsole />
   );
 }
 

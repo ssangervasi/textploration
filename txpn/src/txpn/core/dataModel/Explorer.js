@@ -5,10 +5,11 @@ export default class Explorer {
   name: string;
   
   constructor(name: string) {
+    this.name = name;
     this.id = Math.round(Math.random() * (Math.pow(10, 10)));
   }
 
   toString(): string {
-    return `Adventurer(name='${this.name}', id=${this.id})`;
+    return `Explorer(name='${this.name}', id=${this.id})`;
   }
 }
