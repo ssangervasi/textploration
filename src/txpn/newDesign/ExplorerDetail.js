@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 
 import { Explorer } from 'txpn/core/dataModel';
 
-import { TxpnInput } from 'txpn/common/TxpnInput';
-import { bindy } from 'txpn/common/ComponentUtils';
+import { Input } from 'txpn/common/components/Input';
+import { bindy } from 'txpn/common/utils';
 
 export class ExplorerDetail extends Component {
   state: Explorer;
@@ -31,7 +31,7 @@ export class ExplorerDetail extends Component {
       <div className="explorer-detail">
         <h2>Create your Explorer</h2>
         <div className="input-text">
-          <TxpnInput value={this.state.name}
+          <Input value={this.state.name}
                      setValue={this.setName} />
           />
         </div>

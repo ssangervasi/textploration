@@ -6,8 +6,6 @@ import './styles/main.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import './tryingImports';
-
 ReactDOM.render((
   <App />
 ), document.getElementById('root'));
