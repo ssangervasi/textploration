@@ -61,9 +61,7 @@ class UserAdventure extends Component {
     // TODO: Make this dynamic.
     const explorer = this.props.userData.explorer;
     const world = this.props.userData.worlds[0];
-    console.log(world)
     const region = world.regions[0];
-    console.log(region)
     const room = region.rooms[0];
 
     return (

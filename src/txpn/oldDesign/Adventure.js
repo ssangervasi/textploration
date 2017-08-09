@@ -22,7 +22,7 @@ const DoorItem = ({ door }) => {
 // $FlowFix: Destructuring
 const Adventure = ({ explorer, world, region, room }) => {
   const doorItems = room.doors.map(
-    door => (<DoorItem door={door} />)
+    door => (<DoorItem door={door} key={door.id}/>)
   );
   return (
     <div>
