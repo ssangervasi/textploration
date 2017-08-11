@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { bindy, renameWrapper } from 'txpn/common/utils';
+import { bindy, renameWrapper } from 'txpn/utils';
 import SampleData from 'txpn/core/SampleData';
 
 // This interface is used for type-checking components
@@ -9,7 +9,11 @@ import SampleData from 'txpn/core/SampleData';
 export interface UserDataProps {
   userData: SampleData;
 }
-export type UserDataState = UserDataProps;
+export interface UserDataState extends UserDataProps {};
+// export type UserDataState = UserDataProps;
+// type UserDataState = {
+//   userData: SampleData,
+// };
 
 class Subject {
   subscribers: Array<() => void> = [];
@@ -110,14 +114,6 @@ class UserDataViewer extends Component {
 const UserData = new UserDataContainer(new SampleData());
 // Example of connected instance.
 const ConnectedUserDataViewer: ReactClass<*> = UserData.connect(UserDataViewer);
-
-let name = ''
-setInterval(() => {
-  let sd = new SampleData();
-  name += ' Butts';
-  sd.explorer.name = name;
-  UserData.changeUserData(sd);
-}, 10**3);
 
 export {
   UserData as default,

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import ExplorerDetail from './ExplorerDetail';
+import ExplorerDetail from 'txpn/components/explorer/ExplorerDetail';
 
 const ExplorerList = () => (  
   <div>

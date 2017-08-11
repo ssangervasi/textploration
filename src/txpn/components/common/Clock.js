@@ -1,16 +1,16 @@
 // @flow
 import React, { Component } from 'react';
 
-import { bindy } from 'txpn/common/utils';
+import { bindy } from 'txpn/utils';
 
-type ClockProps = {
-  locales?: string | Array<string>,
-  options?: Object,
+interface ClockProps {
+  locales?: string | Array<string>;
+  options?: Object;
 };
 
-type ClockState = {
-  date: Date,
-  paused: boolean,
+interface ClockState {
+  date: Date;
+  paused: boolean;
 };
 
 class Clock extends Component {

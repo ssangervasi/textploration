@@ -2,12 +2,12 @@
 import React, { Component } from 'react';
 
 import { Explorer } from 'txpn/core/dataModel';
+import TextInput from 'txpn/components/common/TextInput';
+import { bindy } from 'txpn/utils';
 
-import { Input } from 'txpn/common/components/Input';
-import { bindy } from 'txpn/common/utils';
-
-export class ExplorerDetail extends Component {
+export default class ExplorerDetail extends Component {
   state: Explorer;
+
   constructor(props: { explorer: Explorer }) {
     super(props);
     // $FlowFixMe
@@ -15,28 +15,28 @@ export class ExplorerDetail extends Component {
       name: props.explorer.name || '',
       ...props.explorer
     };
-    bindy(this, this.setName, this.onClickExplorer);
+    bindy(this, this.setName, this.handleClickExplorer);
   }
 
   setName(value: string): void {
     this.setState({ name: value });
   }
 
-  onClickExplorer() {
-
+  handleClickExplorer() {
+    console.log(this.state.name)
   }
 
   render() {
     return (
-      <div className="explorer-detail">
+      <div className="section explorer explorer-detail">
         <h2>Create your Explorer</h2>
         <div className="input-text">
-          <Input value={this.state.name}
+          <TextInput value={this.state.name}
                      setValue={this.setName} />
           />
         </div>
 
-        <button onClick={this.onClickExplorer}>
+        <button onClick={this.handleClickExplorer}>
           Done
         </button>
       </div>
