@@ -7,13 +7,10 @@ import {
   Route,
 } from 'react-router-dom';
 
-import UserData, {
-  UserDataViewer,
-  UserDataProps,
-} from './common/components/UserData';
-import Adventure from './oldDesign/Adventure';
-import ExplorerList from './oldDesign/ExplorerList';
-import WorldList from './oldDesign/WorldList';
+import AdventureForUser from 'txpn/components/adventure/AdventureForUser';
+import ExplorerList from 'txpn/components/explorer/ExplorerList';
+import WorldList from 'txpn/components/world/WorldList';
+import { UserDataViewer } from 'txpn/components/common/UserData';
 
 class App extends Component {
   render() {
@@ -25,7 +22,7 @@ class App extends Component {
 
           <main>
             <Route path='/explorer' component={UserDataViewer} />
-            <Route path='/adventure' component={UserData.connect(UserAdventure)} />
+            <Route path='/adventure' component={AdventureForUser} />
             <Route path='/explorer-list' component={ExplorerList} />
             <Route path='/world-list' component={WorldList} />
           </main>
@@ -38,11 +35,11 @@ class App extends Component {
 const AppNav = () => (
   <nav className="app-nav">
     <ul>
-      <li><NavLink to="/explorer">Create Explorer</NavLink></li>
-      <li><NavLink to="/adventure">Adventure</NavLink></li>
-      <li><NavLink to="/world-list">Explore</NavLink></li>
-      <li><NavLink to="/explorer-list">Create</NavLink></li>
-      <li><NavLink to="/log-in">Log in</NavLink></li>
+      <li><NavLink to='/explorer'>Create Explorer</NavLink></li>
+      <li><NavLink to='/adventure'>Adventure</NavLink></li>
+      <li><NavLink to='/world-list'>Explore</NavLink></li>
+      <li><NavLink to='/explorer-list'>Create</NavLink></li>
+      <li><NavLink to='/log-in'>Log in</NavLink></li>
     </ul>
   </nav>
 );
@@ -52,27 +49,5 @@ const AppHeader = () => (
     <h2>Textploration</h2>
   </div>
 );
-
-
-class UserAdventure extends Component {
-  props: UserDataProps;
-
-  render() {
-    // TODO: Make this dynamic.
-    const explorer = this.props.userData.explorer;
-    const world = this.props.userData.worlds[0];
-    const region = world.regions[0];
-    const room = region.rooms[0];
-
-    return (
-      <Adventure
-        explorer={explorer}
-        world={world}
-        region={region}
-        room={room}
-      />
-    );
-  }
-}
 
 export default App;

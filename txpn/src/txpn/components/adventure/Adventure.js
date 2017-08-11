@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import TxpnConsole from './TxpnConsole';
+import TxpnConsole from 'txpn/components/common/TxpnConsole';
 
 const DoorItem = ({ door }) => {
   const doorId = `door-${door.id}`;
@@ -49,8 +49,8 @@ const Adventure = ({ explorer, world, region, room }) => {
         </ol>
       </section>
 
+      <TxpnConsole />
     </div>
-      // <TxpnConsole />
   );
 }
 
