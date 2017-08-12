@@ -2,10 +2,11 @@
  
 // Note: Possibly correct scenario for the dangerous `Function` type,
 // as we really don't care what kind of function this is.
-type MapNameToFunction = {
+export type MapNameToFunction = {
   [functionName: string]: Function,
 };
 
+// B-I-N-D-Why? Because I gotta!
 export function bindy(
   target: Object,
   ...funcs: Array<Function>
