@@ -4,11 +4,12 @@ import React, { Component } from 'react';
 import TextInput, { KeyHandler } from 'txpn/components/common/TextInput';
 import { bindy } from 'txpn/utils';
 
-interface TxpnConsoleProps {
+export interface TxpnConsoleProps {
   prompt: string;
+
 }
 
-interface TxpnConsoleState {
+export interface TxpnConsoleState {
   command: string;
   tempCommand: string | void;
   history: Array<string>;
@@ -19,6 +20,7 @@ export default class TxpnConsole extends Component {
   props: TxpnConsoleProps;
   state: TxpnConsoleState;
   keyHandlers: Array<KeyHandler>;
+  historyElement: Element;
 
   constructor(props: TxpnConsoleProps) {
     super(props);
@@ -47,12 +49,10 @@ export default class TxpnConsole extends Component {
     ];
   }
 
-  createHistoryItems() {
-    return this.state.history.map(
-      (command, i) => (<li key={i}>{command}</li>)
-    );
-  }
-
+  /**
+   * State maniuplation methods.
+   */
+  
   setCommand(value: string) {
     this.setState({
       command: value,
@@ -107,29 +107,52 @@ export default class TxpnConsole extends Component {
     });
   }
 
+  /** 
+   * Lifecycle methods.
+   */
+  
+  componentDidUpdate() {
+    this.scrollHistoryToBottom();
+  }
+  
+  /**
+   * Rendering methods.
+   */
+
+  createHistoryItems() {
+    return this.state.history.map(
+      (command, i) => (<li key={i}>{command}</li>)
+    );
+  }
+
+  scrollHistoryToBottom() {
+    this.historyElement.scrollTop = this.historyElement.scrollHeight;
+  }
+
   render() {
     return (
-      <div className="console-container">
-        <div className="console-history">
+      <div className="console">
+        <div className="console__history"
+             ref={historyElement => this.historyElement = historyElement}>
           <ol>
             {this.createHistoryItems()}
           </ol>
         </div>
 
-        <div className="console-input">
-          <label className="console-prompt"
+        <div className="console__command-line">
+          <label className="command-line__prompt"
                  id="idConsolePrompt"
                  htmlFor="idConsoleCommand">
             {this.props.prompt}$
           </label>
           <TextInput
+            id="idConsoleCommand"
             value={this.state.command}
             setValue={this.setCommand}
             keyHandlers={this.keyHandlers}
           />
         </div>
       </div>  
-      
     );
   }
 }

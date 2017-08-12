@@ -71,15 +71,16 @@ input, button {
   }
 }
 
-.console-container {
+.console {
   word-break: all;
 }
 
-.console-history {
+.console__history {
   height: 10rem;
   max-height: 50rem;
   resize: vertical;
   overflow-y: scroll;
+  
   ul, ol {
     @extend .grid-parent;
     @extend .list--style-none;
@@ -90,11 +91,13 @@ input, button {
   list-style: none;
 }
 
-.console-input {
+.console__command-line {
   input {
     width: 90%;
   }
 }
+
+.command
 
 .section {
   border-radius: .8rem;
