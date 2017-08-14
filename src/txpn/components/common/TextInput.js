@@ -48,7 +48,6 @@ export default class TextInput extends Component {
   }
 
   render() {
-    // const value = this.props.value;
     const { value, setValue, keyHandlers, ...restProps} = this.props;
     return (
       <input value={value}

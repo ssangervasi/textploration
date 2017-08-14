@@ -1,20 +1,8 @@
 // @flow
-import Region from './Region';
+import BaseModel from './BaseModel';
 
-export default class World {
+export default class World extends BaseModel {
+  id: string;
   name: string;
-  regions: Region[];
-  id: number;
-
-  constructor(
-    {name, id, regions}: {
-      name: string,
-      id?: number,
-      regions?: Region[],
-  }) {
-    this.name = name;
-    this.id = id || Math.random();
-    this.regions = regions || [];
-  };
-  turn(): void {};
+  regionIds: string[];
 }
