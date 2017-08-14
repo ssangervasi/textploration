@@ -1,0 +1,7 @@
+# Ignore all subdirectories to avoid putting
+# source code in gh-pages branch.
+/*
+!.gitignore
+!*.md
+!*.yml
+!/docs/
