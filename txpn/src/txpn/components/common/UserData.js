@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 import { bindy, renameWrapper } from 'txpn/utils';
+import Subject from 'txpn/core/Subject';
 import SampleData from 'txpn/core/SampleData';
 
 // This interface is used for type-checking components
@@ -10,27 +11,6 @@ export interface UserDataProps {
   userData: SampleData;
 }
 export interface UserDataState extends UserDataProps {};
-// export type UserDataState = UserDataProps;
-// type UserDataState = {
-//   userData: SampleData,
-// };
-
-class Subject {
-  subscribers: Array<() => void> = [];
-  subscribe(callback: () => void) {
-    this.subscribers.push(callback);
-  }
-  unsubscribe(callback: () => void) {
-    this.subscribers = this.subscribers.filter(
-      subscriber => subscriber !== callback
-    );
-  }
-  publish() {
-    this.subscribers.forEach((callback) => {
-      callback();
-    });
-  }
-}
 
 // Factory for Higher-Order-Component that injects
 // the `userData` prop.
@@ -65,7 +45,6 @@ class UserDataContainer {
         };
       }
       componentDidMount() {
-        // throw 'woops';
         container.subject.subscribe(this.handleChange);
       }
       componentWillUnmount() {

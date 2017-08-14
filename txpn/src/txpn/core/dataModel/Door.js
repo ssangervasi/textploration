@@ -1,14 +1,10 @@
 // @flow
-import Room from './Room';
+import BaseModel from './BaseModel';
 
-export default class Door {
+export default class Door extends BaseModel {
   id: string;
-  origin: Room;
+  originRoomId: string;
   name: string;
   number: number;
-  destination: Room;
-
-  constructor(values: {id?: string, ...Door}) {
-    Object.assign(this, values);
-  }
+  destinationRoomId: string;
 }

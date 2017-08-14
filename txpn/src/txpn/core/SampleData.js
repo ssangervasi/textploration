@@ -8,8 +8,11 @@ import {
 } from './dataModel';
 
 class SampleData {
-  worlds: World[];
   explorer: Explorer;
+  worlds: World[];
+  doors: Door[];
+  regions: Region[];
+  rooms: Room[];
 
   constructor() {
     this.explorer = new Explorer('Sam Pal');
@@ -17,51 +20,54 @@ class SampleData {
     const entranceHall: Room = new Room({
       name: 'Entrance Hall',
       description: 'The spooky spooks.',
-      doors: [],
+      doorIds: [],
     });
   
     const checkoutCounter: Room = new Room({
       name: 'Checkout Counter',
       description: "Don't stay here too long...",
-      doors: [],
+      doorIds: [],
     });
   
     const d2CheckoutCounter: Door = new Door({
-      id: '1,1',
       name: 'Library Front Door',
       number: 1,
-      destination: checkoutCounter,
+      originRoomId: entranceHall.id,
+      destinationRoomId: checkoutCounter.id,
     });
   
     const d2EntranceHall: Door = new Door({
-      id: '1,1',
       name: 'Library Front Door',
       number: 1,
-      destination: entranceHall,
+      originRoomId: checkoutCounter.id,
+      destinationRoomId: entranceHall.id,
     });
   
-    checkoutCounter.doors.push(d2EntranceHall);
-    entranceHall.doors.push(d2CheckoutCounter);
+    checkoutCounter.doorIds.push(d2EntranceHall.id);
+    entranceHall.doorIds.push(d2CheckoutCounter.id);
+
+    this.rooms = [entranceHall, checkoutCounter];
+    this.doors = [d2CheckoutCounter, d2EntranceHall];
   
     const nvpl: Region = new Region({
       name: 'Nightvale Public Library',
-      rooms: [
-        entranceHall,
-        checkoutCounter,
+      roomIds: [
+        entranceHall.id,
+        checkoutCounter.id,
       ],
     });
+
+    this.regions = [nvpl];
+
+    const nv = new World({
+      name: 'Nightvale',
+      regionIds: [ nvpl.id ],
+    });
+    const db = new World({
+      name: 'Desert Bluffs',
+    });
   
-    this.worlds = [
-      new World({
-        id: 1,
-        name: 'Nightvale',
-        regions: [ nvpl ],
-      }),
-      new World({
-        id: 2,
-        name: 'Desert Bluffs',
-      }),
-    ];
+    this.worlds = [nv, db];
   }
 }
 
