@@ -7,7 +7,7 @@ import DataStore from 'txpn/core/DataStore';
 /**
  * Factory for Higher-Order-Component that injects a DataStore.
  */
-export default class DataStoreInjector<T> {
+export default class DataInjector<T> {
   dataStore: DataStore<T>;
   injectAsProp: string = 'data';
 

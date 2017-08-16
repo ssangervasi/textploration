@@ -1,21 +1,26 @@
 // @flow
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import { bindy } from 'txpn/utils';
-import { World } from 'txpn/core/dataModel';
-import UserData, { UserDataProps } from 'txpn/components/common/UserData';
 import WorldDetail from 'txpn/components/world/WorldDetail';
+import WorldsInjector, { World} from 'txpn/components/world/WorldsInjector';
+import type { WorldsProps }  from 'txpn/components/world/WorldsInjector';
 
 class WorldList extends Component {
-  props: UserDataProps;
+  props: WorldsProps;
   state: {
-    selectedWorld: World | void,
+    selectedWorld?: World,
+    redirectToContinue: boolean,
   };
 
-  constructor(props: UserDataProps) {
+  constructor(props: WorldsProps) {
     super(props);
-    this.state = { selectedWorld: undefined };
-    bindy(this, this.handleSelectWorld);
+    this.state = { redirectToContinue: false };
+    bindy(this,
+      this.handleSelectWorld,
+      this.handleConfirmWorld,
+    );
   }
   
   handleSelectWorld(world: World) {
@@ -23,43 +28,60 @@ class WorldList extends Component {
     this.setState({ selectedWorld: world });
   }
 
+  handleConfirmWorld() {
+    // TODO: submit game state change.
+    this.setState({ redirectToContinue: true });
+  }
+
   // TODO: Make it into a simple component.
   makeWorldItems() {
-    return this.props.userData.worlds.map(
+    return this.props.worlds.map(
       world => (
-        <li key={world.id} onClick={() => this.handleSelectWorld(world)}>
-          <h2>
+        <li key={world.id}>
+          <button onClick={() => this.handleSelectWorld(world)}>
             {world.name}
-          </h2>
+          </button>
         </li>
       )
     );
   }
 
+  makeWorldHeader() {
+    const selectedWorld = this.state.selectedWorld;
+    if (selectedWorld == null) {
+      return <h2>Choose a world:</h2>
+    } else {
+      return (
+        <div>
+          <h2>Chosen World:</h2>
+          <WorldDetail world={selectedWorld} />
+          <br />
+          <button onClick={this.handleConfirmWorld}>
+            Go!
+          </button>
+        </div>
+      );
+    }
+  }
+
   render() {
-    const explorer = this.props.userData.explorer;
+    if (this.state.redirectToContinue) {
+      return <Redirect to="/adventure" />
+    }
+    const worldHeader = this.makeWorldHeader();
     const worldItems = this.makeWorldItems();
     return (
       <div className="worlds section">
-        <h2>Choose a world:</h2>
-        
-        <h3>
-          <span>
-           {explorer.name} ({explorer.id}) is off to...
-          </span>
-        </h3>
-        
+        {worldHeader}
         <ul>
           {worldItems}
         </ul>  
-
-        <WorldDetail world={this.state.selectedWorld} />
       </div>
     );
   }
 }
 
-const ConnectedWorldList = UserData.connect(WorldList);
+const ConnectedWorldList = WorldsInjector.connect(WorldList);
 export {
   ConnectedWorldList as default
 };

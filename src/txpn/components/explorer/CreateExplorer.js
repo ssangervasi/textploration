@@ -2,20 +2,19 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import UserData from 'txpn/components/common/UserData';
+import gameState from 'txpn/core/state';
 import Explorer from 'txpn/core/dataModel/Explorer';
 import TextInput from 'txpn/components/common/TextInput';
 import { bindy } from 'txpn/utils';
 
-interface CreateExplorerProps {}
-interface CreateExplorerState {
-  redirectToContinue: boolean,
-  name: string,
-}
+type CreateExplorerProps = {};
 
 export default class CreateExplorer extends Component {
   props: CreateExplorerProps;
-  state: CreateExplorerState;
+  state: {
+    redirectToContinue: boolean,
+    name: string,
+  };
 
   constructor(props: CreateExplorerProps) {
     super(props);
@@ -34,8 +33,7 @@ export default class CreateExplorer extends Component {
 
   handleSubmitExplorer() {
     let explorer = new Explorer({ name: this.state.name });
-    console.log(explorer);
-    UserData.changeExplorer(explorer);
+    gameState.changeExplorer(explorer);
     this.setState({
       redirectToContinue: true,
     });

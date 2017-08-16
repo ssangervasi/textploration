@@ -1,18 +1,29 @@
 // @flow
-import React, { Component } from 'react';
-import {
-  Route,
-  Link,
-} from 'react-router-dom'
+import React from 'react';
 
-import { UserDataViewer } from 'txpn/components/common/UserData';
+import UserInjector from 'txpn/components/user/UserInjector';
+import ExplorerInjector from 'txpn/components/explorer/ExplorerInjector';
 
-const MyAccount = ({ match }) => {
+const MyAccount = ({ user, explorer }) => {
   return (
     <div>
       <h3>User info.</h3>
-      <UserDataViewer />
+      <dl>
+        <dt>Username</dt>
+        <dd>
+          {user.username}
+        </dd>
+        <dt>Explorer</dt>
+        <dd>{explorer.name} ({explorer.id})</dd>
+      </dl>
     </div>
   );
 };
-export default MyAccount;
+const ConnectedMyAccount = (
+  ExplorerInjector.connect(
+    UserInjector.connect(MyAccount)
+  )
+);
+export {
+  ConnectedMyAccount as default
+};
