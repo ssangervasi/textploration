@@ -1,4 +1,14 @@
 // @flow
+import BaseModel from './BaseModel';
 
-export default class User {
+type UserValues = {|
+  id?: string,
+  username?: string,
+|};
+
+export default class User extends BaseModel {
+  id: string;
+  username: string;
+  constructor: (values?: UserValues) => void;
+  update: (values?: UserValues) => User;
 }

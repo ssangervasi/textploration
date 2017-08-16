@@ -11,12 +11,12 @@ export interface KeyHandler {
 export interface TextInputProps {
   value: string;
   setValue: (value: string) => void;
-  keyHandlers: Array<KeyHandler>;
+  keyHandlers?: Array<KeyHandler>;
 }
 
 export default class TextInput extends Component {
   props: TextInputProps;
-  
+
   constructor(props: TextInputProps) {
     super(props);
     bindy(this,
@@ -31,6 +31,9 @@ export default class TextInput extends Component {
   }
 
   handleKey(e: SyntheticKeyboardEvent) {
+    if (this.props.keyHandlers == null){
+      return;
+    }
     let shouldPrevent = false;
     // TODO: Create a mapping ahead of time to reduce looping.
     this.props.keyHandlers.forEach(
@@ -50,7 +53,7 @@ export default class TextInput extends Component {
   render() {
     const { value, setValue, keyHandlers, ...restProps} = this.props;
     return (
-      <input value={value}
+      <input value={value || ''}
              onChange={this.handleChange}
              onKeyDown={this.handleKey}
              {...restProps}

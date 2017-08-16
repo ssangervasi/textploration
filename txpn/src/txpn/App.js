@@ -7,12 +7,12 @@ import {
   Route,
 } from 'react-router-dom';
 
-import AdventureForUser from 'txpn/components/adventure/AdventureForUser';
-import ExplorerList from 'txpn/components/explorer/ExplorerList';
-import WorldList from 'txpn/components/world/WorldList';
-import { UserDataViewer } from 'txpn/components/common/UserData';
+import Adventure from 'txpn/components/adventure/Adventure';
+import Create from 'txpn/components/creator/Create';
+import Discover from 'txpn/components/world/Discover';
+import MyAccount from 'txpn/components/user/MyAccount'
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <BrowserRouter>
@@ -21,10 +21,13 @@ class App extends Component {
           <AppNav />
 
           <main>
-            <Route path='/explorer' component={UserDataViewer} />
-            <Route path='/adventure' component={AdventureForUser} />
-            <Route path='/explorer-list' component={ExplorerList} />
-            <Route path='/world-list' component={WorldList} />
+            <section>
+              <Route exact path='/' component={About} />
+              <Route path='/adventure' component={Adventure} />
+              <Route path='/create' component={Create} />
+              <Route path='/discover' component={Discover} />
+              <Route path='/me' component={MyAccount} />
+            </section>
           </main>
         </div>
       </BrowserRouter>
@@ -35,19 +38,28 @@ class App extends Component {
 const AppNav = () => (
   <nav className="app-nav">
     <ul>
-      <li><NavLink to='/explorer'>Create Explorer</NavLink></li>
+      <li><NavLink to='/create/explorer'>Create Explorer</NavLink></li>
       <li><NavLink to='/adventure'>Adventure</NavLink></li>
       <li><NavLink to='/world-list'>Explore</NavLink></li>
-      <li><NavLink to='/explorer-list'>Create</NavLink></li>
-      <li><NavLink to='/log-in'>Log in</NavLink></li>
+      <li><NavLink to='/me'>My account</NavLink></li>
     </ul>
   </nav>
 );
 
 const AppHeader = () => (
   <div className="app-header">
-    <h2>Textploration</h2>
+    <h2>
+      Textploration
+      <br/>
+      <small>A game</small>
+    </h2>
   </div>
 );
 
-export default App;
+const About = () => {
+  return (
+    <p>
+      TODO: Quick-start guide.
+    </p>
+  );
+}
