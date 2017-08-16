@@ -5,6 +5,8 @@
  */
 export default class Subject {
   subscribers: Array<() => void> = [];
+  publishing = false;
+
   subscribe(callback: () => void) {
     this.subscribers.push(callback);
   }
@@ -14,8 +16,16 @@ export default class Subject {
     );
   }
   publish() {
-    this.subscribers.forEach((callback) => {
-      callback();
-    });
+    if (this.publishing) {
+      return;
+    }
+    this.publishing = true;
+    try {
+      this.subscribers.forEach(callback => {
+        callback();
+      });
+    } finally {
+      this.publishing = false;
+    }
   }
 }

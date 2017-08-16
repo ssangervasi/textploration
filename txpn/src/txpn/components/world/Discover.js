@@ -10,7 +10,7 @@ import WorldList from 'txpn/components/world/WorldList';
 const Discover = ({ match }) => {
   return (
     <div>
-      List of worlds.
+      <WorldList />
     </div>
   );
 };

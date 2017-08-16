@@ -15,6 +15,37 @@
 
 ### Flow
 
+### Flow types
+
+- Define a type as an `interface` whenever and only when it will be used
+  by a class with `implements`.
+  Otherwise, just use a `type`.
+  For example:
+
+```js
+// Good: just a specific type.
+type DogColor: 'black' | 'brown';
+// Good: expects implementation.
+interface Animal { species: string; }
+class Dog implements Animal {
+  species = 'canis lupis';
+  color: DogColor;
+}
+
+// Bad: should be implemented.
+type Alien { homeworld: string }
+// Bad: never implemented.
+interface GlipGlopOptions: { color: string }
+class GlipGlop {
+  // No notification that the type is mismatched.
+  homeworld: number;
+  // Having an interface here isn't any more useful than a type.
+  constructor(options: GlipGlopOptions) {/*...*/}
+}
+```
+  
+
+#### Flow config
 - Don't ignore `node_modules` directory or else all your package imports will start breaking.
 - If you want a custom `suppress_comment`, make sure you still include the default one (see below) or else all your modules will start breaking...
 - Adding `src` directory to [`resolve_dirname`](https://flow.org/en/docs/config/options/#toc-module-system-node-resolve-dirname-string) will allow you to use absolute imports!
