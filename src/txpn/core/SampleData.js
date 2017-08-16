@@ -5,9 +5,11 @@ import {
   Room,
   World,
   Explorer,
+  User,
 } from './dataModel';
 
 class SampleData {
+  user: User;
   explorer: Explorer;
   worlds: World[];
   doors: Door[];
@@ -15,7 +17,8 @@ class SampleData {
   rooms: Room[];
 
   constructor() {
-    this.explorer = new Explorer('Sam Pal');
+    this.user = new User({username: 'Nickie'});
+    this.explorer = new Explorer({name: 'Sam Pal'});
 
     const entranceHall: Room = new Room({
       name: 'Entrance Hall',

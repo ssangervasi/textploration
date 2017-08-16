@@ -8,6 +8,14 @@ test('constructs a World', () => {
   expect(world.name).toBe(worldName);
 });
 
+test('updates a World', () => {
+  let world = new dataModel.World({ name: 'World Name' });
+  let updatedWorld = world.update({ name: 'New Name' })
+  expect(updatedWorld.id).toBe(world.id);
+  expect(updatedWorld.name).toBe('New Name');
+  console.log(updatedWorld instanceof dataModel.World);
+});
+
 test('constructs a Room', () => {
   const roomName = 'Test Room';
   let room = new dataModel.Room({ name: roomName });

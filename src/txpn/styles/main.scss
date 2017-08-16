@@ -22,6 +22,11 @@ body {
   color: $green;
 }
 
+@mixin border-old-school {
+  border: inset $grey .15rem;
+  border-radius: .2rem;
+}
+
 a {
   color: $green;
 
@@ -36,11 +41,32 @@ a {
 input, button {
   @include text-normalize;
 }
-.input-text input {
-  border: none;
+
+.form-control__button {
+  @include border-old-school;
+  background: $grey-dark;
+
+  &:active {
+    background: $grey-darker;
+  }
 }
-.input-text label::after {
-  content: ">> ";
+
+.form-field__input {
+  border: none;
+
+  &--submerged {
+    @include border-old-school;
+    background: $grey-darker;
+  }
+}
+.form-field__label {
+  padding-right: 1rem;
+  
+  &--prompt::after {
+    padding-left: 1rem;
+    padding-right: .2rem;
+    content: ">>";
+  }
 }
 
 .screen {
