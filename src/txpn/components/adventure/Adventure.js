@@ -7,7 +7,7 @@ const DoorItem = ({ door }) => {
   const doorId = `door-${door.id}`;
   const openDoor = () => { console.log(door) };
   return (
-    <li>
+    <li key={door.id}>
       <button id={doorId}
               onClick={openDoor}>
         { door.number }
@@ -19,7 +19,7 @@ const DoorItem = ({ door }) => {
   );
 }
 
-// $FlowFix: Destructuring
+// $FlowFixMe - Destructuring
 const Adventure = ({ explorer, world, region, room }) => {
   const doorItems = room.doors.map(
     door => (<DoorItem door={door} key={door.id}/>)

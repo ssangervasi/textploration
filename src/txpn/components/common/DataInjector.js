@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import type { ComponentType } from 'react/react';
 
 import { bindy, renameWrapper } from 'txpn/utils';
 import DataStore from 'txpn/core/DataStore';
@@ -18,7 +19,8 @@ export default class DataInjector<T> {
     }
   }
 
-  connect(WrappedComponent: ReactClass<*>) {
+  // connect(WrappedComponent: ReactClass<*>) {
+  connect(WrappedComponent: ComponentType): ComponentType {
     const injector = this;
 
     class DataWrapper extends Component {

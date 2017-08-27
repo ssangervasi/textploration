@@ -5,12 +5,15 @@ import {
   Link,
 } from 'react-router-dom'
 
+import database from 'txpn/state/database';
 import WorldList from 'txpn/components/world/WorldList';
 
-const Discover = ({ match }) => {
+const Discover = () => {
+  const worlds = database.worlds.getAll();
+  console.log(worlds);
   return (
     <div>
-      <WorldList />
+      <WorldList worlds={worlds}/>
     </div>
   );
 };

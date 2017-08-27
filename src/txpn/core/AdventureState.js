@@ -5,23 +5,25 @@ import {
   World,
   Explorer,
   Region,
+  Door,
   User,
-} from 'txpn/core/dataModel';
+} from 'txpn/core/models';
 
-type GameStateStores = {|
+type AdventureStateStores = {|
   user: DataStore<User>,
   explorer: DataStore<Explorer>,
-  worlds: DataStore<Array<World>>,
+  room: DataStore<Room>,
 |};
 
-export default class GameState {
-  stores: GameStateStores;
+export default class AdventureState {
+  stores: AdventureStateStores;
 
-  constructor(stores: GameStateStores) {
+  constructor(stores: AdventureStateStores) {
     this.stores = stores;
   }
 
   changeExplorer(explorer: Explorer) {
     this.stores.explorer.setData(explorer);
   }
+
 }

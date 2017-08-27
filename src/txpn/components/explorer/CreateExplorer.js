@@ -2,27 +2,28 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import gameState from 'txpn/core/state';
-import Explorer from 'txpn/core/dataModel/Explorer';
+import Explorer from 'txpn/core/models/Explorer';
 import TextInput from 'txpn/components/common/TextInput';
 import { bindy } from 'txpn/utils';
 
-type CreateExplorerProps = {};
+type CreateExplorerProps = {
+  submit: (Explorer) => void,
+};
 
 export default class CreateExplorer extends Component {
   props: CreateExplorerProps;
-  state: {
-    redirectToContinue: boolean,
+  state: { 
     name: string,
+    done: boolean,
   };
 
   constructor(props: CreateExplorerProps) {
     super(props);
     this.state = {
-      redirectToContinue: false,
       name: '',
+      done: false,
     };
-    bindy(this, this.setName, this.handleSubmitExplorer);
+    bindy(this, this.setName, this.handleSubmit);
   }
 
   setName(value: string): void {
@@ -31,38 +32,41 @@ export default class CreateExplorer extends Component {
     });
   }
 
-  handleSubmitExplorer() {
+  handleSubmit(e: SyntheticEvent) {
     let explorer = new Explorer({ name: this.state.name });
-    gameState.changeExplorer(explorer);
+    if (this.props.submit) {
+      this.props.submit(explorer)
+    };
     this.setState({
-      redirectToContinue: true,
+      done: true,
     });
   }
 
   render() {
-    if (this.state.redirectToContinue) {
-      return <Redirect to="/discover" />
-    }
     return (
-      <div className="section explorer explorer-detail">
+      <form className="CreateExplorer-form"
+            onSubmit={this.handleSubmit}
+            action="#">
         <h2>Create your Explorer</h2>
         <div className="form-field">
           <label className="form-field__label"
-                 htmlFor="idExplorerNameInput">
+                 htmlFor="id-explorer-name-input">
             Name
           </label>
           <TextInput value={this.state.name}
                      setValue={this.setName}
-                     id="idExplorerNameInput"
+                     id="id-explorer-name-input"
                      className="form-field__input--submerged"
+                     disabled={this.state.done}
           />
         </div>
 
-        <button onClick={this.handleSubmitExplorer}
-                className="form-control__button">
+        <button type="submit"
+                className="form-control__button"
+                disabled={this.state.done}>
           Save
         </button>
-      </div>
+      </form>
     );
   }
 }

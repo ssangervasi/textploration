@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { World } from 'txpn/core/dataModel';
+import { World } from 'txpn/core/models';
 
 const WorlDetail = ({ world }: {world: World}) => (
   <span>

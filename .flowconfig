@@ -11,10 +11,4 @@ emoji=true
 module.system.node.resolve_dirname=src
 module.system.node.resolve_dirname=node_modules
 
-; MUST INCLUDE THE FIRST VALUE IN ADDITION TO ANY OTHERS
-; Note: Yes, it's the ugly form of regex with lots of escaping.
-suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
-; Add more types using the capturing group.
-suppress_comment= \\(.\\|\n\\)*\\$FlowFix: *\\(Destructuring\\)
-
 [lints]
