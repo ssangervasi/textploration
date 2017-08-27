@@ -6,7 +6,7 @@ import {
   World,
   Explorer,
   User,
-} from './dataModel';
+} from './models';
 
 class SampleData {
   user: User;

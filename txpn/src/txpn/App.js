@@ -2,13 +2,14 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter,
+  Link,
   NavLink,
   Route,
 } from 'react-router-dom';
 
-import Adventure from 'txpn/components/adventure/Adventure';
-import Create from 'txpn/components/creator/Create';
-import Discover from 'txpn/components/world/Discover';
+import AdventureContainer from 'txpn/components/adventure/AdventureContainer';
+import CreateContainer from 'txpn/components/creator/CreateContainer';
+import DiscoverContainer from 'txpn/components/world/DiscoverContainer';
 import MyAccount from 'txpn/components/user/MyAccount'
 
 export default class App extends Component {
@@ -20,13 +21,11 @@ export default class App extends Component {
           <AppNav />
 
           <main>
-            <section>
-              <Route exact path='/' component={About} />
-              <Route path='/adventure' component={Adventure} />
-              <Route path='/create' component={Create} />
-              <Route path='/discover' component={Discover} />
-              <Route path='/me' component={MyAccount} />
-            </section>
+            <Route exact path='/' component={About} />
+            <Route path='/adventure' component={AdventureContainer} />
+            <Route path='/create' component={CreateContainer} />
+            <Route path='/discover' component={DiscoverContainer} />
+            <Route path='/me' component={MyAccount} />
           </main>
         </div>
       </BrowserRouter>
@@ -37,10 +36,10 @@ export default class App extends Component {
 const AppNav = () => (
   <nav className="app-nav">
     <ul>
-      <li><NavLink to='/create/explorer'>Create Explorer</NavLink></li>
       <li><NavLink to='/adventure'>Adventure</NavLink></li>
-      <li><NavLink to='/world-list'>Explore</NavLink></li>
-      <li><NavLink to='/me'>My account</NavLink></li>
+      <li><NavLink to='/create'>Create</NavLink></li>
+      <li><NavLink to='/discover'>Discover</NavLink></li>
+      <li><NavLink to='/me'>Profile</NavLink></li>
     </ul>
   </nav>
 );
@@ -57,8 +56,14 @@ const AppHeader = () => (
 
 const About = () => {
   return (
-    <p>
-      TODO: Quick-start guide.
-    </p>
+    <section>
+      <p>
+        Welcome to Textploration, the sandbox for text-based adventures.
+      </p>
+      <p>
+        Many features are in development, but why don't you try
+        your first <Link to='/adventure'>adventure</Link>?
+      </p>
+    </section>
   );
 }

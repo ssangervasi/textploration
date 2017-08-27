@@ -2,19 +2,22 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
+import { World } from 'txpn/core/models';
 import { bindy } from 'txpn/utils';
 import WorldDetail from 'txpn/components/world/WorldDetail';
-import WorldsInjector, { World} from 'txpn/components/world/WorldsInjector';
-import type { WorldsProps }  from 'txpn/components/world/WorldsInjector';
 
-class WorldList extends Component {
-  props: WorldsProps;
+type WorldListProps = {
+  worlds: Array<World>,
+};
+
+export default class WorldList extends Component {
+  props: WorldListProps;
   state: {
     selectedWorld?: World,
     redirectToContinue: boolean,
   };
 
-  constructor(props: WorldsProps) {
+  constructor(props: WorldListProps) {
     super(props);
     this.state = { redirectToContinue: false };
     bindy(this,
@@ -80,8 +83,3 @@ class WorldList extends Component {
     );
   }
 }
-
-const ConnectedWorldList = WorldsInjector.connect(WorldList);
-export {
-  ConnectedWorldList as default
-};
