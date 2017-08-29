@@ -61,7 +61,7 @@ input, button {
 }
 .form-field__label {
   padding-right: 1rem;
-  
+
   &--prompt::after {
     padding-left: 1rem;
     padding-right: .2rem;
@@ -84,6 +84,12 @@ input, button {
   margin: 2rem;
 }
 
+.app-header {
+  a {
+    text-decoration: none;
+  }
+}
+
 .nav-bar {
   @extend .grid-container;
 
@@ -91,7 +97,7 @@ input, button {
     @extend .grid-20;
     @extend .tablet-grid-25;
     @extend .mobile-grid-50;
-    
+
     padding-bottom: 5px;
     text-align: center;
   }
@@ -106,7 +112,7 @@ input, button {
   max-height: 50rem;
   resize: vertical;
   overflow-y: scroll;
-  
+
   ul, ol {
     @extend .grid-parent;
     @extend .list--style-none;
@@ -123,7 +129,7 @@ input, button {
   }
 }
 
-.command
+.command {}
 
 .section {
   border-radius: .8rem;
@@ -145,4 +151,17 @@ input, button {
 
 .worlds li .selected {
   /*background: #DBD;*/
+}
+
+.step-list__step {
+  font-style: italic;
+
+  &--active {
+    font-weight: bold;
+    font-style: normal;
+  }
+  &--done {
+    font-style: normal;
+    text-decoration: line-through;
+  }
 }

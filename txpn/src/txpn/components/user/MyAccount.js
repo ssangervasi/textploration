@@ -1,29 +1,27 @@
 // @flow
 import React from 'react';
 
-import UserInjector from 'txpn/components/user/UserInjector';
-import ExplorerInjector from 'txpn/components/explorer/ExplorerInjector';
+import state from 'txpn/store/appState';
 
-const MyAccount = ({ user, explorer }) => {
+const MyAccount = () => {
   return (
     <div>
       <h3>User info.</h3>
       <dl>
         <dt>Username</dt>
         <dd>
-          {user.username}
+          {state.user.username}
         </dd>
         <dt>Explorer</dt>
-        <dd>{explorer.name} ({explorer.id})</dd>
+        <dd>
+          {state.adventure ?
+            state.adventure.explorer.name
+            : 'None'
+          }
+        </dd>
       </dl>
     </div>
   );
 };
-const ConnectedMyAccount = (
-  ExplorerInjector.connect(
-    UserInjector.connect(MyAccount)
-  )
-);
-export {
-  ConnectedMyAccount as default
-};
+
+export { MyAccount as default }

@@ -7,28 +7,16 @@ import {
 } from 'react-router-dom';
 
 import Adventure from './Adventure';
-
-// type Step = {
-//   id: string,
-//   name: string,
-//   path: string,
-//   done: boolean,
-// };
-// steps = [
-//   { id: string,
-//     name: 'Create Explorer',
-//     path: '/explorer',
-//     done: false,
-//   }
-// ];
+import AdventureStart from './AdventureStart';
 
 export default class AdventureContainer extends Component {
   render() {
-    const startPath = `${this.props.match.path}/start`;
+    const path = this.props.match.path;
     return (
       <Switch>
-        <Route path={startPath} component={Adventure} />
-        <Redirect to={startPath} />
+        <Route path={`${path}/start`} component={AdventureStart} />
+        <Route path={`${path}/continue`} component={Adventure} />
+        <Redirect to={`${path}/start`} />
       </Switch>
     );
   }

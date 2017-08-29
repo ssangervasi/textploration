@@ -9,21 +9,20 @@ import {
   User,
 } from 'txpn/core/models';
 
-type AdventureStateStores = {|
-  user: DataStore<User>,
-  explorer: DataStore<Explorer>,
-  room: DataStore<Room>,
-|};
+// type AdventureStateStores = {|
+//   user: DataStore<User>,
+//   explorer: DataStore<Explorer>,
+//   room: DataStore<Room>,
+// |};
 
 export default class AdventureState {
-  stores: AdventureStateStores;
+  explorer: Explorer;
+  room: Room;
 
-  constructor(stores: AdventureStateStores) {
-    this.stores = stores;
+  constructor({ explorer, room }:
+              { explorer: Explorer, room: Room }
+  ) {
+    this.explorer = explorer;
+    this.room = room;
   }
-
-  changeExplorer(explorer: Explorer) {
-    this.stores.explorer.setData(explorer);
-  }
-
 }

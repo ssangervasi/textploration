@@ -8,18 +8,19 @@ import WorldDetail from 'txpn/components/world/WorldDetail';
 
 type WorldListProps = {
   worlds: Array<World>,
+  submit: (World) => void,
 };
 
 export default class WorldList extends Component {
   props: WorldListProps;
   state: {
     selectedWorld?: World,
-    redirectToContinue: boolean,
+    done: boolean,
   };
 
   constructor(props: WorldListProps) {
     super(props);
-    this.state = { redirectToContinue: false };
+    this.state = { done: false };
     bindy(this,
       this.handleSelectWorld,
       this.handleConfirmWorld,
@@ -32,8 +33,10 @@ export default class WorldList extends Component {
   }
 
   handleConfirmWorld() {
-    // TODO: submit game state change.
-    this.setState({ redirectToContinue: true });
+    if (this.state.selectedWorld != null) {
+      this.props.submit(this.state.selectedWorld);
+      this.setState({ done: true });
+    }
   }
 
   // TODO: Make it into a simple component.
@@ -41,7 +44,8 @@ export default class WorldList extends Component {
     return this.props.worlds.map(
       world => (
         <li key={world.id}>
-          <button onClick={() => this.handleSelectWorld(world)}>
+          <button onClick={() => this.handleSelectWorld(world)}
+                  disabled={this.state.done || this.state.selectedWorld === world}>
             {world.name}
           </button>
         </li>
@@ -52,15 +56,14 @@ export default class WorldList extends Component {
   makeWorldHeader() {
     const selectedWorld = this.state.selectedWorld;
     if (selectedWorld == null) {
-      return <h2>Choose a world:</h2>
+      return <h3>Choose a world:</h3>
     } else {
       return (
         <div>
-          <h2>Chosen World:</h2>
-          <WorldDetail world={selectedWorld} />
-          <br />
-          <button onClick={this.handleConfirmWorld}>
-            Go!
+          <h3>Chosen World:</h3>
+          <button onClick={this.handleConfirmWorld}
+                  disabled={this.state.done}>
+            Go to {selectedWorld.name}
           </button>
         </div>
       );
@@ -68,9 +71,6 @@ export default class WorldList extends Component {
   }
 
   render() {
-    if (this.state.redirectToContinue) {
-      return <Redirect to="/adventure" />
-    }
     const worldHeader = this.makeWorldHeader();
     const worldItems = this.makeWorldItems();
     return (
