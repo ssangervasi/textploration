@@ -58,8 +58,7 @@ const AppNav = () => {
 };
 
 const AppHeader = () => (
-  <div className="app-header
-                  grid-30 tablet-grid-40 mobile-grid-100">
+  <div className="app-header grid-30 tablet-grid-40 mobile-grid-100">
     <Link to='/'>  
       <h2 className="title">
         Textploration

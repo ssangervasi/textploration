@@ -43,9 +43,12 @@ export default class WorldList extends Component {
   makeWorldItems() {
     return this.props.worlds.map(
       world => (
-        <li key={world.id}>
-          <button onClick={() => this.handleSelectWorld(world)}
-                  disabled={this.state.done || this.state.selectedWorld === world}>
+        <li key={world.id} className="world-list__item">
+          <button
+            className="button"
+            onClick={() => this.handleSelectWorld(world)}
+            disabled={this.state.done || this.state.selectedWorld === world}
+          >
             {world.name}
           </button>
         </li>
@@ -56,13 +59,15 @@ export default class WorldList extends Component {
   makeWorldHeader() {
     const selectedWorld = this.state.selectedWorld;
     if (selectedWorld == null) {
-      return <h3>Choose a world:</h3>
+      return <div>None selected</div>
     } else {
       return (
         <div>
-          <h3>Chosen World:</h3>
-          <button onClick={this.handleConfirmWorld}
-                  disabled={this.state.done}>
+          <button
+            className="button"
+            onClick={this.handleConfirmWorld}
+            disabled={this.state.done}
+          >
             Go to {selectedWorld.name}
           </button>
         </div>
@@ -74,9 +79,10 @@ export default class WorldList extends Component {
     const worldHeader = this.makeWorldHeader();
     const worldItems = this.makeWorldItems();
     return (
-      <div className="worlds section">
+      <div>
+        <h3>Choose a world:</h3>
         {worldHeader}
-        <ul>
+        <ul className="world-list">
           {worldItems}
         </ul>  
       </div>

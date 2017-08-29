@@ -17,3 +17,15 @@ a {
 input, button {
   @include text-normalize;
 }
+
+.input {
+  @include border-old-school;
+}
+
+.button {
+  @include border-old-school;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
