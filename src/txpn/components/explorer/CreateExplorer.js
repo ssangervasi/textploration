@@ -43,9 +43,10 @@ export default class CreateExplorer extends Component {
 
   render() {
     return (
-      <form className="CreateExplorer-form"
+      <form className="grid-form"
             onSubmit={this.handleSubmit}>
         <h3>Create your Explorer</h3>
+
         <div className="form-field">
           <label className="form-field__label"
                  htmlFor="id-explorer-name-input">
@@ -54,7 +55,7 @@ export default class CreateExplorer extends Component {
           <TextInput value={this.state.name}
                      setValue={this.setName}
                      id="id-explorer-name-input"
-                     className="form-field__input--submerged"
+                     className="form-field__input input--submerged"
                      disabled={this.state.done}
           />
         </div>

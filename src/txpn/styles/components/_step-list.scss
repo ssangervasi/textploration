@@ -1,0 +1,13 @@
+
+.step-list__step {
+  font-style: italic;
+
+  &--active {
+    font-weight: bold;
+    font-style: normal;
+  }
+  &--done {
+    font-style: normal;
+    text-decoration: line-through;
+  }
+}

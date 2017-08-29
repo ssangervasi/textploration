@@ -1,0 +1,19 @@
+
+body {
+  background: black;
+}
+
+a {
+  color: $green;
+
+  &:hover {
+    color: rgba($green-dark, .9);
+  }
+  &.active {
+    color: $green-dark;
+  }
+}
+
+input, button {
+  @include text-normalize;
+}
