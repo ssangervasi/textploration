@@ -1,0 +1,17 @@
+
+@mixin list--style-none {
+  list-style: none;
+}
+
+@mixin text-normalize {
+  background: none;
+  font: $font-settings;
+  border: none;
+  border-bottom: 1px solid;
+  color: $green;
+}
+
+@mixin border-old-school {
+  border: inset $grey .15rem;
+  border-radius: .2rem;
+}

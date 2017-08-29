@@ -1,0 +1,12 @@
+
+html {
+  // Chrome workaround: if the font family is not defined
+  // in the root element, scaling in the body elements
+  // becomes inconsistent.
+  font-family: $font-family;
+}
+
+body {
+  font: $font-settings;
+  color: $green;
+}

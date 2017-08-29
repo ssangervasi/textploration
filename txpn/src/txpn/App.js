@@ -17,8 +17,10 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <div className="app screen">
-          <AppHeader />
-          <AppNav />
+          <div className="grid-container">
+            <AppHeader />
+            <AppNav />
+          </div>
 
           <main>
             <Route exact path='/' component={About} />
@@ -33,21 +35,33 @@ export default class App extends Component {
   }
 }
 
-const AppNav = () => (
-  <nav className="app-nav">
-    <ul>
-      <li><NavLink to='/adventure'>Adventure</NavLink></li>
-      <li><NavLink to='/create'>Create</NavLink></li>
-      <li><NavLink to='/discover'>Discover</NavLink></li>
-      <li><NavLink to='/me'>Profile</NavLink></li>
-    </ul>
-  </nav>
-);
+const AppNav = () => {
+  const itemClassName = 'nav-list__item grid-20 tablet-grid-50 mobile-grid-50';
+  return (
+    <nav className="app-nav grid-parent grid-70 tablet-grid-60 mobile-grid-100">
+      <ul className="nav-list grid-parent">
+        <li className={itemClassName}>
+          <NavLink to='/adventure'>Adventure</NavLink>
+        </li>
+        <li className={itemClassName}>
+          <NavLink to='/create'>Create</NavLink>
+        </li>
+        <li className={itemClassName}>
+          <NavLink to='/discover'>Discover</NavLink>
+        </li>
+        <li className={itemClassName}>
+          <NavLink to='/me'>Profile</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+};
 
 const AppHeader = () => (
-  <div className="app-header">
+  <div className="app-header
+                  grid-30 tablet-grid-40 mobile-grid-100">
     <Link to='/'>  
-      <h2>
+      <h2 className="title">
         Textploration
         <br/>
         <small>A game</small>

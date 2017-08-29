@@ -1,0 +1,27 @@
+
+
+.form-control__button {
+  @include border-old-school;
+  background: $grey-dark;
+
+  &:active {
+    background: $grey-darker;
+  }
+}
+
+.input--submerged {
+  @include border-old-school;
+  background: $grey-darker;
+}
+.form-field__input {
+  border: none;
+}
+.form-field__label {
+  padding-right: 1rem;
+
+  &--prompt::after {
+    padding-left: 1rem;
+    padding-right: .2rem;
+    content: ">>";
+  }
+}

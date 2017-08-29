@@ -1,0 +1,16 @@
+
+.screen {
+  width: 90%;
+  max-width: 960px;
+  margin: 2rem auto 2rem auto;
+  padding: 1rem;
+
+  background: $green-black;
+  /* in order: x offset, y offset, blur size, spread size, color */
+  box-shadow:
+    -5px -3px 40px 6px $green,
+    -5px -3px 40px 20px rgba($green-dark, .8)
+  ;
+  border: double;
+  border-radius: 1.2rem;
+}

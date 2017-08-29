@@ -1,0 +1,23 @@
+
+.console {
+  word-break: all;
+}
+
+.console__history {
+  height: 10rem;
+  max-height: 50rem;
+  resize: vertical;
+  overflow-y: scroll;
+
+  ul, ol {
+    @include list--style-none;
+  }
+}
+
+.console__command-line {
+  input {
+    width: 90%;
+  }
+}
+
+.command {}
