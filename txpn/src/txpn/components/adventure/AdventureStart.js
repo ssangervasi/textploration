@@ -4,7 +4,6 @@ import type { ComponentType, ElementType } from 'react/react';
 import {
   Link,
   Route,
-  Redirect,
   Switch,
 } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
@@ -14,11 +13,9 @@ import appState from 'txpn/store/appState';
 import database from 'txpn/store/database';
 import AdventureStartState, { AdventureStartSteps } from 'txpn/core/AdventureStartState';
 import type { AdventureStartStep } from 'txpn/core/AdventureStartState';
-import {
-  Explorer,
-  World,
-} from 'txpn/core/models';
+import { Explorer, World } from 'txpn/core/models';
 
+import ForceRedirect from 'txpn/components/common/ForceRedirect';
 import CreateExplorer from 'txpn/components/explorer/CreateExplorer';
 import WorldList from 'txpn/components/world/WorldList';
 
@@ -38,7 +35,6 @@ export default class AdventureStart extends Component {
       this.CreateExplorer,
       this.ChooseWorld,
       this.Done,
-      this.StepManager,
     );
     this.state = {
       step: this.getNextStep(),
@@ -79,7 +75,7 @@ export default class AdventureStart extends Component {
 
   /* Rendering */
 
-  getLinkForCurrentStep(): string {
+  getURLForCurrentStep(): string {
     const url = this.props.match.url;
     const tail = this.stepToNestedPathMap.get(this.state.step) || '';
     return `${url}/${tail}`;
@@ -115,42 +111,39 @@ export default class AdventureStart extends Component {
   Done() {
     return (
       <p>
-        All done!
+        All done!&nbsp;
         <Link to='/adventure/continue'>
-          &nbsp; Click here to adventure.
+          Click here to adventure.
         </Link>
       </p>
     );
   }
 
-  /**
-   * This is a special child component that ensures the current
-   * route is appropriate for the "get-started" app state.
-   * It redirects to based on that state, or just renders null.
-   */
-  StepManager({ match }: { match: Match}) {
-    const stepLink = this.getLinkForCurrentStep();
-
-    if (match.url !== stepLink) {
-      return <Redirect to={stepLink} />
-    } else {
-      return null;
-    }
-  }
-
   render() {
     const path = this.props.match.path;
-    const stepLink = this.getLinkForCurrentStep();
+    const childUrl = this.getURLForCurrentStep();
     const steps = this.getSteps();
     return (
       <div>
         <h2>Get Started</h2>
         <StepList steps={steps} />
-        <Route path={`${path}*`} component={this.StepManager} />
+        <ForceRedirect
+          fromPath={path} 
+          toURL={childUrl}
+        />
         <Switch>
-          <Route path={`${path}/choose-world`} component={this.ChooseWorld} />
-          <Route path={`${path}/create-explorer`} component={this.CreateExplorer} />
-          <Route path={`${path}/done`} component={this.Done} />
+          <Route
+            path={`${path}/choose-world`}
+            component={this.ChooseWorld}
+          />
+          <Route
+            path={`${path}/create-explorer`}
+            component={this.CreateExplorer}
+          />
+          <Route
+            path={`${path}/done`}
+            component={this.Done}
+          />
         </Switch>
       </div>
     );
@@ -163,7 +156,7 @@ type Step = {
   active?: boolean,
 };
 
-const StepList: ComponentType = (props: { steps: Array<Step> }) => {
+function StepList(props: { steps: Array<Step> }): ComponentType {
   const stepChildren = props.steps.map((step, index) => {
     const className = ([
         ['step-list__step', true],
@@ -173,4 +166,4 @@ const StepList: ComponentType = (props: { steps: Array<Step> }) => {
     return (<li key={index} className={className}>{step.title}</li>);
   });
   return (<ol className="step-list">{stepChildren}</ol>);
-};
+}

@@ -1,7 +1,9 @@
 
-
-.form-control__button {
-  @include border-old-school;
+.form-buttons {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+.form-buttons__button {
   background: $grey-dark;
 
   &:active {
@@ -9,12 +11,12 @@
   }
 }
 
-.input--submerged {
-  @include border-old-school;
-  background: $grey-darker;
+.form-field {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 .form-field__input {
-  border: none;
+  background: $grey-darker;
 }
 .form-field__label {
   padding-right: 1rem;
