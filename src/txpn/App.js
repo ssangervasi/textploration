@@ -46,11 +46,13 @@ const AppNav = () => (
 
 const AppHeader = () => (
   <div className="app-header">
-    <h2>
-      Textploration
-      <br/>
-      <small>A game</small>
-    </h2>
+    <Link to='/'>  
+      <h2>
+        Textploration
+        <br/>
+        <small>A game</small>
+      </h2>
+    </Link>
   </div>
 );
 

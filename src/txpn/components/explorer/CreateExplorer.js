@@ -33,10 +33,9 @@ export default class CreateExplorer extends Component {
   }
 
   handleSubmit(e: SyntheticEvent) {
+    e.preventDefault();
     let explorer = new Explorer({ name: this.state.name });
-    if (this.props.submit) {
-      this.props.submit(explorer)
-    };
+    this.props.submit(explorer)
     this.setState({
       done: true,
     });
@@ -45,9 +44,8 @@ export default class CreateExplorer extends Component {
   render() {
     return (
       <form className="CreateExplorer-form"
-            onSubmit={this.handleSubmit}
-            action="#">
-        <h2>Create your Explorer</h2>
+            onSubmit={this.handleSubmit}>
+        <h3>Create your Explorer</h3>
         <div className="form-field">
           <label className="form-field__label"
                  htmlFor="id-explorer-name-input">
@@ -65,6 +63,7 @@ export default class CreateExplorer extends Component {
                 className="form-control__button"
                 disabled={this.state.done}>
           Save
+          {this.state.done ? ' \u2713' : ''}
         </button>
       </form>
     );

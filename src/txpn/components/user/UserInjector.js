@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import AdventureState from 'txpn/state/adventureState';
+import state from 'txpn/store/appState';
 import { User } from 'txpn/core/models';
 
 import DataInjector from 'txpn/components/common/DataInjector'
@@ -11,7 +11,7 @@ export type UserProps = {
 };
 
 const UserInjector: DataInjector<User> = (
-  new DataInjector(AdventureState.stores.user, 'user'));
+  new DataInjector(state.user, 'user'));
 
 export {
   UserInjector as default
