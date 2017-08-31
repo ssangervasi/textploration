@@ -11,16 +11,17 @@ const AdventureStartSteps = {
   CHOOSE_WORLD: 'CHOOSE_WORLD',
   DONE: 'DONE',
 }
-
 type AdventureStartStep = $Keys<typeof AdventureStartSteps>;
+type AdventureStartStateValues = {
+  explorer?: Explorer,
+  world?: World
+};
 
 class AdventureStartState {
   explorer: Explorer | void;
   world: World | void;
 
-  constructor(values?:
-              { explorer?: Explorer, world?: World}
-  ) {
+  constructor(values?: AdventureStartStateValues) {
     if (values != null) {
       this.explorer = values.explorer;
       this.world = values.world;

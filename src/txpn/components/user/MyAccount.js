@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import state from 'txpn/store/appState';
+import state from 'txpn/store/gameState';
 
 const MyAccount = () => {
   return (

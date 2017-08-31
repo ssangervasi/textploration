@@ -58,7 +58,7 @@ const AppNav = () => {
 };
 
 const AppHeader = () => (
-  <div className="app-header grid-30 tablet-grid-40 mobile-grid-100">
+  <header className="app-header grid-30 tablet-grid-40 mobile-grid-100">
     <Link to='/'>  
       <h2 className="title">
         Textploration
@@ -66,7 +66,7 @@ const AppHeader = () => (
         <small>A game</small>
       </h2>
     </Link>
-  </div>
+  </header>
 );
 
 const About = () => {
