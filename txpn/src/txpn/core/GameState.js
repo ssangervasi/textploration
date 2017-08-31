@@ -1,38 +1,26 @@
 // @flow
-import sampleData from './sampleData';
 import AdventureStartState from 'txpn/core/AdventureStartState';
 import AdventureState from 'txpn/core/AdventureState';
-import User from 'txpn/core/models/User';
+import { NotImplementedError } from 'txpn/core/errors';
+import {
+  Explorer,
+  User,
+} from 'txpn/core/models';
 
-type AppStateValues = {
+type GameStateValues = {
   adventure?: AdventureState,
   adventureStart?: AdventureStartState,
   user?: User,
 };
 
-class AppState {
+export default class GameState {
   adventure: AdventureState | void;
   adventureStart: AdventureStartState | void;
   user: User;
 
-  constructor(values: AppStateValues) {
+  constructor(values: GameStateValues) {
     this.adventure = values.adventure;
     this.adventureStart = values.adventureStart;
     this.user = values.user || new User();
   }
-
-  getStarted(): AdventureStartState {
-    if (this.adventureStart == null) {
-      this.adventureStart = new AdventureStartState();
-    }
-    return this.adventureStart;
-  }
-}
-
-const appState: AppState = new AppState ({
-  user: sampleData.user,
-})
-
-export {
-  appState as default
 }

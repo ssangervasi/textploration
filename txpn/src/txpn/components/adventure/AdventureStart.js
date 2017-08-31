@@ -9,8 +9,7 @@ import {
 import type { Match } from 'react-router-dom';
 
 import { bindy } from 'txpn/utils';
-import appState from 'txpn/store/appState';
-import database from 'txpn/store/database';
+import gameEngine from 'txpn/store/gameEngine';
 import AdventureStartState, { AdventureStartSteps } from 'txpn/core/AdventureStartState';
 import type { AdventureStartStep } from 'txpn/core/AdventureStartState';
 import { Explorer, World } from 'txpn/core/models';
@@ -20,7 +19,10 @@ import CreateExplorer from 'txpn/components/explorer/CreateExplorer';
 import WorldList from 'txpn/components/world/WorldList';
 
 export default class AdventureStart extends Component {
-  state: { step: AdventureStartStep };
+  state: {
+    step: AdventureStartStep,
+    done: boolean,
+  };
   stepToNestedPathMap: Map<AdventureStartStep, string> = new Map([
     [AdventureStartSteps.CREATE_EXPLORER, 'create-explorer'],
     [AdventureStartSteps.CHOOSE_WORLD, 'choose-world'],
@@ -32,27 +34,37 @@ export default class AdventureStart extends Component {
     bindy(this,
       this.submitWorld,
       this.submitExplorer,
+      this.submitDone,
       this.CreateExplorer,
       this.ChooseWorld,
       this.Done,
     );
     this.state = {
       step: this.getNextStep(),
+      done: false,
     };
   }
 
   /* Helpers */
 
   getNextStep(): AdventureStartStep {
-    return appState.getStarted().getNextStep();
+    return gameEngine.getStarted().getNextStep();
+  }
+
+  getExplorer(): Explorer | void {
+    return gameEngine.getStarted().explorer;
   }
 
   setExplorer(explorer: Explorer): void {
-    appState.getStarted().setExplorer(explorer);
+    gameEngine.getStarted().setExplorer(explorer);
+  }
+
+  getWorld(): World | void {
+    return gameEngine.getStarted().world;
   }
 
   setWorld(world: World): void {
-    appState.getStarted().setWorld(world);
+    gameEngine.getStarted().setWorld(world);
   }
 
   /* Events */
@@ -73,9 +85,17 @@ export default class AdventureStart extends Component {
     });
   }
 
+  submitDone(): void {
+    gameEngine.startAdventure();
+    this.setState({ done: true });
+  }
+
   /* Rendering */
 
   getURLForCurrentStep(): string {
+    if (this.state.done) {
+      return '/adventure/continue';
+    }
     const url = this.props.match.url;
     const tail = this.stepToNestedPathMap.get(this.state.step) || '';
     return `${url}/${tail}`;
@@ -97,25 +117,47 @@ export default class AdventureStart extends Component {
     ];
   }
 
-  CreateExplorer() {
+  CreateExplorer(): ComponentType {
     return <CreateExplorer submit={this.submitExplorer} />
   }
 
-  ChooseWorld() {
+  ChooseWorld(): ComponentType {
     return (
-      <WorldList worlds={database.worlds.getAll()}
-                 submit={this.submitWorld} />
+      <WorldList
+        worlds={gameEngine.database.worlds.getAll()}
+        submit={this.submitWorld}
+      />
    );
   }
 
-  Done() {
+  Done(): ComponentType {
+    const explorer = this.getExplorer();
+    const world = this.getWorld();
+    if (explorer == null || world == null) {
+      return (
+        <div>
+          <h3>Something went wrong!</h3>
+          <p>
+            <Link to='/adventure/start'>
+              Click here to retry.
+            </Link>
+          </p>
+        </div>
+      );
+    }
     return (
-      <p>
-        All done!&nbsp;
-        <Link to='/adventure/continue'>
-          Click here to adventure.
-        </Link>
-      </p>
+      <div>
+        <h3>All ready!</h3>
+        <p>
+          Looks like <strong>{explorer.name}</strong> is
+          going to <strong>{world.name}</strong>.
+        </p>
+        <p>
+          <button className="button" onClick={this.submitDone}>
+            Confirm and adventure!
+          </button>
+        </p>
+      </div>
     );
   }
 
@@ -124,28 +166,33 @@ export default class AdventureStart extends Component {
     const childUrl = this.getURLForCurrentStep();
     const steps = this.getSteps();
     return (
-      <div>
+      <section>
         <h2>Get Started</h2>
-        <StepList steps={steps} />
-        <ForceRedirect
-          fromPath={path} 
-          toURL={childUrl}
-        />
-        <Switch>
-          <Route
-            path={`${path}/choose-world`}
-            component={this.ChooseWorld}
+        <section>
+          <h3>Steps</h3>
+          <StepList steps={steps} />
+        </section>
+        <section>
+          <ForceRedirect
+            fromPath={path} 
+            toURL={childUrl}
           />
-          <Route
-            path={`${path}/create-explorer`}
-            component={this.CreateExplorer}
-          />
-          <Route
-            path={`${path}/done`}
-            component={this.Done}
-          />
-        </Switch>
-      </div>
+          <Switch>
+            <Route
+              path={`${path}/choose-world`}
+              component={this.ChooseWorld}
+            />
+            <Route
+              path={`${path}/create-explorer`}
+              component={this.CreateExplorer}
+            />
+            <Route
+              path={`${path}/done`}
+              component={this.Done}
+            />
+          </Switch>
+        </section>
+      </section>
     );
   }
 }
@@ -156,13 +203,19 @@ type Step = {
   active?: boolean,
 };
 
-function StepList(props: { steps: Array<Step> }): ComponentType {
-  const stepChildren = props.steps.map((step, index) => {
+function StepList(
+  { steps }:
+  { steps: Array<Step> }
+): ComponentType {
+  const stepChildren = steps.map((step, index) => {
     const className = ([
         ['step-list__step', true],
         ['step-list__step--active', step.active],
         ['step-list__step--done', step.done],
-      ]).map(([k, v]) => (v ? k : undefined)).filter(v => v).join(' ');
+      ])
+      .map(([k, v]) => (v ? k : undefined))
+      .filter(v => v)
+      .join(' ');
     return (<li key={index} className={className}>{step.title}</li>);
   });
   return (<ol className="step-list">{stepChildren}</ol>);

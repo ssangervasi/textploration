@@ -20,8 +20,8 @@ const DoorItem = ({ door }) => {
 }
 
 // $FlowFixMe - Destructuring
-const Adventure = ({ explorer, world, region, room }) => {
-  const doorItems = room.doors.map(
+const Adventure = ({ explorer, world, region, room, doors }) => {
+  const doorItems = doors.map(
     door => (<DoorItem door={door} key={door.id}/>)
   );
   return (

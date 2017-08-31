@@ -19,8 +19,9 @@ export default class AdventureState {
   explorer: Explorer;
   room: Room;
 
-  constructor({ explorer, room }:
-              { explorer: Explorer, room: Room }
+  constructor(
+    { explorer, room }:
+    { explorer: Explorer, room: Room }
   ) {
     this.explorer = explorer;
     this.room = room;

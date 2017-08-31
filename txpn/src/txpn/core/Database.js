@@ -2,13 +2,19 @@
 import DataStore from 'txpn/core/DataStore';
 import {
   BaseModel,
+  Door,
   Explorer,
+  Region,
+  Room,
   World,
 } from 'txpn/core/models';
 
 export default class Database {
-  worlds: ModelSet<World> = new ModelSet();
+  doors: ModelSet<Door> = new ModelSet();
   explorers: ModelSet<Explorer> = new ModelSet();
+  regions: ModelSet<Region> = new ModelSet();
+  rooms: ModelSet<Room> = new ModelSet();
+  worlds: ModelSet<World> = new ModelSet();
 }
 
 class ModelSet<ModelType: BaseModel> {
