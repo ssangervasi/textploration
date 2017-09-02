@@ -1,7 +1,9 @@
 // @flow
-import BaseModel from './BaseModel';
+import Model from './Model';
 
-export default class Explorer extends BaseModel {
+export default class Explorer extends Model {
   id: string;
   name: string;
+  // Relationships.
+  user: string;
 }

@@ -1,5 +1,5 @@
 // @flow
-import BaseModel from './BaseModel';
+import Model from './Model';
 import Door from './Door';
 import Region from './Region';
 import Room from './Room';
@@ -8,7 +8,7 @@ import Explorer from './Explorer';
 import User from './User';
 
 export {
-  BaseModel,
+  Model,
   Door,
   Region,
   Room,

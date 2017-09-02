@@ -1,8 +1,9 @@
 // @flow
-import BaseModel from './BaseModel';
+import Model from './Model';
 
-export default class Region extends BaseModel {
+export default class Region extends Model {
   id: string;
   name: string;
-  roomIds: string[];
+  // Relationships
+  world: string;
 }
