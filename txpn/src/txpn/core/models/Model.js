@@ -6,7 +6,7 @@ import UId from 'txpn/core/UId';
  * that can be constructed from an object.
  * The type checking is not as good as it should be, though.
  */
-export default class BaseModel {
+export default class Model {
   id: string;
 
   constructor(values?: *): void {
@@ -19,7 +19,7 @@ export default class BaseModel {
     }
   }
 
-  update(values?: *): BaseModel {
+  update(values?: *): Model {
     let union: * = Object.assign({}, (this: Object), values);
     return new this.constructor(union);
   }
