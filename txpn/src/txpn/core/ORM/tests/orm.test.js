@@ -1,46 +1,69 @@
-// @flow
+import {
+  ORM,
+  Database,
+  Model,
+  Field,
+  ForeignKey,
+} from 'txpn/core/ORM';
 
-type ModelDataTypes = string | number | boolean | void;
+const database = new Database();
+const orm = new ORM({ database: database });
 
-type ModelData = {
-  [fieldName: string]: ModelDataTypes;
-};
+describe('flat model', () => {
+  let Person;
 
-type ModelFieldTypes = Field;
-
-type ModelFields = {
-  [fieldName: string]: ModelFieldTypes;
-};
-
-class MetaModel {
-  fields: ModelFields;
-}
-
-class ORM {
-  constructor() {
-  }
-
-  Model(metaModel: MetaModel) {
-    for (let fieldName in metaModel.fields) {
-      metaModel.fields[fieldName].install(this, fieldName);
+  beforeAll(() => {
+    Person = class Person extends Model {
+      name = new Field();
     }
-  }
-}
+  });
 
-class Field {
-  install(model: Model, name: string) {
+  test('can save a Person', () => {
+    let person = new Person({ name: 'Percy' });
+    person.save();
+    expect(person.id).not.toBeNull();
+    let queryPerson = Person.get(person.id)
+    expect(queryPerson.name).toBe('Percy');
+  });
+});
 
-  }
-}
+xdescribe('related models', () => {
+  let Parent;
+  let Child;
 
-class IdField extends Field {
+  beforeAll(() => {
+    Parent = class Parent extends Model {
+      name = new Field();
 
-}
+      killChildren() {
+        this.children.all().delete();
+      }
+    }
 
-class RelationshipField extends Field {
+    Child = class Child extends Model {
+      name = new Field();
+      parent = new ForeignKey(Parent, 'children');
+    }
+  })
 
-}
+  test('can save a Parent', () => {
+    let parent = new Parent({ name: 'Perry' });
+    parent.save();
+    expect(parent.id).not.toBeNull();
+    expect(parent.name).toBe('Perry');
+  })
 
-class ForeignKey extends RelationshipField {
-
-}
+  test('can save a Child', () => {
+    let parent = new Parent({ name: 'Perry' });
+    parent.save();
+    let child = new Child({
+      name: 'Charlie',
+      parent: parent,
+    });
+    child.save();
+    expect(child.id).not.toBeNull();
+    let queryChild = Child.get(child.id);
+    expect(queryChild.id).toBe(child.id);
+    expect(queryChild.name).toBe('Charlie');
+  })
+})
