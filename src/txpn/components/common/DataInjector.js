@@ -1,6 +1,5 @@
-// @flow
+// 
 import React, { Component } from 'react';
-import type { ComponentType } from 'react/react';
 
 import { bindy, renameWrapper } from 'txpn/utils';
 import DataStore from 'txpn/core/DataStore';
@@ -8,11 +7,10 @@ import DataStore from 'txpn/core/DataStore';
 /**
  * Factory for Higher-Order-Component that injects a DataStore.
  */
-export default class DataInjector<T> {
-  dataStore: DataStore<T>;
-  injectAsProp: string = 'data';
+export default class DataInjector {
+  injectAsProp = 'data';
 
-  constructor(dataStore: DataStore<T>, injectAsProp?: string) {
+  constructor(dataStore, injectAsProp) {
     this.dataStore = dataStore;
     if (injectAsProp != null) {
       this.injectAsProp = injectAsProp
@@ -20,12 +18,11 @@ export default class DataInjector<T> {
   }
 
   // connect(WrappedComponent: ReactClass<*>) {
-  connect(WrappedComponent: ComponentType): ComponentType {
+  connect(WrappedComponent) {
     const injector = this;
 
     class DataWrapper extends Component {
-      state: { [string]: T };
-      constructor(props: {}) {
+      constructor(props) {
         super(props);
         bindy(this, this.handleChange);
         this.state = {

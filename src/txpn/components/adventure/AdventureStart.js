@@ -1,17 +1,14 @@
-// @flow
+// 
 import React, { Component } from 'react';
-import type { ComponentType, ElementType } from 'react/react';
 import {
   Link,
   Route,
   Switch,
 } from 'react-router-dom';
-import type { Match } from 'react-router-dom';
 
 import { bindy } from 'txpn/utils';
 import gameEngine from 'txpn/store/gameEngine';
 import AdventureStartState, { AdventureStartSteps } from 'txpn/core/AdventureStartState';
-import type { AdventureStartStep } from 'txpn/core/AdventureStartState';
 import { Explorer, World } from 'txpn/core/models';
 
 import ForceRedirect from 'txpn/components/common/ForceRedirect';
@@ -19,17 +16,13 @@ import CreateExplorer from 'txpn/components/explorer/CreateExplorer';
 import WorldList from 'txpn/components/world/WorldList';
 
 export default class AdventureStart extends Component {
-  state: {
-    step: AdventureStartStep,
-    done: boolean,
-  };
-  stepToNestedPathMap: Map<AdventureStartStep, string> = new Map([
+  stepToNestedPathMap = new Map([
     [AdventureStartSteps.CREATE_EXPLORER, 'create-explorer'],
     [AdventureStartSteps.CHOOSE_WORLD, 'choose-world'],
     [AdventureStartSteps.DONE, 'done'],
   ]);
 
-  constructor(props: { match: Match }) {
+  constructor(props) {
     super(props)
     bindy(this,
       this.submitWorld,
@@ -47,29 +40,29 @@ export default class AdventureStart extends Component {
 
   /* Helpers */
 
-  getNextStep(): AdventureStartStep {
+  getNextStep() {
     return gameEngine.getStarted().getNextStep();
   }
 
-  getExplorer(): Explorer | void {
+  getExplorer() {
     return gameEngine.getStarted().explorer;
   }
 
-  setExplorer(explorer: Explorer): void {
+  setExplorer(explorer) {
     gameEngine.getStarted().setExplorer(explorer);
   }
 
-  getWorld(): World | void {
+  getWorld() {
     return gameEngine.getStarted().world;
   }
 
-  setWorld(world: World): void {
+  setWorld(world) {
     gameEngine.getStarted().setWorld(world);
   }
 
   /* Events */
 
-  submitExplorer(explorer: Explorer): void {
+  submitExplorer(explorer) {
     // TODO: Validate submission.
     this.setExplorer(explorer);
     this.setState({
@@ -77,7 +70,7 @@ export default class AdventureStart extends Component {
     });
   }
 
-  submitWorld(world: World): void {
+  submitWorld(world) {
     // TODO: Validate submission.
     this.setWorld(world);
     this.setState({
@@ -85,14 +78,14 @@ export default class AdventureStart extends Component {
     });
   }
 
-  submitDone(): void {
+  submitDone() {
     gameEngine.startAdventure();
     this.setState({ done: true });
   }
 
   /* Rendering */
 
-  getURLForCurrentStep(): string {
+  getURLForCurrentStep() {
     if (this.state.done) {
       return '/adventure/continue';
     }
@@ -101,7 +94,7 @@ export default class AdventureStart extends Component {
     return `${url}/${tail}`;
   }
 
-  getSteps(): Array<Step> {
+  getSteps() {
     return [
       { title: 'Create your explorer',
         active: (this.state.step === AdventureStartSteps.CREATE_EXPLORER),
@@ -117,11 +110,11 @@ export default class AdventureStart extends Component {
     ];
   }
 
-  CreateExplorer(): ComponentType {
+  CreateExplorer() {
     return <CreateExplorer submit={this.submitExplorer} />
   }
 
-  ChooseWorld(): ComponentType {
+  ChooseWorld() {
     return (
       <WorldList
         worlds={gameEngine.database.worlds.getAll()}
@@ -130,7 +123,7 @@ export default class AdventureStart extends Component {
    );
   }
 
-  Done(): ComponentType {
+  Done() {
     const explorer = this.getExplorer();
     const world = this.getWorld();
     if (explorer == null || world == null) {
@@ -197,16 +190,9 @@ export default class AdventureStart extends Component {
   }
 }
 
-type Step = {
-  title: string,
-  done?: boolean,
-  active?: boolean,
-};
 
 function StepList(
-  { steps }:
-  { steps: Array<Step> }
-): ComponentType {
+  { steps }) {
   const stepChildren = steps.map((step, index) => {
     const className = ([
         ['step-list__step', true],

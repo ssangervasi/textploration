@@ -1,4 +1,4 @@
-// @flow
+// 
 import UId from 'txpn/core/UId';
 
 /**
@@ -7,9 +7,8 @@ import UId from 'txpn/core/UId';
  * The type checking is not as good as it should be, though.
  */
 export default class Model {
-  id: string;
 
-  constructor(values?: *): void {
+  constructor(values) {
     if (values != null) {
       let { id, ...rest } = values;
       if (id == null) {
@@ -19,12 +18,12 @@ export default class Model {
     }
   }
 
-  update(values?: *): Model {
-    let union: * = Object.assign({}, (this: Object), values);
+  update(values) {
+    let union = Object.assign({}, (this), values);
     return new this.constructor(union);
   }
 
-  toString(): string {
+  toString() {
     return `${this.constructor.name}({id: ${this.id}})`;
   }
 }

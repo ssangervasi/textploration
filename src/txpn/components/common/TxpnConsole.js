@@ -1,28 +1,14 @@
-// @flow
+// 
 import React, { Component } from 'react';
 
 import TextInput, { KeyHandler } from 'txpn/components/common/TextInput';
 import { bindy } from 'txpn/utils';
 
-export interface TxpnConsoleProps {
-  prompt: string;
 
-}
-
-export interface TxpnConsoleState {
-  command: string;
-  tempCommand: string | void;
-  history: Array<string>;
-  historyIndex: number,
-}
 
 export default class TxpnConsole extends Component {
-  props: TxpnConsoleProps;
-  state: TxpnConsoleState;
-  keyHandlers: Array<KeyHandler>;
-  historyElement: Element;
 
-  constructor(props: TxpnConsoleProps) {
+  constructor(props) {
     super(props);
     this.state = {
       command: '',
@@ -53,7 +39,7 @@ export default class TxpnConsole extends Component {
    * State maniuplation methods.
    */
   
-  setCommand(value: string) {
+  setCommand(value) {
     this.setState({
       command: value,
       tempCommand: undefined,
@@ -70,7 +56,7 @@ export default class TxpnConsole extends Component {
     }));
   }
 
-  handleArrowDown(e: SyntheticKeyboardEvent) {
+  handleArrowDown(e) {
     this.setState(({ command, tempCommand, history, historyIndex}) => {
       if (history.length === 0 || historyIndex === -1) {
         return;
@@ -88,7 +74,7 @@ export default class TxpnConsole extends Component {
     });
   }
 
-  handleArrowUp(e: SyntheticKeyboardEvent) {
+  handleArrowUp(e) {
     this.setState(({ command, tempCommand, history, historyIndex}) => {
       if (history.length === 0 || historyIndex === 0) {
         return;

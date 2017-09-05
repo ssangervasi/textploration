@@ -1,4 +1,4 @@
-// @flow
+// 
 import React from 'react';
 
 import TxpnConsole from 'txpn/components/common/TxpnConsole';

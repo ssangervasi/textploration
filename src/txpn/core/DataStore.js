@@ -1,23 +1,21 @@
-// @flow
+// 
 import Subject from 'txpn/core/Subject';
 
-export default class DataStore<T> {
-  subject: Subject;
-  data: T;
+export default class DataStore {
 
-  constructor(data?: T) {
+  constructor(data) {
     this.subject = new Subject();
     if (data != null) {
       this.setData(data);
     }
   }
 
-  setData(data: T): void {
+  setData(data) {
     this.data = data;
     this.subject.publish();
   }
 
-  getData(): T {
+  getData() {
     return this.data;
   }
 }

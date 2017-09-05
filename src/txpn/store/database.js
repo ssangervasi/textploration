@@ -1,4 +1,4 @@
-// @flow
+// 
 import Database from 'txpn/core/Database';
 import sampleData from './sampleData';
 

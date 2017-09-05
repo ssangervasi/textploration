@@ -1,4 +1,4 @@
-// @flow
+// 
 import {
   Door,
   Region,
@@ -9,37 +9,31 @@ import {
 } from './models';
 
 class SampleData {
-  user: User;
-  explorer: Explorer;
-  worlds: World[];
-  doors: Door[];
-  regions: Region[];
-  rooms: Room[];
 
   constructor() {
     this.user = new User({username: 'Nickie'});
     this.explorer = new Explorer({name: 'Sam Pal'});
 
-    const entranceHall: Room = new Room({
+    const entranceHall = new Room({
       name: 'Entrance Hall',
       description: 'The spooky spooks.',
       doorIds: [],
     });
   
-    const checkoutCounter: Room = new Room({
+    const checkoutCounter = new Room({
       name: 'Checkout Counter',
       description: "Don't stay here too long...",
       doorIds: [],
     });
   
-    const d2CheckoutCounter: Door = new Door({
+    const d2CheckoutCounter = new Door({
       name: 'Library Front Door',
       number: 1,
       originRoomId: entranceHall.id,
       destinationRoomId: checkoutCounter.id,
     });
   
-    const d2EntranceHall: Door = new Door({
+    const d2EntranceHall = new Door({
       name: 'Library Front Door',
       number: 1,
       originRoomId: checkoutCounter.id,
@@ -52,7 +46,7 @@ class SampleData {
     this.rooms = [entranceHall, checkoutCounter];
     this.doors = [d2CheckoutCounter, d2EntranceHall];
   
-    const nvpl: Region = new Region({
+    const nvpl = new Region({
       name: 'Nightvale Public Library',
       roomIds: [
         entranceHall.id,

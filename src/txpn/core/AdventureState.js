@@ -1,4 +1,4 @@
-// @flow
+// 
 import DataStore from 'txpn/core/DataStore';
 import {
   Room,
@@ -16,13 +16,9 @@ import {
 // |};
 
 export default class AdventureState {
-  explorer: Explorer;
-  room: Room;
 
   constructor(
-    { explorer, room }:
-    { explorer: Explorer, room: Room }
-  ) {
+    { explorer, room }  ) {
     this.explorer = explorer;
     this.room = room;
   }
