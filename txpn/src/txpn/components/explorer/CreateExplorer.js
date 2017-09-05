@@ -1,4 +1,4 @@
-// @flow
+// 
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
@@ -6,18 +6,10 @@ import Explorer from 'txpn/core/models/Explorer';
 import TextInput from 'txpn/components/common/TextInput';
 import { bindy } from 'txpn/utils';
 
-type CreateExplorerProps = {
-  submit: (Explorer) => void,
-};
 
 export default class CreateExplorer extends Component {
-  props: CreateExplorerProps;
-  state: { 
-    name: string,
-    done: boolean,
-  };
 
-  constructor(props: CreateExplorerProps) {
+  constructor(props) {
     super(props);
     this.state = {
       name: '',
@@ -26,13 +18,13 @@ export default class CreateExplorer extends Component {
     bindy(this, this.setName, this.handleSubmit);
   }
 
-  setName(value: string): void {
+  setName(value) {
     this.setState({
       name: value,
     });
   }
 
-  handleSubmit(e: SyntheticEvent) {
+  handleSubmit(e) {
     e.preventDefault();
     let explorer = new Explorer({ name: this.state.name });
     this.props.submit(explorer)

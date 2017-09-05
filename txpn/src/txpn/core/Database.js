@@ -1,4 +1,4 @@
-// @flow
+// 
 import DataStore from 'txpn/core/DataStore';
 import {
   BaseModel,
@@ -10,29 +10,29 @@ import {
 } from 'txpn/core/models';
 
 export default class Database {
-  doors: ModelSet<Door> = new ModelSet();
-  explorers: ModelSet<Explorer> = new ModelSet();
-  regions: ModelSet<Region> = new ModelSet();
-  rooms: ModelSet<Room> = new ModelSet();
-  worlds: ModelSet<World> = new ModelSet();
+  doors = new ModelSet();
+  explorers = new ModelSet();
+  regions = new ModelSet();
+  rooms = new ModelSet();
+  worlds = new ModelSet();
 }
 
-class ModelSet<ModelType: BaseModel> {
-  byId: Map<string, ModelType> = new Map();
+class ModelSet {
+  byId = new Map();
 
-  add(model: ModelType) {
+  add(model) {
     this.byId.set(model.id, model);
   }
 
-  addAll(models: Array<ModelType>): void {
+  addAll(models) {
     models.forEach(this.add, this);
   }
 
-  get(id: string): ModelType | void {
+  get(id) {
     return this.byId.get(id);
   }
 
-  getAll(): Array<ModelType> {
+  getAll() {
     return Array.from(this.byId.values());
   }
 }

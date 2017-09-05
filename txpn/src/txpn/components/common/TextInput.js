@@ -1,23 +1,13 @@
-// @flow
+// 
 import React, { Component } from 'react';
 
 import { bindy } from 'txpn/utils';
 
-export interface KeyHandler {
-  key: string;
-  handler: (e: SyntheticKeyboardEvent) => boolean | void;
-}
 
-export interface TextInputProps {
-  value: string;
-  setValue: (value: string) => void;
-  keyHandlers?: Array<KeyHandler>;
-}
 
 export default class TextInput extends Component {
-  props: TextInputProps;
 
-  constructor(props: TextInputProps) {
+  constructor(props) {
     super(props);
     bindy(this,
       this.handleChange,
@@ -25,12 +15,12 @@ export default class TextInput extends Component {
     );
   }
 
-  handleChange(e: SyntheticInputEvent): void {
-    const targetValue: string = e.target.value;
+  handleChange(e) {
+    const targetValue = e.target.value;
     this.props.setValue(targetValue);
   }
 
-  handleKey(e: SyntheticKeyboardEvent) {
+  handleKey(e) {
     if (this.props.keyHandlers == null){
       return;
     }

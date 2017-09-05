@@ -1,4 +1,4 @@
-// @flow
+// 
 import Model from './Model';
 import Door from './Door';
 import Region from './Region';

@@ -1,9 +1,9 @@
-// @flow
+// 
 import UId from 'txpn/core/UId';
 
 function forEachOwn(
-  obj: {},
-  fn: (string, *, {}) => void
+  obj,
+  fn
 ) {
   for (let prop in obj) {
     if (obj.hasOwnProperty(prop)) {
@@ -12,32 +12,17 @@ function forEachOwn(
   }
 }
 
-type ModelIdType = string;
 
-type ModelFieldsType = {
-  [name: string]: Field,
-};
 
-type ModelDataMapType = {
-  [name: string]: mixed,
-};
 
-type ModelDataIdType = {
-  id: ?ModelIdType,
-};
 
-type ModelDataType = ModelDataIdType & ModelDataMapType;
 
 // class Model<DataType: ModelDataType, FieldsType> {
 class Model {
-  data: ModelDataType;
-  static fields: ModelFieldsType;
 
   // Defined by `ORM.register`
-  save: () => void;
-  static get: (id: ModelIdType) => this;
 
-  constructor(data?: ModelDataMapType) {
+  constructor(data) {
     if (data == null) {
       this.data = { id: undefined };
     } else {
@@ -45,32 +30,25 @@ class Model {
     }
   }
 
-  get id(): ?ModelIdType {
+  get id() {
     return this.data.id;
   }
 
-  set id(value: ModelIdType) {
+  set id(value) {
     this.data.id = value;
   }
 
-  toString(): string {
+  toString() {
     return `${this.constructor.name} { ${JSON.stringify(this.data)} }`;
   }
 }
 
 class Field {
-  model: Class<Model>;
-  name: string;
-  database: Database;
 
   attach({
     model,
     name,
     database,
-  }: {
-    model: Class<Model>,
-    name: string,
-    database: Database,
   }) {
     this.model = model;
     this.name = name;
@@ -96,12 +74,10 @@ class Field {
 }
 
 class ForeignKey extends Field {
-  parentModel: Class<Model>;
-  reverseName: string;
 
   constructor(
-    parent: Class<Model>,
-    reverseName: string,
+    parent,
+    reverseName,
   ) {
     super();
     this.parentModel = parent;
@@ -150,20 +126,20 @@ class ForeignKey extends Field {
       }
     );
   }
-  getParent<ModelType: Model, ParentType: Model>(
-    childInstance: ModelType
-  ): ?ParentType {
-    const parentId = ((childInstance.data[this.name]: any): ModelIdType);
+  getParent(
+    childInstance
+  ) {
+    const parentId = ((childInstance.data[this.name]));
     if (parentId != null) {
-      const parent: ParentType = (this.parentModel.get(parentId): any);
+      const parent = (this.parentModel.get(parentId));
       return parent;
     }
   }
-  getChildren<ModelType: Model, ParentType: Model>(
-    parentInstance: ParentType
-  ): Array<ModelType> {
+  getChildren(
+    parentInstance
+  ) {
     const parentId = parentInstance.id;
-    const model: ModelType = ((this.model: any): ModelType);
+    const model = ((this.model));
     const childSet = this.database.getModelSet(model);
     if (parentId != null) {
       return childSet.filter({ [this.name]: parentId });
@@ -173,17 +149,14 @@ class ForeignKey extends Field {
 }
 
 class ORM {
-  database: Database;
 
   constructor({
     database,
-  }: {
-    database: Database,
   }) {
     this.database = database;
   }
 
-  register(...models: Array<Class<Model>>) {
+  register(...models) {
     models.forEach(model => {
       // Attach database methods.
       const database = this.database;
@@ -191,12 +164,12 @@ class ORM {
       model.prototype.save = function save() {
         database.save(this);
       };
-      model.get = function get(id: ModelIdType): * {
+      model.get = function get(id) {
         return database.get(model, id);
       };
       // Attach fields.
       forEachOwn(model.fields,
-        (fieldName: string, field: Field) => {
+        (fieldName, field) => {
           field.attach({
             model: model,
             name: fieldName,
@@ -209,16 +182,16 @@ class ORM {
 }
 
 class Database {
-  modelSets: Map<Class<Model>, ModelSet<Model>> = new Map();
+  modelSets = new Map();
 
-  register<ModelType: Model>(model: Class<ModelType>): void {
+  register(model) {
     if (this.modelSets.has(model)) {
       return;
     }
     this.modelSets.set(model, new ModelSet(model));
   }
 
-  save<ModelType: Model>(instance: ModelType): void {
+  save(instance) {
     const modelSet = this.getModelSet(instance.constructor);
     if (instance.id == null) {
       instance.id = (new UId()).toString();
@@ -226,11 +199,11 @@ class Database {
     modelSet.add(instance);
   }
 
-  get<ModelType: Model>(
-    model: Class<ModelType>,
-    id: ModelIdType
-  ): ModelType {
-    const modelSet: ?ModelSet<ModelType> = this.modelSets.get(model);
+  get(
+    model,
+    id
+  ) {
+    const modelSet = this.modelSets.get(model);
     if (modelSet == null) {
       throw `No such model: ${model.name}`;
     }
@@ -241,7 +214,7 @@ class Database {
     return instance;
   }
 
-  getModelSet<ModelType: Model>(model: Class<ModelType>): ModelSet<ModelType> {
+  getModelSet(model) {
     const modelSet = this.modelSets.get(model);
     if (modelSet == null){
       throw `No such model: ${model.name}`;
@@ -250,16 +223,14 @@ class Database {
   }
 }
 
-class ModelSet<ModelType: Model> {
-  model: Class<ModelType>;
-  byId: Map<ModelIdType, ModelDataType>;
+class ModelSet {
 
-  constructor(model: Class<ModelType>) {
+  constructor(model) {
     this.model = model;
     this.byId = new Map();
   }
 
-  add(instance: ModelType): void {
+  add(instance) {
     if (instance.id == null) {
       throw `Error: No Id. Cannot add instance ${instance.toString()}`;
     }
@@ -267,21 +238,21 @@ class ModelSet<ModelType: Model> {
     this.byId.set(instance.id, dataCopy);
   }
 
-  addAll(instances: Array<ModelType>): void {
+  addAll(instances) {
     instances.forEach(this.add, this);
   }
 
-  get(id: ModelIdType): ModelType | void {
+  get(id) {
     const dataCopy = {...this.byId.get(id)};
     return new this.model(dataCopy);
   }
 
-  getAll(): Array<ModelType> {
+  getAll() {
     return Array.from(this.byId.values());
   }
 
-  filter(fields: {}): Array<ModelType> {
-    function isMatch(data: ModelDataType): boolean {
+  filter(fields) {
+    function isMatch(data) {
       for (let field in fields) {
         if (data[field] !== fields[field]) {
           return false;
@@ -289,10 +260,10 @@ class ModelSet<ModelType: Model> {
       }
       return true;
     }
-    const results: Array<ModelType> = [];
-    this.byId.forEach((data: ModelDataType, id: ModelIdType) => {
+    const results = [];
+    this.byId.forEach((data, id) => {
       if (isMatch(data)) {
-        const instance: ModelType = new this.model({...data});
+        const instance = new this.model({...data});
         results.push(instance);
       }
     });
@@ -308,9 +279,4 @@ export {
   ForeignKey,
   Database,
   ModelSet,
-}
-export type {
-  ModelIdType,
-  ModelFieldsType,
-  ModelDataType,
 }

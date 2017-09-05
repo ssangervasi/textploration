@@ -1,4 +1,4 @@
-// @flow
+// 
 import GameEngine from 'txpn/core/GameEngine';
 
 import database from 'txpn/store/database';

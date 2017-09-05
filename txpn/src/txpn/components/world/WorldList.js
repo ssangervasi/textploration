@@ -1,4 +1,4 @@
-// @flow
+// 
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
@@ -6,19 +6,10 @@ import { World } from 'txpn/core/models';
 import { bindy } from 'txpn/utils';
 import WorldDetail from 'txpn/components/world/WorldDetail';
 
-type WorldListProps = {
-  worlds: Array<World>,
-  submit: (World) => void,
-};
 
 export default class WorldList extends Component {
-  props: WorldListProps;
-  state: {
-    selectedWorld?: World,
-    done: boolean,
-  };
 
-  constructor(props: WorldListProps) {
+  constructor(props) {
     super(props);
     this.state = { done: false };
     bindy(this,
@@ -27,7 +18,7 @@ export default class WorldList extends Component {
     );
   }
   
-  handleSelectWorld(world: World) {
+  handleSelectWorld(world) {
     console.log(world);
     this.setState({ selectedWorld: world });
   }

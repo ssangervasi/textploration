@@ -1,24 +1,15 @@
-// @flow
+// 
 import React, { Component } from 'react';
 
 import { bindy } from 'txpn/utils';
 
-interface ClockProps {
-  locales?: string | Array<string>;
-  options?: Object;
-};
+;
 
-interface ClockState {
-  date: Date;
-  paused: boolean;
-};
+;
 
 class Clock extends Component {
-  state: ClockState;
-  props: ClockProps;
-  timerId: number;
 
-  constructor(props: ClockProps) {
+  constructor(props) {
     super(props);
     this.state = {
       date: new Date(),

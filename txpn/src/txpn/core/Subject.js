@@ -1,16 +1,16 @@
-// @flow
+// 
 
 /**
  * The dumbest subscriber service possible.
  */
 export default class Subject {
-  subscribers: Array<() => void> = [];
+  subscribers = [];
   publishing = false;
 
-  subscribe(callback: () => void) {
+  subscribe(callback) {
     this.subscribers.push(callback);
   }
-  unsubscribe(callback: () => void) {
+  unsubscribe(callback) {
     this.subscribers = this.subscribers.filter(
       subscriber => subscriber !== callback
     );

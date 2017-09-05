@@ -1,4 +1,4 @@
-// @flow
+// 
 import SampleData from 'txpn/core/SampleData';
 
 const sampleData = new SampleData();

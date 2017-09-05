@@ -1,4 +1,4 @@
-// @flow
+// 
 import GameState from 'txpn/core/GameState';
 import Database from 'txpn/core/Database';
 import AdventureStartState from 'txpn/core/AdventureStartState';
@@ -12,21 +12,15 @@ import {
   User,
 } from 'txpn/core/models';
 
-type GameEngineValues = {
-  database: Database,
-  gameState: GameState,
-};
 
 export default class GameEngine {
-  database: Database;
-  gameState: GameState;
 
-  constructor({ database, gameState }: GameEngineValues) {
+  constructor({ database, gameState }) {
     this.database = database;
     this.gameState = gameState;
   }
 
-  getStarted(): AdventureStartState {
+  getStarted() {
     if (this.gameState.adventureStart == null) {
       this.gameState.adventureStart = new AdventureStartState();
     }
@@ -44,8 +38,8 @@ export default class GameEngine {
         "getStarted" flow is not implemented.
       `);
     }
-    const explorer: Explorer = adventureStart.explorer;
-    const world: World = adventureStart.world;
+    const explorer = adventureStart.explorer;
+    const world = adventureStart.world;
     const room = this.getFirstRoom(world);
     this.gameState.adventure = new AdventureState({
       explorer: explorer,
@@ -53,7 +47,7 @@ export default class GameEngine {
     });
   }
 
-  getFirstRoom(world: World): Room {
+  getFirstRoom(world) {
     const firstRegionId = world.regionIds[0];
     const firstRegion = this.database.regions.get(firstRegionId);
     const firstRoomId = firstRegion.roomIds[0];

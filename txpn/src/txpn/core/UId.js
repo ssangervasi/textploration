@@ -1,24 +1,21 @@
-// @flow
+// 
 
 /** 
  * This is a simple UId generator that is just used
  * for sample data.
  */
 
-interface Id {
-  +toString: () => string;
-}
 
 class UIdStore {
-  idCounter: number = 1;
-  idMap: WeakMap<Id, number> = new WeakMap();
+  idCounter = 1;
+  idMap = new WeakMap();
 
-  add(obj: Id): void {
+  add(obj) {
     this.idCounter += 1;
     this.idMap.set(obj, this.idCounter);
   }
 
-  get(obj: Id): number | void {
+  get(obj) {
     return this.idMap.get(obj);
   }
 }
@@ -33,11 +30,11 @@ numbers, or maybe your object was deleted`
 
 const instanceUIdStore = new UIdStore();
 
-export default class UId implements Id {
+export default class UId {
   constructor() {
     instanceUIdStore.add(this);
   }
-  toString(): string {
+  toString() {
     const id = instanceUIdStore.get(this);
     if (id != null) {
       return id.toFixed();

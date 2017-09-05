@@ -1,4 +1,4 @@
-// @flow
+// 
 import DataStore from 'txpn/core/DataStore';
 import {
   World,
@@ -11,24 +11,17 @@ const AdventureStartSteps = {
   CHOOSE_WORLD: 'CHOOSE_WORLD',
   DONE: 'DONE',
 }
-type AdventureStartStep = $Keys<typeof AdventureStartSteps>;
-type AdventureStartStateValues = {
-  explorer?: Explorer,
-  world?: World
-};
 
 class AdventureStartState {
-  explorer: Explorer | void;
-  world: World | void;
 
-  constructor(values?: AdventureStartStateValues) {
+  constructor(values) {
     if (values != null) {
       this.explorer = values.explorer;
       this.world = values.world;
     }
   }
 
-  getNextStep(): AdventureStartStep {
+  getNextStep() {
     if (this.explorer == null) {
       return AdventureStartSteps.CREATE_EXPLORER;
     } else if (this.world == null) {
@@ -38,11 +31,11 @@ class AdventureStartState {
     }
   }
 
-  setExplorer(explorer: Explorer): void {
+  setExplorer(explorer) {
     this.explorer = explorer;
   }
   
-  setWorld(world: World): void {
+  setWorld(world) {
     this.world = world;
   }
 }
@@ -51,4 +44,3 @@ export {
   AdventureStartState as default,
   AdventureStartSteps,
 }
-export type { AdventureStartStep }

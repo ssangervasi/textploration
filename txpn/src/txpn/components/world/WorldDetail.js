@@ -1,9 +1,9 @@
-// @flow
+// 
 import React from 'react';
 
 import { World } from 'txpn/core/models';
 
-const WorlDetail = ({ world }: {world: World}) => (
+const WorlDetail = ({ world }) => (
   <span>
     {world.name} ({world.id})  
   </span>
