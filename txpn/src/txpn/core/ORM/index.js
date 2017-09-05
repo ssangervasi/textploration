@@ -1,185 +1,316 @@
+// @flow
 import UId from 'txpn/core/UId';
 
-function forEachOwn(obj, fn) {
+function forEachOwn(
+  obj: {},
+  fn: (string, *, {}) => void
+) {
   for (let prop in obj) {
     if (obj.hasOwnProperty(prop)) {
-      fn.call(prop, obj[prop], obj);
+      fn(prop, obj[prop], obj);
     }
   }
 }
 
+type ModelIdType = string;
+
+type ModelFieldsType = {
+  [name: string]: Field,
+};
+
+type ModelDataMapType = {
+  [name: string]: mixed,
+};
+
+type ModelDataIdType = {
+  id: ?ModelIdType,
+};
+
+type ModelDataType = ModelDataIdType & ModelDataMapType;
+
+// class Model<DataType: ModelDataType, FieldsType> {
 class Model {
-  fields;
-  data;
-  constructor(data) {
-    this.data = data || {};
+  data: ModelDataType;
+  static fields: ModelFieldsType;
+
+  // Defined by `ORM.register`
+  save: () => void;
+  static get: (id: ModelIdType) => this;
+
+  constructor(data?: ModelDataMapType) {
+    if (data == null) {
+      this.data = { id: undefined };
+    } else {
+      this.data = { id: undefined, ...data };
+    }
   }
-  get id() {
+
+  get id(): ?ModelIdType {
     return this.data.id;
   }
-  set id(value) {
+
+  set id(value: ModelIdType) {
     this.data.id = value;
+  }
+
+  toString(): string {
+    return `${this.constructor.name} { ${JSON.stringify(this.data)} }`;
   }
 }
 
-class Field {}
+class Field {
+  model: Class<Model>;
+  name: string;
+  database: Database;
 
-class ORM {
-  constructor({
+  attach({
+    model,
+    name,
     database,
+  }: {
+    model: Class<Model>,
+    name: string,
+    database: Database,
   }) {
+    this.model = model;
+    this.name = name;
     this.database = database;
-    // this.models = new Map();
+    this.defineModelProperty();
   }
-
-  register(model) {
-    database.register(model);
-    forEachOwn(model.fields,
-      (fieldName, field) => {
-        if (field instanceof ForeignKey) {
-          field.attach({
-            childModel: model,
-            name: field,
-            database: this.database,
-          });
-        }
+  defineModelProperty() {
+    const fieldName = this.name;
+    Object.defineProperty(
+      this.model.prototype,
+      fieldName,
+      { configurable: false,
+        enumerable: true,
+        get: (function getField() {
+          return this.data[fieldName];
+        }),
+        set: (function setField(value) {
+          this.data[fieldName] = value;
+        }),
       }
     );
-  }
+  };
 }
 
 class ForeignKey extends Field {
-  constructor(parent, reverseName) {
+  parentModel: Class<Model>;
+  reverseName: string;
+
+  constructor(
+    parent: Class<Model>,
+    reverseName: string,
+  ) {
+    super();
     this.parentModel = parent;
     this.reverseName = reverseName;
   }
-  attach({
-    childModel,
-    name,
-    database,
-  }) {
-    this.childModel = childModel;
-    this.name = name;
-    this.database = database;
-    this.attachToChild();
-    this.attachToParent();
+
+  defineModelProperty() {
+    this.defineChildProperty();
+    this.defineParentProperty();
   }
-  attachToChild() {
-    const propName = this.name;
-    Object.defineProperty(this.childModel.prototype, propName, {
-      configurable: false,
-      enumerable: true,
-      get: (function getParent() {
-        return this.fields[propName].getParent(this);
-      }),
-      set: (function setParentId(value) {
-        this.data[propName] = value;
-      }),
-    });
+
+  defineChildProperty () {
+    const model = this.model;
+    const fieldName = this.name;
+    // Need a refernce to `this` for the getter method.
+    const field = this;
+    Object.defineProperty(
+      this.model.prototype,
+      fieldName,
+      { configurable: false,
+        enumerable: true,
+        get: (function getParent() {
+          return field.getParent(this);
+        }),
+        set: (function setParent(parent) {
+          this.data[fieldName] = parent.id;
+        }),
+      }
+    );
   }
-  attachToParent() {
-    const propName = this.reverseName;
-    Object.defineProperty(this.parentModel.prototype, propName, {
-      configurable: false,
-      enumerable: true,
-      get: (function getChildren() {
-        return this.fields[propName].getChildren(this);
-      }),
-    });
+
+  defineParentProperty() {
+    const parentModel = this.parentModel;
+    const fieldName = this.reverseName;
+    this.parentModel.fields[fieldName] = this;
+    // Need a refernce to `this` for the getter method.
+    const field = this;
+    Object.defineProperty(
+      this.parentModel.prototype,
+      fieldName,
+      { configurable: false,
+        enumerable: true,
+        get: (function getChildren() {
+          return field.getChildren(this);
+        }),
+      }
+    );
   }
-  getParent(childInstance) {
-    const id = childInstance[name];
-    const parentSet = this.database.getModelSet(this.parentModel)
-    return parentSet.get(id);
+  getParent<ModelType: Model, ParentType: Model>(
+    childInstance: ModelType
+  ): ?ParentType {
+    const parentId = ((childInstance.data[this.name]: any): ModelIdType);
+    if (parentId != null) {
+      const parent: ParentType = (this.parentModel.get(parentId): any);
+      return parent;
+    }
   }
-  getChildren(parentInstance) {
-    const id = parentInstance.id;
-    const childSet = this.database.getModelSet(this.childModel)
-    return childSet.filter({ [this.name]: id });
+  getChildren<ModelType: Model, ParentType: Model>(
+    parentInstance: ParentType
+  ): Array<ModelType> {
+    const parentId = parentInstance.id;
+    const model: ModelType = ((this.model: any): ModelType);
+    const childSet = this.database.getModelSet(model);
+    if (parentId != null) {
+      return childSet.filter({ [this.name]: parentId });
+    }
+    return [];
   }
 }
 
-// class ForeignKeyRelationship {
-//   constructor({
-//     database,
-//     childModel,
-//     parentModel,
-//     name,
-//     reverseName,
-//   }) {
-//     this.database = database;
-//     this.childModel = childModel;
-//     this.parentModel = parentModel;
-//     this.name = name;
-//     this.reverseName = reverseName;
-//   }
-//   getParent(childInstance) {
-//     const id = childInstance[name];
-//     const parentSet = this.database.getModelSet(this.parentModel)
-//     return parentSet.get(id);
-//   }
-//   getChildren(parentInstance) {
-//     const id = parentInstance.id;
-//     const childSet = this.database.getModelSet(this.childModel)
-//     return childSet.filter({ [this.name]: id });
-//   }
-// }
+class ORM {
+  database: Database;
 
-class Database() {
-  modelSets = new Map();
+  constructor({
+    database,
+  }: {
+    database: Database,
+  }) {
+    this.database = database;
+  }
 
-  register(model: Model) {
+  register(...models: Array<Class<Model>>) {
+    models.forEach(model => {
+      // Attach database methods.
+      const database = this.database;
+      database.register(model);
+      model.prototype.save = function save() {
+        database.save(this);
+      };
+      model.get = function get(id: ModelIdType): * {
+        return database.get(model, id);
+      };
+      // Attach fields.
+      forEachOwn(model.fields,
+        (fieldName: string, field: Field) => {
+          field.attach({
+            model: model,
+            name: fieldName,
+            database: this.database,
+          });
+        }
+      );
+    });
+  }
+}
+
+class Database {
+  modelSets: Map<Class<Model>, ModelSet<Model>> = new Map();
+
+  register<ModelType: Model>(model: Class<ModelType>): void {
     if (this.modelSets.has(model)) {
       return;
     }
-    this.modelSets.set(model, new ModelSet());
+    this.modelSets.set(model, new ModelSet(model));
   }
 
-  save(instance) {
+  save<ModelType: Model>(instance: ModelType): void {
+    const modelSet = this.getModelSet(instance.constructor);
     if (instance.id == null) {
       instance.id = (new UId()).toString();
     }
-    const modelSet = this.modelSets.get(instance.constructor);
     modelSet.add(instance);
   }
 
-  get(id)
+  get<ModelType: Model>(
+    model: Class<ModelType>,
+    id: ModelIdType
+  ): ModelType {
+    const modelSet: ?ModelSet<ModelType> = this.modelSets.get(model);
+    if (modelSet == null) {
+      throw `No such model: ${model.name}`;
+    }
+    const instance = modelSet.get(id);
+    if (instance == null) {
+      throw `No instance of "${model.name}" with id "${id}"`;
+    }
+    return instance;
+  }
+
+  getModelSet<ModelType: Model>(model: Class<ModelType>): ModelSet<ModelType> {
+    const modelSet = this.modelSets.get(model);
+    if (modelSet == null){
+      throw `No such model: ${model.name}`;
+    }
+    return modelSet;
+  }
 }
 
 class ModelSet<ModelType: Model> {
-  byId: Map<string, ModelType> = new Map();
+  model: Class<ModelType>;
+  byId: Map<ModelIdType, ModelDataType>;
 
-  add(model: ModelType) {
-    this.byId.set(model.id, model);
+  constructor(model: Class<ModelType>) {
+    this.model = model;
+    this.byId = new Map();
   }
 
-  addAll(models: Array<ModelType>): void {
-    models.forEach(this.add, this);
+  add(instance: ModelType): void {
+    if (instance.id == null) {
+      throw `Error: No Id. Cannot add instance ${instance.toString()}`;
+    }
+    const dataCopy = {...instance.data};
+    this.byId.set(instance.id, dataCopy);
   }
 
-  get(id: string): ModelType | void {
-    return this.byId.get(id);
+  addAll(instances: Array<ModelType>): void {
+    instances.forEach(this.add, this);
+  }
+
+  get(id: ModelIdType): ModelType | void {
+    const dataCopy = {...this.byId.get(id)};
+    return new this.model(dataCopy);
   }
 
   getAll(): Array<ModelType> {
     return Array.from(this.byId.values());
   }
 
-  filter(fields) {
-    function isMatch(record) {
+  filter(fields: {}): Array<ModelType> {
+    function isMatch(data: ModelDataType): boolean {
       for (let field in fields) {
-        if (record[field] !== fields[field]) {
+        if (data[field] !== fields[field]) {
           return false;
         }
       }
       return true;
     }
-    const results = [];
-    this.byId.forEach((id, record) {
-      if (isMatch(record)) {
-        results.push(record);
+    const results: Array<ModelType> = [];
+    this.byId.forEach((data: ModelDataType, id: ModelIdType) => {
+      if (isMatch(data)) {
+        const instance: ModelType = new this.model({...data});
+        results.push(instance);
       }
     });
     return results;
   }
+}
+
+export {
+  forEachOwn,
+  Model,
+  Field,
+  ORM,
+  ForeignKey,
+  Database,
+  ModelSet,
+}
+export type {
+  ModelIdType,
+  ModelFieldsType,
+  ModelDataType,
 }
