@@ -1,5 +1,3 @@
-// 
-import Model from './Model';
 import Door from './Door';
 import Region from './Region';
 import Room from './Room';
@@ -8,11 +6,10 @@ import Explorer from './Explorer';
 import User from './User';
 
 export {
-  Model,
   Door,
+  Explorer,
   Region,
   Room,
-  World,
-  Explorer,
   User,
+  World,
 }

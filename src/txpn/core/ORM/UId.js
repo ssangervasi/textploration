@@ -2,22 +2,6 @@
  * This is a simple UId generator that is just used
  * for sample data.
  */
-
-let x = [
-  "asdf",
-  "horse",
-  "asdf",
-  "horse",
-  "asdf",
-  "horse",
-  "asdf",
-  "horse",
-  "asdf",
-  "horse",
-  "asdf",
-  "horse",
-];
-
 class UIdStore {
   idCounter = 1;
   idMap = new WeakMap();

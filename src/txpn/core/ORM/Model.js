@@ -1,6 +1,6 @@
 import { ModelNotRegisteredError } from './errors';
 
-class Model {
+export default class Model {
   static fields;
   data;
 

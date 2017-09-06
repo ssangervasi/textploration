@@ -1,6 +1,6 @@
 export class Field {
-  attach({ model, name, database }) {
-    this.model = model;
+  attach({ Model, name, database }) {
+    this.Model = Model;
     this.name = name;
     this.database = database;
     this.defineModelProperty();
@@ -8,7 +8,7 @@ export class Field {
 
   defineModelProperty() {
     const fieldName = this.name;
-    Object.defineProperty(this.model.prototype, fieldName, {
+    Object.defineProperty(this.Model.prototype, fieldName, {
       configurable: false,
       enumerable: true,
       get: function getField() {
@@ -22,9 +22,9 @@ export class Field {
 }
 
 export class ForeignKey extends Field {
-  constructor(parent, reverseName) {
+  constructor(ParentModel, reverseName) {
     super();
-    this.parentModel = parent;
+    this.ParentModel = ParentModel;
     this.reverseName = reverseName;
   }
 
@@ -34,11 +34,10 @@ export class ForeignKey extends Field {
   }
 
   defineChildProperty() {
-    const model = this.model;
     const fieldName = this.name;
     // Need a refernce to `this` for the getter method.
     const field = this;
-    Object.defineProperty(this.model.prototype, fieldName, {
+    Object.defineProperty(this.Model.prototype, fieldName, {
       configurable: false,
       enumerable: true,
       get: function getParent() {
@@ -51,12 +50,11 @@ export class ForeignKey extends Field {
   }
 
   defineParentProperty() {
-    const parentModel = this.parentModel;
     const fieldName = this.reverseName;
-    this.parentModel.fields[fieldName] = this;
+    this.ParentModel.fields[fieldName] = this;
     // Need a refernce to `this` for the getter method.
     const field = this;
-    Object.defineProperty(this.parentModel.prototype, fieldName, {
+    Object.defineProperty(this.ParentModel.prototype, fieldName, {
       configurable: false,
       enumerable: true,
       get: function getChildren() {
@@ -68,14 +66,14 @@ export class ForeignKey extends Field {
   getParent(childInstance) {
     const parentId = childInstance.data[this.name];
     if (parentId != null) {
-      const parent = this.parentModel.get(parentId);
+      const parent = this.ParentModel.get(parentId);
       return parent;
     }
   }
 
   getChildren(parentInstance) {
     const parentId = parentInstance.id;
-    const model = this.model;
+    const model = this.Model;
     const childSet = this.database.getModelSet(model);
     if (parentId != null) {
       return childSet.filter({ [this.name]: parentId });
