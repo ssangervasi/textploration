@@ -1,29 +1,21 @@
-
-import {
-  forEachOwn,
-  ORM,
+import ORM, {
   Database,
   Model,
   Field,
   ForeignKey,
-} from 'txpn/core/ORM';
-import type {
-  ModelIdType,
-  ModelFieldsType,
-  ModelDataType,
 } from 'txpn/core/ORM';
 
 const database = new Database();
 const orm = new ORM({ database: database });
 
 class Person extends Model {
-  static fields: ModelFieldsType<Person, *> = {
+  static fields = {
     name: new Field(),
   };
 }
 
 class Parent extends Model {
-  static fields: ModelFieldsType<Parent, *> = {
+  static fields = {
     name: new Field(),
   };
   getFields() {
@@ -32,7 +24,7 @@ class Parent extends Model {
 }
 
 class Child extends Model {
-  static fields: ModelFieldsType<Child, Parent> = {
+  static fields = {
     name: new Field(),
     parent: new ForeignKey(Parent, 'children'),
   };
@@ -44,7 +36,7 @@ describe('flat model', () => {
   test('ORM creation', () => {
     const personSet = database.modelSets.get(Person);
     expect(personSet).toBeDefined();
-    personSet && expect(personSet.model).toBe(Person);
+    expect(personSet.Model).toBe(Person);
   });
 
   test('can save a Person', () => {
@@ -67,7 +59,7 @@ describe('related models', () => {
     parent.save();
     expect(parent.id).toBeDefined();
     expect(parent.data.name).toBe('Perry');
-  })
+  });
 
   test('can save a Child', () => {
     const parent = new Parent({ name: 'Perry' });
@@ -84,5 +76,5 @@ describe('related models', () => {
     const parentFromLookup = child.parent;
     expect(parentFromLookup).toBeDefined();
     expect(parentFromLookup.id).toBe(parent.id);
-  })
-})
+  });
+});

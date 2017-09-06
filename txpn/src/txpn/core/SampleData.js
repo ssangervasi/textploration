@@ -1,4 +1,4 @@
-// 
+//
 import {
   Door,
   Region,
@@ -19,33 +19,33 @@ class SampleData {
       description: 'The spooky spooks.',
       doorIds: [],
     });
-  
+
     const checkoutCounter = new Room({
       name: 'Checkout Counter',
       description: "Don't stay here too long...",
       doorIds: [],
     });
-  
+
     const d2CheckoutCounter = new Door({
       name: 'Library Front Door',
       number: 1,
       originRoomId: entranceHall.id,
       destinationRoomId: checkoutCounter.id,
     });
-  
+
     const d2EntranceHall = new Door({
       name: 'Library Front Door',
       number: 1,
       originRoomId: checkoutCounter.id,
       destinationRoomId: entranceHall.id,
     });
-  
+
     checkoutCounter.doorIds.push(d2EntranceHall.id);
     entranceHall.doorIds.push(d2CheckoutCounter.id);
 
     this.rooms = [entranceHall, checkoutCounter];
     this.doors = [d2CheckoutCounter, d2EntranceHall];
-  
+
     const nvpl = new Region({
       name: 'Nightvale Public Library',
       roomIds: [
@@ -58,12 +58,13 @@ class SampleData {
 
     const nv = new World({
       name: 'Nightvale',
-      regionIds: [ nvpl.id ],
+      description: 'Welcome to here.',
     });
     const db = new World({
       name: 'Desert Bluffs',
+      description: 'We are the worst.',
     });
-  
+
     this.worlds = [nv, db];
   }
 }
