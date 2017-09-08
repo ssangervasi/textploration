@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import TextInput, { KeyHandler } from 'txpn/components/common/TextInput';
 import { bindy } from 'txpn/utils';
 
 
 
-export default class TxpnConsole extends Component {
+export default class TxpnConsole extends React.Component {
 
   constructor(props) {
     super(props);

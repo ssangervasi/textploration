@@ -6,6 +6,7 @@ import {
   Room,
   User,
   World,
+  AdventureState,
 } from 'txpn/core/models';
 
 import database from './database';
@@ -20,6 +21,7 @@ orm.register(
   Room,
   User,
   World,
+  AdventureState,
 );
 
 export { orm as default };

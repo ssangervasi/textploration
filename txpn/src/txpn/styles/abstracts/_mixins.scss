@@ -10,7 +10,7 @@
   color: $green;
 }
 
-@mixin border-old-school {
-  border: inset $grey .15rem;
+@mixin border-old-school($color: $grey) {
+  border: inset $color .15rem;
   border-radius: .2rem;
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { bindy } from 'txpn/utils';
 
@@ -6,7 +6,7 @@ import { bindy } from 'txpn/utils';
 
 ;
 
-class Clock extends Component {
+class Clock extends React.Component {
 
   constructor(props) {
     super(props);

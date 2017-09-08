@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { bindy, renameWrapper } from 'txpn/utils';
 import DataStore from 'txpn/core/DataStore';
@@ -20,7 +20,7 @@ export default class DataInjector {
   connect(WrappedComponent) {
     const injector = this;
 
-    class DataWrapper extends Component {
+    class DataWrapper extends React.Component {
       constructor(props) {
         super(props);
         bindy(this, this.handleChange);

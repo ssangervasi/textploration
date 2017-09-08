@@ -6,6 +6,7 @@ import {
   World,
   Explorer,
   User,
+  AdventureState,
 } from 'txpn/core/models';
 
 const nickie = new User({username: 'Nickie'}).save();
@@ -56,9 +57,15 @@ const desertBluffs = new World({
   description: 'We are the worst.',
 }).save();
 
+const adventure = new AdventureState({
+  explorer: samPal,
+  room: entranceHall,
+}).save();
+
 const sampleData = {
   user: nickie,
   explorer: samPal,
+  adventure: adventure,
   rooms: [entranceHall, checkoutCounter],
   doors: [doorToCheckoutCounter, doorToEntranceHall],
   regions: [nightValePublicLibrary],

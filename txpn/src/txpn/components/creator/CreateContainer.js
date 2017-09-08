@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Route,
   // Redirect,
@@ -8,7 +8,7 @@ import {
 import { bindy } from 'txpn/utils';
 import CreateExplorer from 'txpn/components/explorer/CreateExplorer';
 
-export default class CreateContainer extends Component {
+export default class CreateContainer extends React.Component {
   constructor(props) {
     super(props);
     bindy(this, this.receiveExplorer);

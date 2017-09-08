@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   BrowserRouter,
   Link,
@@ -12,7 +12,7 @@ import CreateContainer from 'txpn/components/creator/CreateContainer';
 import DiscoverContainer from 'txpn/components/world/DiscoverContainer';
 import MyAccount from 'txpn/components/user/MyAccount'
 
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
