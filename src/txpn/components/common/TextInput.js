@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { bindy } from 'txpn/utils';
 
 
 
-export default class TextInput extends Component {
+export default class TextInput extends React.Component {
 
   constructor(props) {
     super(props);

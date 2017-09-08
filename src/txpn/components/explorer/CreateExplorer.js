@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import Explorer from 'txpn/core/models/Explorer';
@@ -6,7 +6,7 @@ import TextInput from 'txpn/components/common/TextInput';
 import { bindy } from 'txpn/utils';
 
 
-export default class CreateExplorer extends Component {
+export default class CreateExplorer extends React.Component {
 
   constructor(props) {
     super(props);

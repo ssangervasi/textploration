@@ -42,7 +42,7 @@ export function dedent(multilineStr) {
   const fixedLines = indentedLines.map((line, index) => {
     const isBlank = !/\S/.test(line);
     const isFirstLine = index === 0;
-    const isLastLine = index == lastIndex;
+    const isLastLine = index === lastIndex;
     let fixedLine = line;
     // Always strip first and last lines if they are blank.
     if (isBlank && (isFirstLine || isLastLine)) {

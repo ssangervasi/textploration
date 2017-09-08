@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import state from 'txpn/store/gameState';
 import { Explorer } from 'txpn/core/models';

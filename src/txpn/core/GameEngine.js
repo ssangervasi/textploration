@@ -1,8 +1,6 @@
-import GameState from 'txpn/core/GameState';
 import AdventureStartState from 'txpn/core/AdventureStartState';
-import AdventureState from 'txpn/core/AdventureState';
 import { NotImplementedError } from 'txpn/core/errors';
-import { Explorer, Room, Region, World, User } from 'txpn/core/models';
+import { Explorer, Room, Region, World, User, AdventureState } from 'txpn/core/models';
 
 export default class GameEngine {
   constructor({ orm, gameState }) {
@@ -31,12 +29,12 @@ export default class GameEngine {
     }
     const explorer = adventureStart.explorer;
     const world = adventureStart.world;
-    console.log(world)
     const room = world.getStartingRegion().getStartingRoom();
     this.gameState.adventure = new AdventureState({
       explorer: explorer,
       room: room,
-    });
+    }).save();
+    this.gameState.adventureStart = undefined;
   }
 
   getWorlds() {
@@ -44,7 +42,15 @@ export default class GameEngine {
   }
 
   getAdventure() {
-    const { explorer, room } = this.gameState.adventure;
+    let adventureState = this.gameState.adventure;
+    if (adventureState == null) {
+      adventureState = this.gameState.user.getLastAdventure();
+      if (adventureState == null) {
+        return;
+      }
+      this.adventureState = adventureState;
+    }
+    const { explorer, room } = adventureState;
     const region = room.region;
     const adventure = {
       world: region.world,
@@ -53,7 +59,6 @@ export default class GameEngine {
       room,
       region,
     };
-    console.log(adventure);
     return adventure;
   }
 }

@@ -1,4 +1,3 @@
-
 body {
   background: black;
 }
@@ -7,25 +6,14 @@ a {
   color: $green;
 
   &:hover {
-    color: rgba($green-dark, .9);
+    color: rgba($green-dark, 0.9);
   }
   &.active {
     color: $green-dark;
   }
 }
 
-input, button {
+input,
+button {
   @include text-normalize;
-}
-
-.input {
-  @include border-old-school;
-}
-
-.button {
-  @include border-old-school;
-
-  &:hover {
-    cursor: pointer;
-  }
 }

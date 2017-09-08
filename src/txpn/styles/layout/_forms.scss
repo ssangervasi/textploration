@@ -1,14 +1,45 @@
 
+.input {
+  @include border-old-school;
+  &:focus {
+    background: $grey-darker;
+  }
+  &:disabled {
+    color: $grey-dark;
+    @include border-old-school($grey-dark);
+  }
+}
+
+.button {
+  @include border-old-school;
+
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    background: $grey-darker;
+  }
+  &:disabled {
+    color: $grey-dark;
+    @include border-old-school($grey-dark);
+  }
+}
+
+.label {
+  &--right {
+    padding-left: .5rem;
+  }
+  &--left {
+    padding-right: .5rem;
+  }
+}
+
 .form-buttons {
   padding-top: .5rem;
   padding-bottom: .5rem;
 }
 .form-buttons__button {
   background: $grey-dark;
-
-  &:active {
-    background: $grey-darker;
-  }
 }
 
 .form-field {
@@ -16,7 +47,6 @@
   padding-bottom: .5rem;
 }
 .form-field__input {
-  background: $grey-darker;
 }
 .form-field__label {
   padding-right: 1rem;

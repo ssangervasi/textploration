@@ -1,18 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
 import { bindy } from 'txpn/utils';
 import gameEngine from 'txpn/store/gameEngine';
-import AdventureStartState, {
-  AdventureStartSteps,
-} from 'txpn/core/AdventureStartState';
+import { AdventureStartSteps } from 'txpn/core/AdventureStartState';
 import { Explorer, World } from 'txpn/core/models';
 
 import ForceRedirect from 'txpn/components/common/ForceRedirect';
 import CreateExplorer from 'txpn/components/explorer/CreateExplorer';
 import WorldList from 'txpn/components/world/WorldList';
 
-export default class AdventureStart extends Component {
+export default class AdventureStart extends React.Component {
   stepToNestedPathMap = new Map([
     [AdventureStartSteps.CREATE_EXPLORER, 'create-explorer'],
     [AdventureStartSteps.CHOOSE_WORLD, 'choose-world'],
