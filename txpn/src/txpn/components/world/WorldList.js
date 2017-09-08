@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
@@ -17,7 +16,7 @@ export default class WorldList extends Component {
       this.handleConfirmWorld,
     );
   }
-  
+
   handleSelectWorld(world) {
     console.log(world);
     this.setState({ selectedWorld: world });
@@ -75,7 +74,7 @@ export default class WorldList extends Component {
         {worldHeader}
         <ul className="world-list">
           {worldItems}
-        </ul>  
+        </ul>
       </div>
     );
   }

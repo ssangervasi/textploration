@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 
 import TextInput, { KeyHandler } from 'txpn/components/common/TextInput';
@@ -38,7 +37,7 @@ export default class TxpnConsole extends Component {
   /**
    * State maniuplation methods.
    */
-  
+
   setCommand(value) {
     this.setState({
       command: value,
@@ -93,14 +92,14 @@ export default class TxpnConsole extends Component {
     });
   }
 
-  /** 
+  /**
    * Lifecycle methods.
    */
-  
+
   componentDidUpdate() {
     this.scrollHistoryToBottom();
   }
-  
+
   /**
    * Rendering methods.
    */
@@ -138,7 +137,7 @@ export default class TxpnConsole extends Component {
             keyHandlers={this.keyHandlers}
           />
         </div>
-      </div>  
+      </div>
     );
   }
 }

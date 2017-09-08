@@ -1,4 +1,4 @@
-import database from 'txpn/core/ORM';
+import ORM from 'txpn/core/ORM';
 import {
   Door,
   Explorer,
@@ -8,10 +8,12 @@ import {
   World,
 } from 'txpn/core/models';
 
+import database from './database';
+
 const orm = new ORM({ database: database });
 
 // prettier-ignore
-orm.regester(
+orm.register(
   Door,
   Explorer,
   Region,

@@ -1,9 +1,8 @@
-// 
 import React from 'react';
 
 import ExplorerDetail from 'txpn/components/explorer/ExplorerDetail';
 
-const ExplorerList = () => (  
+const ExplorerList = () => (
   <div>
     <p>
       TODO: List of Explorers

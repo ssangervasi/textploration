@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 import {
   Route,
@@ -26,5 +25,5 @@ export default class CreateContainer extends Component {
         <Route path={this.props.match.path} component={this.CreateExplorer} />
       </Switch>
     );
-  } 
+  }
 }

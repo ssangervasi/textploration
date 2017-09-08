@@ -1,38 +1,45 @@
-import ORM, {
-  Database,
-  Model,
-  Field,
-  ForeignKey,
-} from 'txpn/core/ORM';
+import { multiBefore } from 'txpn/testHelpers';
+import ORM, { Database, Model, Field, ForeignKey } from 'txpn/core/ORM';
 
-const database = new Database();
-const orm = new ORM({ database: database });
-
-class Person extends Model {
-  static fields = {
-    name: new Field(),
-  };
-}
-
-class Parent extends Model {
-  static fields = {
-    name: new Field(),
-  };
-  getFields() {
-    console.log('Parent fields', Parent.fields);
+function createModels() {
+  class Person extends Model {
+    static fields = {
+      name: new Field(),
+    };
   }
-}
 
-class Child extends Model {
-  static fields = {
-    name: new Field(),
-    parent: new ForeignKey(Parent, 'children'),
+  class Parent extends Model {
+    static fields = {
+      name: new Field(),
+    };
+  }
+
+  class Child extends Model {
+    static fields = {
+      name: new Field(),
+      parent: new ForeignKey(Parent, 'children'),
+    };
+  }
+
+  return {
+    Person: Person,
+    Parent: Parent,
+    Child: Child,
   };
 }
-
-orm.register(Person, Parent, Child);
 
 describe('flat model', () => {
+  let Person;
+  let database;
+  let orm;
+
+  beforeEach(() => {
+    Person = createModels().Person;
+    database = new Database();
+    orm = new ORM({ database: database });
+    orm.register(Person);
+  });
+
   test('ORM creation', () => {
     const personSet = database.modelSets.get(Person);
     expect(personSet).toBeDefined();
@@ -51,30 +58,70 @@ describe('flat model', () => {
     expect(personFromGet.id).toBe(personFromDB.id);
     expect(personFromGet.data.name).toBe('Percy');
   });
+
+  test('Model.save() returns the instance', () => {
+    const person = new Person({ name: 'Percy' });
+    const savedPerson = person.save();
+    expect(savedPerson).toBe(person);
+    expect(savedPerson.id).toBeDefined();
+  })
 });
 
 describe('related models', () => {
-  test('can save a Parent', () => {
-    const parent = new Parent({ name: 'Perry' });
-    parent.save();
-    expect(parent.id).toBeDefined();
-    expect(parent.data.name).toBe('Perry');
-  });
+  let database;
+  let orm;
+  let Parent, Child;
 
-  test('can save a Child', () => {
-    const parent = new Parent({ name: 'Perry' });
-    parent.save();
-    const child = new Child({
-      name: 'Charlie',
-      parent: parent.id,
+  function sharedBefore() {
+    let models = createModels();
+    Parent = models.Parent;
+    Child = models.Child;
+    database = new Database();
+    orm = new ORM({ database: database });
+  }
+
+  /**
+   * Ensure the tests pass even if the models are
+   * registered in reverse order.
+   */
+  multiBefore(describe, beforeEach, beforeAll)
+  .configure([
+    { label: 'Register Parent before Child',
+      beforeEach: () => {
+        sharedBefore();
+        orm.register(Parent, Child);
+      },
+    },
+    { label: 'Register Child before Parent',
+      beforeEach: () => {
+        sharedBefore();
+        orm.register(Child, Parent);
+      },
+    },
+  ])
+  .run(() => {
+    test('can save a Parent', () => {
+      const parent = new Parent({ name: 'Perry' });
+      parent.save();
+      expect(parent.id).toBeDefined();
+      expect(parent.name).toBe('Perry');
     });
-    child.save();
-    expect(child.id).toBeDefined();
-    expect(child.data.parent).toBe(parent.id);
-    const childFromGet = Child.get(child.id);
-    expect(childFromGet.data.parent).toBe(parent.id);
-    const parentFromLookup = child.parent;
-    expect(parentFromLookup).toBeDefined();
-    expect(parentFromLookup.id).toBe(parent.id);
+
+    test('can save a Child', () => {
+      const parent = new Parent({ name: 'Perry' });
+      parent.save();
+      const child = new Child({
+        name: 'Charlie',
+        parent: parent.id,
+      });
+      child.save();
+      expect(child.id).toBeDefined();
+      expect(child.data.parent).toBe(parent.id);
+      const childFromGet = Child.get(child.id);
+      expect(childFromGet.data.parent).toBe(parent.id);
+      const parentFromLookup = child.parent;
+      expect(parentFromLookup).toBeDefined();
+      expect(parentFromLookup.id).toBe(parent.id);
+    });
   });
 });

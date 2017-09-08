@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 
 import { bindy } from 'txpn/utils';
@@ -25,7 +24,7 @@ class Clock extends Component {
       this.tick();
     }, 1000);
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.timerId);
   }

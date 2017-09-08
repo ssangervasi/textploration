@@ -1,5 +1,3 @@
-// 
-
 /**
  * The dumbest subscriber service possible.
  */

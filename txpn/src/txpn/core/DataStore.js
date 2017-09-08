@@ -1,4 +1,3 @@
-// 
 import Subject from 'txpn/core/Subject';
 
 export default class DataStore {

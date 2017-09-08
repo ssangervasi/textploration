@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
@@ -37,12 +36,12 @@ export default class CreateExplorer extends Component {
     return (
       <form className="form grid-container" onSubmit={this.handleSubmit}>
         <h3 className="form-header grid-100">Create your Explorer</h3>
-        
+
         <div className="form-field grid-100">
           <label className="form-field__label" htmlFor="id-explorer-name-input">
             Name
           </label>
-          <TextInput 
+          <TextInput
             value={this.state.name}
             setValue={this.setName}
             id="id-explorer-name-input"
@@ -52,7 +51,7 @@ export default class CreateExplorer extends Component {
         </div>
 
         <div className="form-buttons grid-100">
-          <button 
+          <button
             type="submit"
             className="form-buttons__button button"
             disabled={this.state.done}

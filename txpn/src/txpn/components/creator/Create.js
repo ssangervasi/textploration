@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 
@@ -9,7 +8,7 @@ const Create = ({ match }) => {
     <div>
       <Route path={`${match.url}`}
              component={AboutCreate} />
-      <Route path={`${match.url}/explorer`} 
+      <Route path={`${match.url}/explorer`}
              component={CreateExplorer} />
     </div>
   );

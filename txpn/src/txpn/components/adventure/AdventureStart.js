@@ -1,14 +1,11 @@
-// 
 import React, { Component } from 'react';
-import {
-  Link,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 
 import { bindy } from 'txpn/utils';
 import gameEngine from 'txpn/store/gameEngine';
-import AdventureStartState, { AdventureStartSteps } from 'txpn/core/AdventureStartState';
+import AdventureStartState, {
+  AdventureStartSteps,
+} from 'txpn/core/AdventureStartState';
 import { Explorer, World } from 'txpn/core/models';
 
 import ForceRedirect from 'txpn/components/common/ForceRedirect';
@@ -23,14 +20,15 @@ export default class AdventureStart extends Component {
   ]);
 
   constructor(props) {
-    super(props)
-    bindy(this,
+    super(props);
+    bindy(
+      this,
       this.submitWorld,
       this.submitExplorer,
       this.submitDone,
       this.CreateExplorer,
       this.ChooseWorld,
-      this.Done,
+      this.Done
     );
     this.state = {
       step: this.getNextStep(),
@@ -96,31 +94,31 @@ export default class AdventureStart extends Component {
 
   getSteps() {
     return [
-      { title: 'Create your explorer',
-        active: (this.state.step === AdventureStartSteps.CREATE_EXPLORER),
-        done: (this.state.step !== AdventureStartSteps.CREATE_EXPLORER),
+      {
+        title: 'Create your explorer',
+        active: this.state.step === AdventureStartSteps.CREATE_EXPLORER,
+        done: this.state.step !== AdventureStartSteps.CREATE_EXPLORER,
       },
-      { title: 'Choose a world',
-        active: (this.state.step === AdventureStartSteps.CHOOSE_WORLD),
-        done: (this.state.step === AdventureStartSteps.DONE),
+      {
+        title: 'Choose a world',
+        active: this.state.step === AdventureStartSteps.CHOOSE_WORLD,
+        done: this.state.step === AdventureStartSteps.DONE,
       },
-      { title: 'Adventure!',
-        active: (this.state.step === AdventureStartSteps.DONE),
+      {
+        title: 'Adventure!',
+        active: this.state.step === AdventureStartSteps.DONE,
       },
     ];
   }
 
   CreateExplorer() {
-    return <CreateExplorer submit={this.submitExplorer} />
+    return <CreateExplorer submit={this.submitExplorer} />;
   }
 
   ChooseWorld() {
     return (
-      <WorldList
-        worlds={gameEngine.database.worlds.getAll()}
-        submit={this.submitWorld}
-      />
-   );
+      <WorldList worlds={gameEngine.getWorlds()} submit={this.submitWorld} />
+    );
   }
 
   Done() {
@@ -131,9 +129,7 @@ export default class AdventureStart extends Component {
         <div>
           <h3>Something went wrong!</h3>
           <p>
-            <Link to='/adventure/start'>
-              Click here to retry.
-            </Link>
+            <Link to="/adventure/start">Click here to retry.</Link>
           </p>
         </div>
       );
@@ -142,8 +138,8 @@ export default class AdventureStart extends Component {
       <div>
         <h3>All ready!</h3>
         <p>
-          Looks like <strong>{explorer.name}</strong> is
-          going to <strong>{world.name}</strong>.
+          Looks like <strong>{explorer.name}</strong> is going to{' '}
+          <strong>{world.name}</strong>.
         </p>
         <p>
           <button className="button" onClick={this.submitDone}>
@@ -166,23 +162,14 @@ export default class AdventureStart extends Component {
           <StepList steps={steps} />
         </section>
         <section>
-          <ForceRedirect
-            fromPath={path} 
-            toURL={childUrl}
-          />
+          <ForceRedirect fromPath={path} toURL={childUrl} />
           <Switch>
-            <Route
-              path={`${path}/choose-world`}
-              component={this.ChooseWorld}
-            />
+            <Route path={`${path}/choose-world`} component={this.ChooseWorld} />
             <Route
               path={`${path}/create-explorer`}
               component={this.CreateExplorer}
             />
-            <Route
-              path={`${path}/done`}
-              component={this.Done}
-            />
+            <Route path={`${path}/done`} component={this.Done} />
           </Switch>
         </section>
       </section>
@@ -190,19 +177,21 @@ export default class AdventureStart extends Component {
   }
 }
 
-
-function StepList(
-  { steps }) {
+function StepList({ steps }) {
   const stepChildren = steps.map((step, index) => {
-    const className = ([
-        ['step-list__step', true],
-        ['step-list__step--active', step.active],
-        ['step-list__step--done', step.done],
-      ])
+    const className = [
+      ['step-list__step', true],
+      ['step-list__step--active', step.active],
+      ['step-list__step--done', step.done],
+    ]
       .map(([k, v]) => (v ? k : undefined))
       .filter(v => v)
       .join(' ');
-    return (<li key={index} className={className}>{step.title}</li>);
+    return (
+      <li key={index} className={className}>
+        {step.title}
+      </li>
+    );
   });
-  return (<ol className="step-list">{stepChildren}</ol>);
+  return <ol className="step-list">{stepChildren}</ol>;
 }

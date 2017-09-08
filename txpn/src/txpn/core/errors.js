@@ -1,6 +1,7 @@
 export class BaseError {
   constructor(message = '') {
     this.message = message;
+    this.stack = (new Error()).stack;
   }
 
   toString() {

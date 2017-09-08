@@ -1,11 +1,10 @@
-// 
 import GameEngine from 'txpn/core/GameEngine';
 
-import database from 'txpn/store/database';
+import orm from 'txpn/store/orm';
 import gameState from 'txpn/store/gameState';
 
 const gameEngine = new GameEngine({
-  database: database,
+  orm: orm,
   gameState: gameState,
 });
 
