@@ -1,5 +1,6 @@
 import { forEachOwn } from 'txpn/utils'
 import UId from './UId';
+import { Field } from './fields';
 
 export default class ORM {
   constructor({ database }) {
@@ -13,11 +14,15 @@ export default class ORM {
       database.register(Model);
       Model.prototype.save = function save() {
         database.save(this);
+        return this;
       };
       Model.get = function get(id) {
         return database.get(Model, id);
       };
       // Attach fields.
+      if (!Model.fields.hasOwnProperty('id')) {
+        Model.fields['id'] = new Field();
+      }
       forEachOwn(Model.fields, (fieldName, field) => {
         field.attach({
           Model: Model,

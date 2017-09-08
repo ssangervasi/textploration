@@ -1,22 +1,12 @@
-// 
 import GameState from 'txpn/core/GameState';
-import Database from 'txpn/core/Database';
 import AdventureStartState from 'txpn/core/AdventureStartState';
 import AdventureState from 'txpn/core/AdventureState';
 import { NotImplementedError } from 'txpn/core/errors';
-import {
-  Explorer,
-  Room,
-  Region,
-  World,
-  User,
-} from 'txpn/core/models';
-
+import { Explorer, Room, Region, World, User } from 'txpn/core/models';
 
 export default class GameEngine {
-
-  constructor({ database, gameState }) {
-    this.database = database;
+  constructor({ orm, gameState }) {
+    this.orm = orm;
     this.gameState = gameState;
   }
 
@@ -29,9 +19,10 @@ export default class GameEngine {
 
   startAdventure() {
     const adventureStart = this.gameState.adventureStart;
-    if (adventureStart == null
-        || adventureStart.explorer == null
-        || adventureStart.world == null
+    if (
+      adventureStart == null ||
+      adventureStart.explorer == null ||
+      adventureStart.world == null
     ) {
       throw new NotImplementedError(`
         Starting an adventure without using the
@@ -40,18 +31,29 @@ export default class GameEngine {
     }
     const explorer = adventureStart.explorer;
     const world = adventureStart.world;
-    const room = this.getFirstRoom(world);
+    console.log(world)
+    const room = world.getStartingRegion().getStartingRoom();
     this.gameState.adventure = new AdventureState({
       explorer: explorer,
       room: room,
     });
   }
 
-  getFirstRoom(world) {
-    const firstRegionId = world.regionIds[0];
-    const firstRegion = this.database.regions.get(firstRegionId);
-    const firstRoomId = firstRegion.roomIds[0];
-    const firstRoom = this.database.rooms.get(firstRoomId);
-    return firstRoom;
+  getWorlds() {
+    return this.orm.database.getModelSet(World).getAll();
+  }
+
+  getAdventure() {
+    const { explorer, room } = this.gameState.adventure;
+    const region = room.region;
+    const adventure = {
+      world: region.world,
+      doors: room.doors,
+      explorer,
+      room,
+      region,
+    };
+    console.log(adventure);
+    return adventure;
   }
 }

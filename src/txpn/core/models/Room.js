@@ -1,5 +1,5 @@
 import { Model, Field, ForeignKey } from 'txpn/core/ORM';
-import { Region } from '.';
+import Region from './Region';
 
 export default class Room extends Model {
   static fields = {

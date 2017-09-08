@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 import {
   Route,
@@ -13,6 +12,7 @@ import AdventureStart from './AdventureStart';
 export default class AdventureContainer extends Component {
   render() {
     const path = this.props.match.path;
+    const url = this.props.match.url;
     return (
       <Switch>
         <Route path={`${path}/start`} component={AdventureStart} />
@@ -24,12 +24,6 @@ export default class AdventureContainer extends Component {
 
 function AdventureContinue() {
   return (
-    <Adventure
-      explorer={gameEngine.getExplorer()}
-      world={gameEngine.getWorld()}
-      region={gameEngine.getRegion()}
-      room={gameEngine.getRoom()}
-      doors ={gameEngine.getDoors()}
-    />
+    <Adventure {...gameEngine.getAdventure()}/>
   );
 }

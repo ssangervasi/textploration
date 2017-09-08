@@ -1,4 +1,3 @@
-// 
 import sampleData from './sampleData';
 import GameState from 'txpn/core/GameState';
 

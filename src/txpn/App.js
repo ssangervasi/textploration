@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 import {
   BrowserRouter,
@@ -7,6 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 
+import './store';
 import AdventureContainer from 'txpn/components/adventure/AdventureContainer';
 import CreateContainer from 'txpn/components/creator/CreateContainer';
 import DiscoverContainer from 'txpn/components/world/DiscoverContainer';
@@ -59,7 +59,7 @@ const AppNav = () => {
 
 const AppHeader = () => (
   <header className="app-header grid-30 tablet-grid-40 mobile-grid-100">
-    <Link to='/'>  
+    <Link to='/'>
       <h2 className="title">
         Textploration
         <br/>
@@ -77,7 +77,7 @@ const About = () => {
       </p>
       <p>
         Many features are in development, but why don't you try
-        your first <Link to='/adventure'>adventure</Link>?
+        your first <Link to='/adventure/start'>adventure</Link>?
       </p>
     </section>
   );

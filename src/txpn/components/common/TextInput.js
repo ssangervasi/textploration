@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 
 import { bindy } from 'txpn/utils';

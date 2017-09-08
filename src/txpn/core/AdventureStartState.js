@@ -1,19 +1,12 @@
-// 
-import DataStore from 'txpn/core/DataStore';
-import {
-  World,
-  Explorer,
-  User,
-} from 'txpn/core/models';
+import { World, Explorer, User } from 'txpn/core/models';
 
 const AdventureStartSteps = {
   CREATE_EXPLORER: 'CREATE_EXPLORER',
   CHOOSE_WORLD: 'CHOOSE_WORLD',
   DONE: 'DONE',
-}
+};
 
 class AdventureStartState {
-
   constructor(values) {
     if (values != null) {
       this.explorer = values.explorer;
@@ -32,15 +25,12 @@ class AdventureStartState {
   }
 
   setExplorer(explorer) {
-    this.explorer = explorer;
+    this.explorer = explorer.save();
   }
-  
+
   setWorld(world) {
     this.world = world;
   }
 }
 
-export {
-  AdventureStartState as default,
-  AdventureStartSteps,
-}
+export { AdventureStartState as default, AdventureStartSteps };

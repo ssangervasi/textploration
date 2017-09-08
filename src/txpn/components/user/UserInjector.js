@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 
 import state from 'txpn/store/gameState';

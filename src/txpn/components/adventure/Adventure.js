@@ -1,4 +1,3 @@
-// 
 import React from 'react';
 
 import TxpnConsole from 'txpn/components/common/TxpnConsole';
@@ -43,7 +42,7 @@ const Adventure = ({ explorer, world, region, room, doors }) => {
           <small>Room: </small>{ room.name }
         </h3>
         <p>{ room.description }</p>
-        
+
         <ol className="list--style-none">
           {doorItems}
         </ol>

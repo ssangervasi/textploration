@@ -27,7 +27,7 @@ export default class ModelSet {
   }
 
   getAll() {
-    return Array.from(this.byId.values());
+    return Array.from(this.byId.keys(), (id) => this.get(id));
   }
 
   filter(fields) {

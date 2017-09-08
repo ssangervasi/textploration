@@ -1,4 +1,3 @@
-// 
 import React, { Component } from 'react';
 
 import { bindy, renameWrapper } from 'txpn/utils';
@@ -48,7 +47,7 @@ export default class DataInjector {
         return <WrappedComponent {...injectedProps} />;
       }
     }
-    
+
     renameWrapper(DataWrapper, WrappedComponent);
     return DataWrapper;
   }
