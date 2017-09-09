@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
 import { bindy } from 'txpn/utils';
-import gameEngine from 'txpn/store/gameEngine';
+import gameEngine from 'txpn/runtime/gameEngine';
 import { AdventureStartSteps } from 'txpn/core/AdventureStartState';
 import { Explorer, World } from 'txpn/core/models';
 

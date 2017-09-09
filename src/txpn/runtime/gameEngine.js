@@ -1,7 +1,7 @@
 import GameEngine from 'txpn/core/GameEngine';
 
-import orm from 'txpn/store/orm';
-import gameState from 'txpn/store/gameState';
+import orm from 'txpn/runtime/orm';
+import gameState from 'txpn/runtime/gameState';
 
 const gameEngine = new GameEngine({
   orm: orm,

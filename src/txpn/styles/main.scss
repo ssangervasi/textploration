@@ -2,18 +2,23 @@
 
 @import
   'abstracts/variables',
-  'abstracts/mixins';
+  'abstracts/mixins'
+;
 
 @import
   'base/base',
-  'base/typography';
+  'base/typography'
+;
 
 @import
   'components/console',
-  'components/step-list';
+  'components/step-list',
+  'components/room'
+;
 
 @import
   'layout/app-header',
   'layout/forms',
   'layout/navigation',
-  'layout/screen';
+  'layout/screen'
+;

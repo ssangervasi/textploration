@@ -1,3 +1,4 @@
+import Subject from 'txpn/core/Subject';
 import AdventureStartState from 'txpn/core/AdventureStartState';
 import { NotImplementedError } from 'txpn/core/errors';
 import { Explorer, Room, Region, World, User, AdventureState } from 'txpn/core/models';
@@ -6,6 +7,7 @@ export default class GameEngine {
   constructor({ orm, gameState }) {
     this.orm = orm;
     this.gameState = gameState;
+    this.adventureSubject = new Subject();
   }
 
   getStarted() {
@@ -35,6 +37,7 @@ export default class GameEngine {
       room: room,
     }).save();
     this.gameState.adventureStart = undefined;
+    this.adventureSubject.publish();
   }
 
   getWorlds() {
@@ -48,8 +51,8 @@ export default class GameEngine {
       if (adventureState == null) {
         return;
       }
-      this.adventureState = adventureState;
     }
+    this.gameState.adventure = adventureState;
     const { explorer, room } = adventureState;
     const region = room.region;
     const adventure = {
@@ -60,5 +63,13 @@ export default class GameEngine {
       region,
     };
     return adventure;
+  }
+
+  goThroughDoor(door) {
+    console.log('GameEngine.goThroughDoor', door);
+    const destination = door.destination;
+    this.gameState.adventure.room = destination;
+    this.gameState.adventure.save();
+    this.adventureSubject.publish();
   }
 }

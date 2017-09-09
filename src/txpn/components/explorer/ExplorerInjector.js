@@ -1,6 +1,6 @@
 import React from 'react';
 
-import state from 'txpn/store/gameState';
+import state from 'txpn/runtime/gameState';
 import { Explorer } from 'txpn/core/models';
 
 import DataInjector from 'txpn/components/common/DataInjector'

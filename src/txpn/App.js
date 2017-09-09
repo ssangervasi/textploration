@@ -6,7 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import './store';
+import './runtime';
 import AdventureContainer from 'txpn/components/adventure/AdventureContainer';
 import CreateContainer from 'txpn/components/creator/CreateContainer';
 import DiscoverContainer from 'txpn/components/world/DiscoverContainer';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import state from 'txpn/store/gameState';
+import state from 'txpn/runtime/gameState';
 
 const MyAccount = () => {
   return (

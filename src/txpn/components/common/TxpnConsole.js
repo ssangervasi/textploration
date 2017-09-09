@@ -3,10 +3,7 @@ import React from 'react';
 import TextInput, { KeyHandler } from 'txpn/components/common/TextInput';
 import { bindy } from 'txpn/utils';
 
-
-
 export default class TxpnConsole extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -15,20 +12,24 @@ export default class TxpnConsole extends React.Component {
       history: [],
       historyIndex: 0,
     };
-    bindy(this,
+    bindy(
+      this,
       this.setCommand,
       this.handleArrowUp,
       this.handleArrowDown,
-      this.handleEnter,
+      this.handleEnter
     );
     this.keyHandlers = [
-      { key: 'ArrowDown',
+      {
+        key: 'ArrowDown',
         handler: this.handleArrowDown,
       },
-      { key: 'ArrowUp',
+      {
+        key: 'ArrowUp',
         handler: this.handleArrowUp,
       },
-      { key: 'Enter',
+      {
+        key: 'Enter',
         handler: this.handleEnter,
       },
     ];
@@ -56,7 +57,7 @@ export default class TxpnConsole extends React.Component {
   }
 
   handleArrowDown(e) {
-    this.setState(({ command, tempCommand, history, historyIndex}) => {
+    this.setState(({ command, tempCommand, history, historyIndex }) => {
       if (history.length === 0 || historyIndex === -1) {
         return;
       } else if (historyIndex === history.length - 1) {
@@ -74,7 +75,7 @@ export default class TxpnConsole extends React.Component {
   }
 
   handleArrowUp(e) {
-    this.setState(({ command, tempCommand, history, historyIndex}) => {
+    this.setState(({ command, tempCommand, history, historyIndex }) => {
       if (history.length === 0 || historyIndex === 0) {
         return;
       }
@@ -105,9 +106,7 @@ export default class TxpnConsole extends React.Component {
    */
 
   createHistoryItems() {
-    return this.state.history.map(
-      (command, i) => (<li key={i}>{command}</li>)
-    );
+    return this.state.history.map((command, i) => <li key={i}>{command}</li>);
   }
 
   scrollHistoryToBottom() {
@@ -117,17 +116,19 @@ export default class TxpnConsole extends React.Component {
   render() {
     return (
       <div className="console">
-        <div className="console__history"
-             ref={historyElement => this.historyElement = historyElement}>
-          <ol>
-            {this.createHistoryItems()}
-          </ol>
+        <div
+          className="console__history"
+          ref={historyElement => (this.historyElement = historyElement)}
+        >
+          <ol>{this.createHistoryItems()}</ol>
         </div>
 
         <div className="console__command-line">
-          <label className="command-line__prompt"
-                 id="idConsolePrompt"
-                 htmlFor="idConsoleCommand">
+          <label
+            className="command-line__prompt"
+            id="idConsolePrompt"
+            htmlFor="idConsoleCommand"
+          >
             {this.props.prompt}$
           </label>
           <TextInput

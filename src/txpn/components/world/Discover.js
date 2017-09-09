@@ -4,7 +4,7 @@ import {
   Link,
 } from 'react-router-dom'
 
-import database from 'txpn/store/database';
+import database from 'txpn/runtime/database';
 import WorldList from 'txpn/components/world/WorldList';
 
 const Discover = () => {

@@ -1,3 +1,4 @@
+import { dd } from 'txpn/utils';
 import './orm';
 import {
   Door,
@@ -28,13 +29,37 @@ const nightValePublicLibrary = new Region({
 
 const entranceHall = new Room({
   name: 'Entrance Hall',
-  description: 'The spooky spooks.',
+  description: dd`
+    Welcome to the Nightvale Public Library.
+    Please stay forever.
+  `,
   region: nightValePublicLibrary,
 }).save();
 
 const checkoutCounter = new Room({
   name: 'Checkout Counter',
-  description: "Don't stay here too long...",
+  description: dd`
+    The books on the counter are glossy and fresh
+    in a way that makes you want to pick them up.
+
+    "Edible Plants and Animals of the California Desert"
+    is the title of one such volume.
+
+    Surely, today is the day you finally learn about
+    the flora and fauna of your local desert biome.
+  `,
+  region: nightValePublicLibrary,
+}).save();
+
+const death = new Room({
+  name: 'You are dead',
+  description: dd`
+    The book was bait for a lurking librarian.
+
+    Your death was foretold, but never told to you.
+
+    At least you get to find out about it now...
+  `,
   region: nightValePublicLibrary,
 }).save();
 
@@ -46,10 +71,17 @@ const doorToCheckoutCounter = new Door({
 }).save();
 
 const doorToEntranceHall = new Door({
-  name: 'Library Front Door',
+  name: 'Exit the library',
   number: 1,
   origin: checkoutCounter,
   destination: entranceHall,
+}).save();
+
+const doorPickUpBook = new Door({
+  name: 'Pick up the book',
+  number: 2,
+  origin: checkoutCounter,
+  destination: death,
 }).save();
 
 const desertBluffs = new World({
