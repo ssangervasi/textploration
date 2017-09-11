@@ -1,68 +1,72 @@
 import React from 'react';
 
-import { bindy } from 'txpn/utils';
-
 export default class WorldList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { done: false };
-    bindy(this, this.handleSelectWorld, this.handleConfirmWorld);
-  }
+  state = {
+    done: false,
+    selectedWorld: undefined,
+  };
 
-  handleSelectWorld(world) {
-    console.log(world);
+  handleClickWorld = world => {
     this.setState({ selectedWorld: world });
-  }
+  };
 
-  handleConfirmWorld() {
+  handleConfirmWorld = () => {
     if (this.state.selectedWorld != null && this.props.submit != null) {
       this.props.submit(this.state.selectedWorld);
       this.setState({ done: true });
     }
-  }
-
-  // TODO: Make it into a simple component.
-  makeWorldItems() {
-    return this.props.worlds.map(world => (
-      <li key={world.id} className="world-list__item">
-        <button
-          className="button"
-          onClick={() => this.handleSelectWorld(world)}
-          disabled={this.state.done || this.state.selectedWorld === world}
-        >
-          {world.name}
-        </button>
-      </li>
-    ));
-  }
-
-  makeWorldHeader() {
-    const selectedWorld = this.state.selectedWorld;
-    if (selectedWorld == null) {
-      return <div>None selected</div>;
-    } else {
-      return (
-        <div>
-          <button
-            className="button"
-            onClick={this.handleConfirmWorld}
-            disabled={this.state.done}
-          >
-            Go to {selectedWorld.name}
-          </button>
-        </div>
-      );
-    }
-  }
+  };
 
   render() {
-    const worldHeader = this.makeWorldHeader();
-    const worldItems = this.makeWorldItems();
+    const worldItems = this.props.worlds.map(world => (
+      <WorldItem
+        key={world.id}
+        world={world}
+        handleClickWorld={this.handleClickWorld}
+        disabled={this.state.disabled || this.state.selectedWorld === world}
+      />
+    ));
     return (
       <div>
         <h3>Choose a world:</h3>
-        {worldHeader}
+        <WorldListHeader
+          world={this.state.selectedWorld}
+          disabled={this.state.done}
+          handleConfirmWorld={this.handleConfirmWorld}
+        />
         <ul className="world-list">{worldItems}</ul>
+      </div>
+    );
+  }
+}
+
+function WorldItem({ world, handleClickWorld, ...buttonProps }) {
+  return (
+    <li className="world-list__item">
+      <button
+        className="button"
+        onClick={() => handleClickWorld(world)}
+        {...buttonProps}
+      >
+        {world.name}
+      </button>
+    </li>
+  );
+}
+
+function WorldListHeader({ world, disabled, handleConfirmWorld }) {
+  if (world == null) {
+    return <div>None selected</div>;
+  } else {
+    return (
+      <div>
+        <button
+          className="button"
+          onClick={handleConfirmWorld}
+          disabled={disabled}
+        >
+          Go to {world.name}
+        </button>
       </div>
     );
   }

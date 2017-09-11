@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
-import { bindy } from 'txpn/utils';
 import gameEngine from 'txpn/runtime/gameEngine';
 import Adventure from './Adventure';
 import AdventureStart from './AdventureStart';
@@ -13,16 +12,15 @@ export default class AdventureContainer extends React.Component {
     this.state = {
       adventure: gameEngine.getAdventure(),
     };
-    bindy(this, this.getAdventure);
   }
 
   hasAdventureToContinue() {
     return this.state.adventure != null;
   }
 
-  getAdventure() {
+  getAdventure = () => {
     this.setState({ adventure: gameEngine.getAdventure() });
-  }
+  };
 
   componentWillMount() {
     gameEngine.adventureSubject.subscribe(this.getAdventure);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { bindy, renameWrapper } from 'txpn/utils';
+import { renameWrapper } from 'txpn/utils';
 import DataStore from 'txpn/core/DataStore';
 
 /**
@@ -12,7 +12,7 @@ export default class DataInjector {
   constructor(dataStore, injectAsProp) {
     this.dataStore = dataStore;
     if (injectAsProp != null) {
-      this.injectAsProp = injectAsProp
+      this.injectAsProp = injectAsProp;
     }
   }
 
@@ -23,7 +23,6 @@ export default class DataInjector {
     class DataWrapper extends React.Component {
       constructor(props) {
         super(props);
-        bindy(this, this.handleChange);
         this.state = {
           [injector.injectAsProp]: injector.dataStore.getData(),
         };
@@ -34,16 +33,16 @@ export default class DataInjector {
       componentWillUnmount() {
         injector.dataStore.subject.unsubscribe(this.handleChange);
       }
-      handleChange() {
+      handleChange = () => {
         this.setState({
           [injector.injectAsProp]: injector.dataStore.getData(),
         });
-      }
+      };
       render() {
         const injectedProps = {
           [injector.injectAsProp]: this.state[injector.injectAsProp],
           ...this.props,
-        }
+        };
         return <WrappedComponent {...injectedProps} />;
       }
     }

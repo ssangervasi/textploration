@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
-import { bindy } from 'txpn/utils';
 import gameEngine from 'txpn/runtime/gameEngine';
 import { AdventureStartSteps } from 'txpn/core/AdventureStartState';
 import { Explorer, World } from 'txpn/core/models';
@@ -19,15 +18,6 @@ export default class AdventureStart extends React.Component {
 
   constructor(props) {
     super(props);
-    bindy(
-      this,
-      this.submitWorld,
-      this.submitExplorer,
-      this.submitDone,
-      this.CreateExplorer,
-      this.ChooseWorld,
-      this.Done
-    );
     this.state = {
       step: this.getNextStep(),
       done: false,
@@ -58,26 +48,26 @@ export default class AdventureStart extends React.Component {
 
   /* Events */
 
-  submitExplorer(explorer) {
+  handleSubmitExplorer = explorer => {
     // TODO: Validate submission.
     this.setExplorer(explorer);
     this.setState({
       step: this.getNextStep(),
     });
-  }
+  };
 
-  submitWorld(world) {
+  handleSubmitWorld = world => {
     // TODO: Validate submission.
     this.setWorld(world);
     this.setState({
       step: this.getNextStep(),
     });
-  }
+  };
 
-  submitDone() {
+  handleSubmitDone = () => {
     gameEngine.startAdventure();
     this.setState({ done: true });
-  }
+  };
 
   /* Rendering */
 
@@ -109,45 +99,6 @@ export default class AdventureStart extends React.Component {
     ];
   }
 
-  CreateExplorer() {
-    return <CreateExplorer submit={this.submitExplorer} />;
-  }
-
-  ChooseWorld() {
-    return (
-      <WorldList worlds={gameEngine.getWorlds()} submit={this.submitWorld} />
-    );
-  }
-
-  Done() {
-    const explorer = this.getExplorer();
-    const world = this.getWorld();
-    if (explorer == null || world == null) {
-      return (
-        <div>
-          <h3>Something went wrong!</h3>
-          <p>
-            <Link to="/adventure/start">Click here to retry.</Link>
-          </p>
-        </div>
-      );
-    }
-    return (
-      <div>
-        <h3>All ready!</h3>
-        <p>
-          Looks like <strong>{explorer.name}</strong> is going to{' '}
-          <strong>{world.name}</strong>.
-        </p>
-        <p>
-          <button className="button" onClick={this.submitDone}>
-            Confirm and adventure!
-          </button>
-        </p>
-      </div>
-    );
-  }
-
   render() {
     const path = this.props.match.path;
     const childUrl = this.getURLForCurrentStep();
@@ -162,12 +113,31 @@ export default class AdventureStart extends React.Component {
         <section>
           <ForceRedirect fromPath={path} toURL={childUrl} />
           <Switch>
-            <Route path={`${path}/choose-world`} component={this.ChooseWorld} />
+            <Route
+              path={`${path}/choose-world`}
+              render={() => (
+                <WorldList
+                  worlds={gameEngine.getWorlds()}
+                  submit={this.handleSubmitWorld}
+                />
+              )}
+            />
             <Route
               path={`${path}/create-explorer`}
-              component={this.CreateExplorer}
+              render={() => (
+                <CreateExplorer handleSubmit={this.handleSubmitExplorer} />
+              )}
             />
-            <Route path={`${path}/done`} component={this.Done} />
+            <Route
+              path={`${path}/done`}
+              render={() => (
+                <Done
+                  world={this.getWorld()}
+                  explorer={this.getExplorer()}
+                  handleSubmit={this.submitDone}
+                />
+              )}
+            />
           </Switch>
         </section>
       </section>
@@ -192,4 +162,31 @@ function StepList({ steps }) {
     );
   });
   return <ol className="step-list">{stepChildren}</ol>;
+}
+
+function Done({ explorer, world, handleSubmit }) {
+  if (explorer == null || world == null) {
+    return (
+      <div>
+        <h3>Something went wrong!</h3>
+        <p>
+          <Link to="/adventure/start">Click here to retry.</Link>
+        </p>
+      </div>
+    );
+  }
+  return (
+    <div>
+      <h3>All ready!</h3>
+      <p>
+        Looks like <strong>{explorer.name}</strong> is going to{' '}
+        <strong>{world.name}</strong>.
+      </p>
+      <p>
+        <button className="button" onClick={handleSubmit}>
+          Confirm and adventure!
+        </button>
+      </p>
+    </div>
+  );
 }

@@ -1,5 +1,4 @@
-import Subject from 'txpn/core/Subject';
-import AdventureStartState from 'txpn/core/AdventureStartState';
+import Subject from 'txpn/core/Subject'; import AdventureStartState from 'txpn/core/AdventureStartState';
 import { NotImplementedError } from 'txpn/core/errors';
 import { Explorer, Room, Region, World, User, AdventureState } from 'txpn/core/models';
 

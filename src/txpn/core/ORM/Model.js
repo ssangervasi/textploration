@@ -67,6 +67,5 @@ export default class Model {
     throw new ModelNotRegisteredError(
       `Cannot call 'save' on unregistered model: ${this.toString()}`
     );
-    return this;
   }
 }

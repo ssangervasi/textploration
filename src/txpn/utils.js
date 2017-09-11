@@ -1,16 +1,3 @@
-/*
- * B-I-N-D-Why?
- * Because I gotta!
- */
-export function bindy(target, ...funcs) {
-  let toBind = {};
-  funcs.forEach((func, index) => {
-    toBind[func.name] = func.bind(target);
-  });
-  Object.assign(target, toBind);
-  return toBind;
-}
-
 export function forEachOwn(obj, fn) {
   for (let prop in obj) {
     if (obj.hasOwnProperty(prop)) {
