@@ -15,7 +15,7 @@ export default class WorldList extends React.Component {
   }
 
   handleConfirmWorld() {
-    if (this.state.selectedWorld != null) {
+    if (this.state.selectedWorld != null && this.props.submit != null) {
       this.props.submit(this.state.selectedWorld);
       this.setState({ done: true });
     }

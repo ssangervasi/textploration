@@ -16,24 +16,24 @@ const samPal = new Explorer({
   user: nickie,
 }).save();
 
-const nightVale = new World({
+const nightvale = new World({
   name: 'Nightvale',
   description: 'Welcome to here.',
 }).save();
 
-const nightValePublicLibrary = new Region({
+const nightvalePublicLibrary = new Region({
   name: 'Nightvale Public Library',
   isHub: true,
-  world: nightVale,
+  world: nightvale,
 }).save();
 
 const entranceHall = new Room({
   name: 'Entrance Hall',
   description: dd`
-    Welcome to the Nightvale Public Library.
+    Welcome to the nightvale Public Library.
     Please stay forever.
   `,
-  region: nightValePublicLibrary,
+  region: nightvalePublicLibrary,
 }).save();
 
 const checkoutCounter = new Room({
@@ -48,7 +48,7 @@ const checkoutCounter = new Room({
     Surely, today is the day you finally learn about
     the flora and fauna of your local desert biome.
   `,
-  region: nightValePublicLibrary,
+  region: nightvalePublicLibrary,
 }).save();
 
 const death = new Room({
@@ -60,7 +60,7 @@ const death = new Room({
 
     At least you get to find out about it now...
   `,
-  region: nightValePublicLibrary,
+  region: nightvalePublicLibrary,
 }).save();
 
 const doorToCheckoutCounter = new Door({
@@ -89,6 +89,21 @@ const desertBluffs = new World({
   description: 'We are the worst.',
 }).save();
 
+const desertBluffsBluffs = new Region({
+  name: 'The Bluffs',
+  isHub: true,
+  world: desertBluffs,
+}).save();
+
+const desertBluffsCliff = new Room({
+  name: 'The cliff on the bluffs',
+  description: dd`
+    From up here you can see what a horrible place
+    the town of Desert Bluffs really is.
+  `,
+  region: desertBluffsBluffs,
+}).save();
+
 const adventure = new AdventureState({
   explorer: samPal,
   room: entranceHall,
@@ -98,10 +113,10 @@ const sampleData = {
   user: nickie,
   explorer: samPal,
   adventure: adventure,
-  rooms: [entranceHall, checkoutCounter],
+  rooms: [entranceHall, checkoutCounter, desertBluffsCliff],
   doors: [doorToCheckoutCounter, doorToEntranceHall],
-  regions: [nightValePublicLibrary],
-  worlds: [nightVale, desertBluffs],
+  regions: [nightvalePublicLibrary, desertBluffsBluffs],
+  worlds: [nightvale, desertBluffs],
 }
 
 export {

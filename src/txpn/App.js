@@ -1,16 +1,11 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Link,
-  NavLink,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter, Link, NavLink, Route } from 'react-router-dom';
 
 import './runtime';
 import AdventureContainer from 'txpn/components/adventure/AdventureContainer';
 import CreateContainer from 'txpn/components/creator/CreateContainer';
 import DiscoverContainer from 'txpn/components/world/DiscoverContainer';
-import MyAccount from 'txpn/components/user/MyAccount'
+import MyAccount from 'txpn/components/user/MyAccount';
 
 export default class App extends React.Component {
   render() {
@@ -23,11 +18,11 @@ export default class App extends React.Component {
           </div>
 
           <main>
-            <Route exact path='/' component={About} />
-            <Route path='/adventure' component={AdventureContainer} />
-            <Route path='/create' component={CreateContainer} />
-            <Route path='/discover' component={DiscoverContainer} />
-            <Route path='/me' component={MyAccount} />
+            <Route exact path="/" component={About} />
+            <Route path="/adventure" component={AdventureContainer} />
+            <Route path="/create" component={CreateContainer} />
+            <Route path="/discover" component={DiscoverContainer} />
+            <Route path="/me" component={MyAccount} />
           </main>
         </div>
       </BrowserRouter>
@@ -41,16 +36,16 @@ const AppNav = () => {
     <nav className="app-nav grid-parent grid-70 tablet-grid-60 mobile-grid-100">
       <ul className="nav-list grid-parent">
         <li className={itemClassName}>
-          <NavLink to='/adventure'>Adventure</NavLink>
+          <NavLink to="/adventure">Adventure</NavLink>
         </li>
         <li className={itemClassName}>
-          <NavLink to='/create'>Create</NavLink>
+          <NavLink to="/create">Create</NavLink>
         </li>
         <li className={itemClassName}>
-          <NavLink to='/discover'>Discover</NavLink>
+          <NavLink to="/discover">Discover</NavLink>
         </li>
         <li className={itemClassName}>
-          <NavLink to='/me'>Profile</NavLink>
+          <NavLink to="/me">Profile</NavLink>
         </li>
       </ul>
     </nav>
@@ -59,10 +54,10 @@ const AppNav = () => {
 
 const AppHeader = () => (
   <header className="app-header grid-30 tablet-grid-40 mobile-grid-100">
-    <Link to='/'>
+    <Link to="/">
       <h2 className="title">
         Textploration
-        <br/>
+        <br />
         <small>A game</small>
       </h2>
     </Link>
@@ -72,13 +67,11 @@ const AppHeader = () => (
 const About = () => {
   return (
     <section>
+      <p>Welcome to Textploration, the sandbox for text-based adventures.</p>
       <p>
-        Welcome to Textploration, the sandbox for text-based adventures.
-      </p>
-      <p>
-        Many features are in development, but why don't you try
-        your first <Link to='/adventure/start'>adventure</Link>?
+        Many features are in development, but why don't you try your first{' '}
+        <Link to="/adventure/start">adventure</Link>?
       </p>
     </section>
   );
-}
+};

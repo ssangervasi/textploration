@@ -4,15 +4,14 @@ import {
   Link,
 } from 'react-router-dom'
 
-import database from 'txpn/runtime/database';
+import gameEngine from 'txpn/runtime/gameEngine';
 import WorldList from 'txpn/components/world/WorldList';
 
 const Discover = () => {
-  const worlds = database.worlds.getAll();
-  console.log(worlds);
+  const worlds = gameEngine.getWorlds();
   return (
     <div>
-      <WorldList worlds={worlds}/>
+      <WorldList worlds={worlds} />
     </div>
   );
 };
