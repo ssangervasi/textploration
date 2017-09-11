@@ -134,7 +134,7 @@ export default class AdventureStart extends React.Component {
                 <Done
                   world={this.getWorld()}
                   explorer={this.getExplorer()}
-                  handleSubmit={this.submitDone}
+                  handleSubmit={this.handleSubmitDone}
                 />
               )}
             />
