@@ -15,6 +15,7 @@ export default class User extends Model {
       if (adventures.length > 0) {
         return adventures[0];
       }
+      return undefined;
     }, undefined);
 
   }

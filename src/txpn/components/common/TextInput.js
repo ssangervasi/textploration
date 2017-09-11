@@ -1,51 +1,37 @@
 import React from 'react';
 
-import { bindy } from 'txpn/utils';
-
-
-
 export default class TextInput extends React.Component {
-
-  constructor(props) {
-    super(props);
-    bindy(this,
-      this.handleChange,
-      this.handleKey,
-    );
-  }
-
-  handleChange(e) {
-    const targetValue = e.target.value;
+  handleChange = evt => {
+    const targetValue = evt.target.value;
     this.props.setValue(targetValue);
-  }
+  };
 
-  handleKey(e) {
-    if (this.props.keyHandlers == null){
+  handleKey = evt => {
+    if (this.props.keyHandlers == null) {
       return;
     }
     let shouldPrevent = false;
     // TODO: Create a mapping ahead of time to reduce looping.
-    this.props.keyHandlers.forEach(
-      keyHandler => {
-        if (keyHandler.key !== e.key) {
-          return;
-        }
-        let result = keyHandler.handler(e);
-        shouldPrevent = shouldPrevent || (result === true);
+    this.props.keyHandlers.forEach(keyHandler => {
+      if (keyHandler.key !== evt.key) {
+        return;
       }
-    );
+      let result = keyHandler.handler(evt);
+      shouldPrevent = shouldPrevent || result === true;
+    });
     if (shouldPrevent) {
-      e.preventDefault();
+      evt.preventDefault();
     }
-  }
+  };
 
   render() {
-    const { value, setValue, keyHandlers, ...restProps} = this.props;
+    const { value, setValue, keyHandlers, ...restProps } = this.props;
     return (
-      <input value={value || ''}
-             onChange={this.handleChange}
-             onKeyDown={this.handleKey}
-             {...restProps}
+      <input
+        value={value || ''}
+        onChange={this.handleChange}
+        onKeyDown={this.handleKey}
+        {...restProps}
       />
     );
   }

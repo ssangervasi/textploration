@@ -1,7 +1,6 @@
 import React from 'react';
 
 import TextInput, { KeyHandler } from 'txpn/components/common/TextInput';
-import { bindy } from 'txpn/utils';
 
 export default class TxpnConsole extends React.Component {
   constructor(props) {
@@ -12,13 +11,6 @@ export default class TxpnConsole extends React.Component {
       history: [],
       historyIndex: 0,
     };
-    bindy(
-      this,
-      this.setCommand,
-      this.handleArrowUp,
-      this.handleArrowDown,
-      this.handleEnter
-    );
     this.keyHandlers = [
       {
         key: 'ArrowDown',
@@ -39,24 +31,24 @@ export default class TxpnConsole extends React.Component {
    * State maniuplation methods.
    */
 
-  setCommand(value) {
+  setCommand = value => {
     this.setState({
       command: value,
       tempCommand: undefined,
       historyIndex: -1,
     });
-  }
+  };
 
-  handleEnter() {
+  handleEnter = () => {
     this.setState(prevState => ({
       command: '',
       tempCommand: undefined,
       history: [...prevState.history, prevState.command],
       historyIndex: -1,
     }));
-  }
+  };
 
-  handleArrowDown(e) {
+  handleArrowDown = evt => {
     this.setState(({ command, tempCommand, history, historyIndex }) => {
       if (history.length === 0 || historyIndex === -1) {
         return;
@@ -72,9 +64,9 @@ export default class TxpnConsole extends React.Component {
         command: history[newHistoryIndex],
       };
     });
-  }
+  };
 
-  handleArrowUp(e) {
+  handleArrowUp = evt => {
     this.setState(({ command, tempCommand, history, historyIndex }) => {
       if (history.length === 0 || historyIndex === 0) {
         return;
@@ -91,7 +83,7 @@ export default class TxpnConsole extends React.Component {
         tempCommand: newTempCommand,
       };
     });
-  }
+  };
 
   /**
    * Lifecycle methods.

@@ -1,21 +1,4 @@
-import { bindy, dedent, dd } from 'txpn/utils';
-
-describe('bindy', () => {
-  it('should bind functions to an object', () => {
-    function fn1() {
-      return this;
-    }
-    function fn2() {
-      return this;
-    }
-    const obj = {};
-    bindy(obj, fn1, fn2);
-    expect(obj.fn1).toBeDefined();
-    expect(obj.fn1()).toBe(obj);
-    expect(obj.fn2).toBeDefined();
-    expect(obj.fn2()).toBe(obj);
-  });
-});
+import { dedent, dd } from 'txpn/utils';
 
 describe('dedent', () => {
   it('should remove leading spaces', () => {

@@ -3,34 +3,27 @@ import { Redirect } from 'react-router-dom';
 
 import Explorer from 'txpn/core/models/Explorer';
 import TextInput from 'txpn/components/common/TextInput';
-import { bindy } from 'txpn/utils';
-
 
 export default class CreateExplorer extends React.Component {
+  state = {
+    name: '',
+    done: false,
+  };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      done: false,
-    };
-    bindy(this, this.setName, this.handleSubmit);
-  }
-
-  setName(value) {
+  setName = value => {
     this.setState({
       name: value,
     });
-  }
+  };
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit = evt => {
+    evt.preventDefault();
     let explorer = new Explorer({ name: this.state.name });
-    this.props.submit(explorer)
+    this.props.handleSubmit(explorer);
     this.setState({
       done: true,
     });
-  }
+  };
 
   render() {
     return (
