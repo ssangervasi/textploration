@@ -2,32 +2,14 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 import gameEngine from 'txpn/runtime/gameEngine';
+import SubscribeToProp from 'txpn/components/common/SubscribeToProp';
 import Adventure from './Adventure';
 import AdventureStart from './AdventureStart';
 import AdventureChoices from './AdventureChoices';
 
-export default class AdventureContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      adventure: gameEngine.getAdventure(),
-    };
-  }
-
+class AdventureContainer extends React.Component {
   hasAdventureToContinue() {
-    return this.state.adventure != null;
-  }
-
-  getAdventure = () => {
-    this.setState({ adventure: gameEngine.getAdventure() });
-  };
-
-  componentWillMount() {
-    gameEngine.adventureSubject.subscribe(this.getAdventure);
-  }
-
-  componentWillUnmount() {
-    gameEngine.adventureSubject.unsubscribe(this.getAdventure);
+    return this.props.adventure != null;
   }
 
   render() {
@@ -41,7 +23,7 @@ export default class AdventureContainer extends React.Component {
             if (!this.hasAdventureToContinue()) {
               return <Redirect to={path} />;
             }
-            return <Adventure {...this.state.adventure} />;
+            return <Adventure {...this.props.adventure} />;
           }}
         />
         <Route
@@ -56,3 +38,9 @@ export default class AdventureContainer extends React.Component {
     );
   }
 }
+
+const SubscribedAdventureContainer = SubscribeToProp(
+  'adventure',
+  gameEngine.adventureSubject
+)(AdventureContainer);
+export { SubscribedAdventureContainer as default };
