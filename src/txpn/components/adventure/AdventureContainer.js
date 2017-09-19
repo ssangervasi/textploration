@@ -39,8 +39,8 @@ class AdventureContainer extends React.Component {
   }
 }
 
-const SubscribedAdventureContainer = SubscribeToProp(
-  'adventure',
-  gameEngine.adventureSubject
-)(AdventureContainer);
+const SubscribedAdventureContainer = SubscribeToProp({
+  prop: 'adventure',
+  subject: gameEngine.adventureSubject,
+})(AdventureContainer);
 export { SubscribedAdventureContainer as default };

@@ -1,4 +1,5 @@
 import React from 'react';
+import Subject from 'txpn/core/Subject';
 
 import { renameWrapper } from 'txpn/utils';
 
@@ -6,7 +7,7 @@ import { renameWrapper } from 'txpn/utils';
  * Factory for Higher-Order-Component that allows injecting
  * subscribed data as props.
  */
-export default function SubscripeToProp(prop, subject) {
+function SubscripeToProp({ prop, subject }) {
   return function(WrappedComponent) {
     class SubjectWrapper extends React.Component {
       constructor(props) {
@@ -43,3 +44,5 @@ export default function SubscripeToProp(prop, subject) {
     return SubjectWrapper;
   };
 }
+
+export { SubscripeToProp as default, Subject };
