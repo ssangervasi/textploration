@@ -7,6 +7,11 @@ export default class GameEngine {
     this.orm = orm;
     this.gameState = gameState;
     this.adventureSubject = new Subject();
+    this.publishAdventure();
+  }
+
+  publishAdventure() {
+    this.adventureSubject.publish(this.getAdventure());
   }
 
   getStarted() {
@@ -36,7 +41,7 @@ export default class GameEngine {
       room: room,
     }).save();
     this.gameState.adventureStart = undefined;
-    this.adventureSubject.publish();
+    this.publishAdventure();
   }
 
   getWorlds() {
@@ -65,10 +70,9 @@ export default class GameEngine {
   }
 
   goThroughDoor(door) {
-    console.log('GameEngine.goThroughDoor', door);
     const destination = door.destination;
     this.gameState.adventure.room = destination;
     this.gameState.adventure.save();
-    this.adventureSubject.publish();
+    this.publishAdventure();
   }
 }

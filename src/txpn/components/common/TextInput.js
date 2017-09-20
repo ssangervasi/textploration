@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class TextInput extends React.Component {
   handleChange = evt => {
@@ -25,10 +26,11 @@ export default class TextInput extends React.Component {
   };
 
   render() {
-    const { value, setValue, keyHandlers, ...restProps } = this.props;
+    // Default `value` to empty string to ensure component is controlled.
+    const { value = '', setValue, keyHandlers, ...restProps } = this.props;
     return (
       <input
-        value={value || ''}
+        value={value}
         onChange={this.handleChange}
         onKeyDown={this.handleKey}
         {...restProps}
@@ -36,3 +38,8 @@ export default class TextInput extends React.Component {
     );
   }
 }
+
+TextInput.PropTypes = {
+  setValue: PropTypes.func.isRequired,
+  keyHandlers: PropTypes.array,
+};

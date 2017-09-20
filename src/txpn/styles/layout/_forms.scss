@@ -21,7 +21,7 @@
   }
   &:disabled {
     color: $grey-dark;
-    @include border-old-school($grey-dark);
+    background: $grey-darker;
   }
 }
 
@@ -31,6 +31,14 @@
   }
   &--left {
     padding-right: .5rem;
+  }
+}
+
+.help {
+  font-size: $font-size-smallest;
+
+  &--error {
+    font-size: unset;
   }
 }
 
@@ -56,4 +64,6 @@
     padding-right: .2rem;
     content: ">>";
   }
+}
+.form-field__help {
 }
