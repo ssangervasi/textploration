@@ -1,56 +1,83 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+import { dd } from 'txpn/utils';
+import RegExpValidator from 'txpn/core/RegExpValidator';
 import Explorer from 'txpn/core/models/Explorer';
 import TextInput from 'txpn/components/common/TextInput';
 
 export default class CreateExplorer extends React.Component {
   state = {
     name: '',
-    done: false,
+    isValid: false,
+    isDone: false,
   };
 
-  setName = value => {
+  nameValidator = new RegExpValidator({
+    pattern: /^(?:[^\s]|[ ]){1,40}$/,
+    help: dd`
+      An explorer name must be a single line of text,
+      at most 40 characters long.
+    `,
+  });
+
+  setName = name => {
     this.setState({
-      name: value,
+      name,
+      isValid: this.nameValidator.isValid(name),
     });
   };
 
   handleSubmit = evt => {
     evt.preventDefault();
-    let explorer = new Explorer({ name: this.state.name });
+    const { name, isValid, isDone } = this.state;
+    if (isDone || !isValid) {
+      return;
+    }
+    let explorer = new Explorer({ name });
     this.props.handleSubmit(explorer);
     this.setState({
-      done: true,
+      isDone: true,
     });
   };
 
   render() {
+    const { name, isValid, isDone } = this.state;
     return (
-      <form className="form grid-container" onSubmit={this.handleSubmit}>
+      <form
+        onSubmit={this.handleSubmit}
+        id="id-create-explorer-form"
+        name="createExplorerForm"
+        className="form grid-container"
+      >
         <h3 className="form-header grid-100">Create your Explorer</h3>
-
         <div className="form-field grid-100">
           <label className="form-field__label" htmlFor="id-explorer-name-input">
             Name
           </label>
           <TextInput
-            value={this.state.name}
+            value={name}
             setValue={this.setName}
             id="id-explorer-name-input"
+            name="explorerName"
             className="form-field__input input"
-            disabled={this.state.done}
+            disabled={isDone}
+            tabIndex="1"
+            required
           />
+          <p className={`form-field__help ${isValid ? 'help' : 'help--error'}`}>
+            {this.nameValidator.help}
+          </p>
         </div>
-
         <div className="form-buttons grid-100">
           <button
             type="submit"
             className="form-buttons__button button"
-            disabled={this.state.done}
+            disabled={isDone || !isValid}
+            tabIndex="2"
           >
             Save
-            {this.state.done ? ' \u2713' : ''}
+            {isDone ? ' \u2713' : ''}
           </button>
         </div>
       </form>
