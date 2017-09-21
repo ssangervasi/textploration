@@ -1,4 +1,4 @@
-import { dd, forEachOwn } from 'txpn/utils';
+import { dd } from 'txpn/utils';
 import { ModelNotFoundError, InstanceNotFoundError } from './errors';
 import { ModelSet, UId } from '.';
 

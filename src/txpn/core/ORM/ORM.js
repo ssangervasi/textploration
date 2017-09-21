@@ -1,5 +1,4 @@
 import { forEachOwn } from 'txpn/utils'
-import UId from './UId';
 import { Field } from './fields';
 
 export default class ORM {

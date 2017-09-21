@@ -114,7 +114,7 @@ const sampleData = {
   explorer: samPal,
   adventure: adventure,
   rooms: [entranceHall, checkoutCounter, desertBluffsCliff],
-  doors: [doorToCheckoutCounter, doorToEntranceHall],
+  doors: [doorToCheckoutCounter, doorToEntranceHall, doorPickUpBook],
   regions: [nightvalePublicLibrary, desertBluffsBluffs],
   worlds: [nightvale, desertBluffs],
 }

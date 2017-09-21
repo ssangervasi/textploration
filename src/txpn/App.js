@@ -17,7 +17,7 @@ export default class App extends React.Component {
             <AppNav />
           </div>
 
-          <main>
+          <main className="grid-container">
             <Route exact path="/" component={About} />
             <Route path="/adventure" component={AdventureContainer} />
             <Route path="/create" component={CreateContainer} />

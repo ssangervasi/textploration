@@ -1,6 +1,7 @@
-import Subject from 'txpn/core/Subject'; import AdventureStartState from 'txpn/core/AdventureStartState';
+import Subject from 'txpn/core/Subject';
+import AdventureStartState from 'txpn/core/AdventureStartState';
 import { NotImplementedError } from 'txpn/core/errors';
-import { Explorer, Room, Region, World, User, AdventureState } from 'txpn/core/models';
+import { World, AdventureState } from 'txpn/core/models';
 
 export default class GameEngine {
   constructor({ orm, gameState }) {
@@ -19,6 +20,10 @@ export default class GameEngine {
       this.gameState.adventureStart = new AdventureStartState();
     }
     return this.gameState.adventureStart;
+  }
+
+  restartGetStarted() {
+    this.gameState.adventureStart = null;
   }
 
   startAdventure() {

@@ -1,4 +1,3 @@
-import { dd } from 'txpn/utils';
 import { MissingIdError } from "./errors";
 
 export default class ModelSet {

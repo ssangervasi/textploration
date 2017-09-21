@@ -1,4 +1,4 @@
-import { Model, Field, ForeignKey } from 'txpn/core/ORM';
+import { Model, ForeignKey } from 'txpn/core/ORM';
 import Explorer from './Explorer';
 import Room from './Room';
 

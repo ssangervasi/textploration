@@ -11,13 +11,13 @@ export default function Room({ room, doors }) {
     </li>
   ));
   return (
-    <section className="room">
-      <h3>
+    <section className="room grid-parent">
+      <h3 className="grid-100">
         <small>Room: </small>
         {room.name}
       </h3>
-      <p>{room.description}</p>
-      <ol className="room__door-list">{doorItems}</ol>
+      <p className="grid-100">{room.description}</p>
+      <ol className="room__door-list grid-100">{doorItems}</ol>
     </section>
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 
 import { dd } from 'txpn/utils';
 import RegExpValidator from 'txpn/core/RegExpValidator';
@@ -48,7 +47,7 @@ export default class CreateExplorer extends React.Component {
         onSubmit={this.handleSubmit}
         id="id-create-explorer-form"
         name="createExplorerForm"
-        className="form grid-container"
+        className="form"
       >
         <h3 className="form-header grid-100">Create your Explorer</h3>
         <div className="form-field grid-100">

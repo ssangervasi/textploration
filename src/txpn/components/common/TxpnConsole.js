@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextInput, { KeyHandler } from 'txpn/components/common/TextInput';
+import TextInput from 'txpn/components/common/TextInput';
 
 export default class TxpnConsole extends React.Component {
   constructor(props) {

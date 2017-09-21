@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-  Route,
-  Link,
-} from 'react-router-dom'
 
 import gameEngine from 'txpn/runtime/gameEngine';
 import WorldList from 'txpn/components/world/WorldList';
