@@ -1,22 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DT = props => <dt className="grid-10 tablet-grid-15 mobile-grid-20" {...props} />;
-const DD = props => <dd className="grid-90 tablet-grid-85 mobile-grid-80" {...props} />;
+import classy from 'txpn/components/HOCs/classy';
+
+const Section = classy('grid-parent grid-100')('section');
+const H3 = classy('grid-10 tablet-grid-100')('h3');
+const DL = classy('dl-unstyled grid-parent grid-90 tablet-grid-100')('dl');
+const DT = classy('grid-10 tablet-grid-15 mobile-grid-20')('dt');
+const DD = classy('grid-90 tablet-grid-85 mobile-grid-80')('dd');
 
 export default function Overview({ explorer, world, region }) {
   return (
-    <section className="adventure-overview grid-parent grid-100">
-      <h3 className="grid-10 tablet-grid-100">Overview</h3>
-      <dl className="dl-unstyled grid-parent grid-90 tablet-grid-100">
+    <Section className="adventure-overview">
+      <H3>Overview</H3>
+      <DL>
         <DT>Explorer:</DT>
         <DD>{explorer}</DD>
         <DT>World:</DT>
         <DD>{world} </DD>
         <DT>Region:</DT>
         <DD>{region}</DD>
-      </dl>
-    </section>
+      </DL>
+    </Section>
   );
 }
 

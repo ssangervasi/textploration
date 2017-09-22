@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import SubscribeToProp, { Subject } from '../SubscribeToProp';
+import subscribeToProp, { Subject } from '../SubscribeToProp';
 
 const propName = 'propToTest';
 const componentId = 'ComponentToTest-propToTest';
@@ -16,7 +16,7 @@ beforeEach(() => {
     return <span id={componentId}>{propToTest}</span>;
   };
 
-  SubscribedComponentToTest = SubscribeToProp({
+  SubscribedComponentToTest = subscribeToProp({
     prop: propName,
     subject: inputSubject,
   })(ComponentToTest);

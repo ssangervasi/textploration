@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 import gameEngine from 'txpn/runtime/gameEngine';
-import SubscribeToProp from 'txpn/components/common/SubscribeToProp';
+import subscribeToProp from 'txpn/components/HOCs/subscribeToProp';
 import Adventure from './Adventure';
 import AdventureStart from './AdventureStart';
 import AdventureChoices from './AdventureChoices';
@@ -39,7 +39,7 @@ class AdventureContainer extends React.Component {
   }
 }
 
-const SubscribedAdventureContainer = SubscribeToProp({
+const SubscribedAdventureContainer = subscribeToProp({
   prop: 'adventure',
   subject: gameEngine.adventureSubject,
 })(AdventureContainer);
