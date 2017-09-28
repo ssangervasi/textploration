@@ -28,7 +28,7 @@ export default function DonePage({ explorer, world, handleConfirm, handleRestart
       </p>
       <p>
         <button className="button" onClick={handleRestart}>
-          Retry
+          Restart
         </button>
       </p>
     </div>

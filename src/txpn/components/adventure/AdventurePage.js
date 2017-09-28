@@ -7,7 +7,7 @@ import Adventure from './Adventure';
 import AdventureStart from './AdventureStart';
 import AdventureChoices from './AdventureChoices';
 
-class AdventureContainer extends React.Component {
+class AdventurePage extends React.Component {
   hasAdventureToContinue() {
     return this.props.adventure != null;
   }
@@ -39,8 +39,8 @@ class AdventureContainer extends React.Component {
   }
 }
 
-const SubscribedAdventureContainer = subscribeToProp({
+const SubscribedAdventurePage = subscribeToProp({
   prop: 'adventure',
   subject: gameEngine.adventureSubject,
-})(AdventureContainer);
-export { SubscribedAdventureContainer as default };
+})(AdventurePage);
+export { SubscribedAdventurePage as default };

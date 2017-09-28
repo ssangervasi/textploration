@@ -70,18 +70,18 @@ const doorToCheckoutCounter = new Door({
   destination: checkoutCounter,
 }).save();
 
-const doorToEntranceHall = new Door({
-  name: 'Exit the library',
-  number: 1,
-  origin: checkoutCounter,
-  destination: entranceHall,
-}).save();
-
 const doorPickUpBook = new Door({
   name: 'Pick up the book',
-  number: 2,
+  number: 1,
   origin: checkoutCounter,
   destination: death,
+}).save();
+
+const doorToEntranceHall = new Door({
+  name: 'Exit the library',
+  number: 2,
+  origin: checkoutCounter,
+  destination: entranceHall,
 }).save();
 
 const desertBluffs = new World({

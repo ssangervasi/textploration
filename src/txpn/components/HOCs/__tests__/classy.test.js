@@ -3,7 +3,6 @@ import { shallow, mount } from 'enzyme';
 
 import classy from '../classy';
 
-const componentId = 'id-component';
 const componentClass = 'component-class';
 const classyClass = 'classy-class-1 classy-class-2';
 
@@ -24,7 +23,6 @@ it('should render jsx component', () => {
 it('should include all classes', () => {
   const ClassyDiv = classy(classyClass)(Div);
   let wrapper = shallow(<ClassyDiv className={componentClass} />);
-  console.log(wrapper.html());
   expect(wrapper).toHaveClassName(classyClass);
   expect(wrapper).toHaveClassName(componentClass);
 });

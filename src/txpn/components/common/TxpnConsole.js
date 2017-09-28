@@ -119,7 +119,7 @@ export default class TxpnConsole extends React.Component {
           <label
             className="command-line__prompt"
             id="idConsolePrompt"
-            htmlFor="idConsoleCommand"
+            htmlFor="id-console-command"
           >
             {this.props.prompt}$
           </label>

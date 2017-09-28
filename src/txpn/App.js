@@ -2,8 +2,9 @@ import React from 'react';
 import { BrowserRouter, Link, NavLink, Route } from 'react-router-dom';
 
 import './runtime';
-import AdventureContainer from 'txpn/components/adventure/AdventureContainer';
-import CreateContainer from 'txpn/components/creator/CreateContainer';
+import classy from 'txpn/components/HOCs/classy';
+import AdventurePage from 'txpn/components/adventure/AdventurePage';
+import CreatePage from 'txpn/components/creator/CreatePage';
 import DiscoverContainer from 'txpn/components/world/DiscoverContainer';
 import MyAccount from 'txpn/components/user/MyAccount';
 
@@ -18,9 +19,9 @@ export default class App extends React.Component {
           </div>
 
           <main className="grid-container">
-            <Route exact path="/" component={About} />
-            <Route path="/adventure" component={AdventureContainer} />
-            <Route path="/create" component={CreateContainer} />
+            <Route exact path="/" component={AboutPage} />
+            <Route path="/adventure" component={AdventurePage} />
+            <Route path="/create" component={CreatePage} />
             <Route path="/discover" component={DiscoverContainer} />
             <Route path="/me" component={MyAccount} />
           </main>
@@ -31,22 +32,24 @@ export default class App extends React.Component {
 }
 
 const AppNav = () => {
-  const itemClassName = 'nav-list__item grid-20 tablet-grid-50 mobile-grid-50';
+  const LI = classy('nav-list__item grid-20 tablet-grid-50 mobile-grid-50')(
+    'li'
+  );
   return (
     <nav className="app-nav grid-parent grid-70 tablet-grid-60 mobile-grid-100">
       <ul className="nav-list grid-parent">
-        <li className={itemClassName}>
+        <LI>
           <NavLink to="/adventure">Adventure</NavLink>
-        </li>
-        <li className={itemClassName}>
+        </LI>
+        <LI>
           <NavLink to="/create">Create</NavLink>
-        </li>
-        <li className={itemClassName}>
+        </LI>
+        <LI>
           <NavLink to="/discover">Discover</NavLink>
-        </li>
-        <li className={itemClassName}>
+        </LI>
+        <LI>
           <NavLink to="/me">Profile</NavLink>
-        </li>
+        </LI>
       </ul>
     </nav>
   );
@@ -64,13 +67,16 @@ const AppHeader = () => (
   </header>
 );
 
-const About = () => {
+const AboutPage = () => {
   return (
     <section>
       <p>Welcome to Textploration, the sandbox for text-based adventures.</p>
       <p>
         Many features are in development, but why don't you try your first{' '}
         <Link to="/adventure/start">adventure</Link>?
+      </p>
+      <p>
+        Or, start <Link to="/create/help">creating</Link>.
       </p>
     </section>
   );
