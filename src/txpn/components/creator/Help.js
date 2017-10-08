@@ -1,25 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+function Anchor({ to, children }) {
+  return <a href={`#${to}`}>{children}</a>;
+}
+
 export default function Help(props) {
   return (
     <section>
-      <h2>Adventure Creator</h2>
+      <h2>How to Create Adventures</h2>
       <section>
-        <h3>Worlds</h3>
+        <h3 id="worlds">Worlds</h3>
         <p>A world contains an ever-expanding set of regions to explore.</p>
         <p>Join an existing world, or create a new one!</p>
         <p>
           When a world is brand-new, there isn't much to do in it. Add some{' '}
-          <a href="#id-regions">regions</a> to a world to give people
-          something to adventure.
+          <Anchor to="regions">regions</Anchor> to a world to create exciting
+          adventures.
         </p>
       </section>
       <section>
-        <h3 id="id-regions">Regions</h3>
+        <h3 id="regions">Regions</h3>
         <p>
           A region is simply a set of interconnected{' '}
-          <a href="#id-rooms">rooms</a>. Imagine a building, a dungeon, or
+          <Anchor to="rooms">rooms</Anchor>. Imagine a building, a dungeon, or
           even a whole town!
         </p>
         <p>
@@ -37,8 +41,11 @@ export default function Help(props) {
         </p>
       </section>
       <section>
-        <h3 id="id-rooms">Rooms</h3>
-        <p>These are rooms.</p>
+        <h3 id="rooms">Rooms</h3>
+        <p>
+          Rooms are where your adventure takes place. Explorers enter a room,
+          read its description, then decide which door to take next.
+        </p>
       </section>
     </section>
   );

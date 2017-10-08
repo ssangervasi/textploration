@@ -19,12 +19,14 @@ const samPal = new Explorer({
 const nightvale = new World({
   name: 'Nightvale',
   description: 'Welcome to here.',
+  creator: nickie,
 }).save();
 
 const nightvalePublicLibrary = new Region({
   name: 'Nightvale Public Library',
   isHub: true,
   world: nightvale,
+  creator: nickie,
 }).save();
 
 const entranceHall = new Room({
@@ -34,6 +36,7 @@ const entranceHall = new Room({
     Please stay forever.
   `,
   region: nightvalePublicLibrary,
+  creator: nickie,
 }).save();
 
 const checkoutCounter = new Room({
@@ -49,6 +52,7 @@ const checkoutCounter = new Room({
     the flora and fauna of your local desert biome.
   `,
   region: nightvalePublicLibrary,
+  creator: nickie,
 }).save();
 
 const death = new Room({
@@ -61,6 +65,7 @@ const death = new Room({
     At least you get to find out about it now...
   `,
   region: nightvalePublicLibrary,
+  creator: nickie,
 }).save();
 
 const doorToCheckoutCounter = new Door({
@@ -68,6 +73,7 @@ const doorToCheckoutCounter = new Door({
   number: 1,
   origin: entranceHall,
   destination: checkoutCounter,
+  creator: nickie,
 }).save();
 
 const doorPickUpBook = new Door({
@@ -75,6 +81,7 @@ const doorPickUpBook = new Door({
   number: 1,
   origin: checkoutCounter,
   destination: death,
+  creator: nickie,
 }).save();
 
 const doorToEntranceHall = new Door({
@@ -82,17 +89,20 @@ const doorToEntranceHall = new Door({
   number: 2,
   origin: checkoutCounter,
   destination: entranceHall,
+  creator: nickie,
 }).save();
 
 const desertBluffs = new World({
   name: 'Desert Bluffs',
   description: 'We are the worst.',
+  creator: nickie,
 }).save();
 
 const desertBluffsBluffs = new Region({
   name: 'The Bluffs',
   isHub: true,
   world: desertBluffs,
+  creator: nickie,
 }).save();
 
 const desertBluffsCliff = new Room({
@@ -102,11 +112,13 @@ const desertBluffsCliff = new Room({
     the town of Desert Bluffs really is.
   `,
   region: desertBluffsBluffs,
+  creator: nickie,
 }).save();
 
 const adventure = new AdventureState({
   explorer: samPal,
   room: entranceHall,
+  creator: nickie,
 }).save();
 
 const sampleData = {

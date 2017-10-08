@@ -42,3 +42,7 @@ export function dedent(multilineStr) {
   // Filter any undefined entries.
   return fixedLines.filter(l => l != null).join('\n');
 }
+
+export function unsemanticGrid(desktop, mobile = desktop, tablet = desktop) {
+  return `grid-${desktop} tablet-grid-${tablet} mobile-grid-${mobile}`;
+}

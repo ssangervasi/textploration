@@ -4,6 +4,10 @@ export default class User extends Model {
   static fields = {
     username: new Field(),
     // explorers
+    // createdWorlds
+    // createdRegions
+    // createdRooms
+    // createdDoors
   };
 
   getLastAdventure() {
