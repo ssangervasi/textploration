@@ -46,3 +46,11 @@ export function dedent(multilineStr) {
 export function unsemanticGrid(desktop, mobile = desktop, tablet = desktop) {
   return `grid-${desktop} tablet-grid-${tablet} mobile-grid-${mobile}`;
 }
+
+export function promiseTimeout(delay) {
+  return new Promise((resolve, reject) => {
+    window.setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+}

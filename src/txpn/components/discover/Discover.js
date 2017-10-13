@@ -1,7 +1,7 @@
 import React from 'react';
 
 import gameEngine from 'txpn/runtime/gameEngine';
-import WorldList from 'txpn/components/world/WorldList';
+import WorldList from './WorldList';
 
 const Discover = () => {
   const worlds = gameEngine.getWorlds();

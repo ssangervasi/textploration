@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AboutPage = () => (
+const HomePage = () => (
   <section>
     <p>Welcome to Textploration, the sandbox for text-based adventures.</p>
     <p>
@@ -14,4 +14,4 @@ const AboutPage = () => (
   </section>
 );
 
-export default AboutPage;
+export default (HomePage);

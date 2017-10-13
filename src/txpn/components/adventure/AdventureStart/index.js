@@ -6,7 +6,7 @@ import { AdventureStartSteps } from 'txpn/core/AdventureStartState';
 
 import ForceRedirect from 'txpn/components/common/ForceRedirect';
 import CreateExplorer from 'txpn/components/explorer/CreateExplorer';
-import WorldList from 'txpn/components/world/WorldList';
+import WorldList from 'txpn/components/discover/WorldList';
 
 import StepList from './StepList';
 import Done from './Done';

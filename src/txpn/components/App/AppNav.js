@@ -2,8 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { unsemanticGrid } from 'txpn/utils';
-import { classy } from 'txpn/components/HOCs/classy';
+import classy from 'txpn/components/HOCs/classy';
 
+const NavList = classy('nav-list', 'grid-parent')('ul');
 const NavItem = classy('nav-list__item', unsemanticGrid(20, 50, 50))('li');
 const Nav = classy('app-nav', 'grid-parent', unsemanticGrid(70, 100, 60))(
   'nav'
@@ -11,7 +12,7 @@ const Nav = classy('app-nav', 'grid-parent', unsemanticGrid(70, 100, 60))(
 
 const AppNav = () => (
   <Nav>
-    <ul className="nav-list grid-parent">
+    <NavList>
       <NavItem>
         <NavLink to="/adventure">Adventure</NavLink>
       </NavItem>
@@ -22,10 +23,10 @@ const AppNav = () => (
         <NavLink to="/discover">Discover</NavLink>
       </NavItem>
       <NavItem>
-        <NavLink to="/me">Profile</NavLink>
+        <NavLink to="/account">Account</NavLink>
       </NavItem>
-    </ul>
+    </NavList>
   </Nav>
 );
 
-export default AppNav
+export default AppNav;

@@ -1,9 +1,6 @@
-import sampleData from './sampleData';
 import GameState from 'txpn/core/GameState';
 
-const gameState = new GameState ({
-  user: sampleData.user,
-})
+const gameState = new GameState()
 
 export {
   gameState as default

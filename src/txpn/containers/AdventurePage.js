@@ -3,9 +3,9 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 
 import gameEngine from 'txpn/runtime/gameEngine';
 import subscribeToProp from 'txpn/components/HOCs/subscribeToProp';
-import Adventure from './Adventure';
-import AdventureStart from './AdventureStart';
-import AdventureChoices from './AdventureChoices';
+import Adventure from 'txpn/components/adventure/Adventure';
+import AdventureStart from 'txpn/components/adventure/AdventureStart';
+import AdventureChoices from 'txpn/components/adventure/AdventureChoices';
 
 class AdventurePage extends React.Component {
   hasAdventureToContinue() {

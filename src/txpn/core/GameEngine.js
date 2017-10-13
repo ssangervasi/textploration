@@ -4,9 +4,10 @@ import { NotImplementedError } from 'txpn/core/errors';
 import { World, AdventureState } from 'txpn/core/models';
 
 export default class GameEngine {
-  constructor({ orm, gameState }) {
+  constructor({ orm, gameState, auth }) {
     this.orm = orm;
     this.gameState = gameState;
+    this.auth = auth;
     this.adventureSubject = new Subject();
     this.publishAdventure();
   }
@@ -54,14 +55,10 @@ export default class GameEngine {
   }
 
   getAdventure() {
-    let adventureState = this.gameState.adventure;
+    const adventureState = this.getAdventureState();
     if (adventureState == null) {
-      adventureState = this.gameState.user.getLastAdventure();
-      if (adventureState == null) {
-        return;
-      }
+      return;
     }
-    this.gameState.adventure = adventureState;
     const { explorer, room } = adventureState;
     const region = room.region;
     const adventure = {
@@ -72,6 +69,19 @@ export default class GameEngine {
       region,
     };
     return adventure;
+  }
+
+  getAdventureState() {
+    let adventureState;
+    if (this.gameState.adventure != null) {
+      adventureState = this.gameState.adventure;
+    } else if (this.auth.isLoggedIn()) {
+      adventureState = this.auth.user.getLastAdventure();
+    }
+    if (adventureState != null) {
+      this.gameState.adventure = adventureState;
+    }
+    return adventureState;
   }
 
   goThroughDoor(door) {

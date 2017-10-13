@@ -4,18 +4,17 @@ import { Route, Redirect, Switch, NavLink } from 'react-router-dom';
 import classy from 'txpn/components/HOCs/classy';
 import { unsemanticGrid } from 'txpn/utils';
 import CreateExplorer from 'txpn/components/explorer/CreateExplorer';
-
-import Help from './Help';
-import Overview from './Overview';
+import Help from 'txpn/components/creator/Help';
+import Overview from 'txpn/components/creator/Overview';
 
 const Nav = classy('creator-nav', 'grid-parent', unsemanticGrid(100))('nav');
 const NavHeader = classy(unsemanticGrid(100))('h3');
 const NavList = classy('nav-list', unsemanticGrid(40, 100, 80))('ul');
 const NavItem = classy('nav-list__item', unsemanticGrid(33))('li');
 
-export default class CreatePage extends React.Component {
+export default class CreatorPage extends React.Component {
   receiveExplorer = evt => {
-    console.log('CreatePage.receiveExplorer', evt);
+    console.log('CreatorPage.receiveExplorer', evt);
   };
 
   render() {
