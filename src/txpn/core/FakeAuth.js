@@ -8,17 +8,17 @@ export default class FakeAuth {
     this.delay = delay;
   }
 
-  isLoggedIn() {
+  get isAuthenticated() {
     return this.user != null;
   }
 
-  logIn() {
+  authenticate() {
     return promiseTimeout(this.delay).then(() => {
       this.user = this.defaultUser;
     });
   }
 
-  logOut() {
+  deauthenticate() {
     this.user = null;
     return promiseTimeout(this.delay);
   }

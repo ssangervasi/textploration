@@ -5,7 +5,11 @@ import auth from 'txpn/runtime/auth';
 import UserInfo from 'txpn/components/account/UserInfo';
 
 const AccountPage = () => {
-  return <UserInfo user={auth.user} />;
+  return (
+    <section>
+      <UserInfo user={auth.user} />
+    </section>
+  );
 };
 
-export default (AccountPage);
+export default AccountPage;

@@ -6,7 +6,7 @@ import 'txpn/runtime';
 
 import AppLayout from 'txpn/components/app/AppLayout';
 
-import LoginRequiredRoute from 'txpn/containers/LoginRequiredRoute';
+import AuthenticatedRoute from 'txpn/containers/AuthenticatedRoute';
 
 import HomePage from 'txpn/containers/HomePage';
 import AdventurePage from 'txpn/containers/AdventurePage';
@@ -24,7 +24,7 @@ export default class App extends React.Component {
           <Route path="/adventure" component={AdventurePage} />
           <Route path="/create" component={CreatorPage} />
           <Route path="/discover" component={DiscoverPage} />
-          <LoginRequiredRoute path="/account" component={AccountPage} />
+          <AuthenticatedRoute path="/account" component={AccountPage} />
           <Route path="/login" component={LoginPage} />
         </AppLayout>
       </BrowserRouter>

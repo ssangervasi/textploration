@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Door from 'txpn/core/models/Door';
-import gameEngine from 'txpn/runtime/gameEngine';
 
-export default function DoorButton({ door }) {
+export default function DoorButton({ door, goThroughDoor }) {
   return (
     <div className="door-button">
       <button
         className="button"
         id={`door-button-${door.id}`}
-        onClick={() => gameEngine.goThroughDoor(door)}
+        onClick={() => goThroughDoor(door)}
       >
         {door.number}
       </button>
@@ -21,6 +20,7 @@ export default function DoorButton({ door }) {
   );
 }
 
-Door.propTypes = {
+DoorButton.propTypes = {
   door: PropTypes.instanceOf(Door),
+  door: PropTypes.func.isRequired,
 };

@@ -3,22 +3,20 @@ import { Route, Redirect } from 'react-router-dom';
 
 import auth from 'txpn/runtime/auth';
 
-export default function LoginRequiredRoute({
+export default function AuthenticatedRoute({
   component: Component,
+  redirectTo = '/login',
   ...routeProps
 }) {
-  console.log('LoginRequiredRoute');
   return (
     <Route
       {...routeProps}
       render={props => {
-        console.log('LoginRequiredRoute => Route');
-        console.log('isLoggedIn', auth.isLoggedIn());
-        if (auth.isLoggedIn()) {
+        if (auth.isAuthenticated) {
           return <Component {...props} />;
         }
         const to = {
-          pathname: '/login',
+          pathname: redirectTo,
           state: { fromLocation: props.location },
         };
         return <Redirect to={to} />;

@@ -1,7 +1,7 @@
 import sampleData from './sampleData';
 import FakeAuth from 'txpn/core/FakeAuth';
 
-const shouldStartLoggedIn = false;
+const shouldStartLoggedIn = true;
 let user;
 let defaultUser = sampleData.user;
 

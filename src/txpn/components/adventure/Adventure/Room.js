@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Room as RoomModel } from 'txpn/core/models';
-import DoorButton from './DoorButton';
+import DoorButton from 'txpn/containers/AdventurePage/DoorButton';
 
 export default function Room({ room, doors }) {
   const doorItems = doors.map(door => (

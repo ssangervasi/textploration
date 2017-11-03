@@ -8,15 +8,34 @@ export default class LoginPage extends React.Component {
     redirectToReferrer: false,
   };
 
+  componentDidMount() {
+    if (auth.isAuthenticated) {
+      this.redirect();
+    }
+  }
+
+  redirect() {
+    this.setState({ redirectToReferrer: true });
+  }
+
+  /** Event handlers */
+
   logIn = () => {
-    auth.logIn().then(() => {
-      this.setState({ redirectToReferrer: true });
+    auth.authenticate().then(() => {
+      this.redirect();
     });
   };
 
+  getLocationState() {
+    const location = this.props.location;
+    if (location == null || location.state == null) {
+      return { fromLocation: { pathname: '/' } };
+    }
+    return location.state;
+  }
+
   render() {
-    const { fromLocation = { pathname: '/' } } = this.props.location.state;
-    console.log('LoginPage.render', fromLocation);
+    const { fromLocation } = this.getLocationState();
     if (this.state.redirectToReferrer) {
       return <Redirect to={fromLocation} />;
     }

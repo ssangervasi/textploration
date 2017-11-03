@@ -1,10 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { gameEngine } from 'txpn/runtime';
-
-export default function Overview(props) {
-  const user = gameEngine.gameState.user;
+export default function Overview({ user }) {
   const worlds = user.createdWorlds;
   const regions = user.createdRegions;
   return (

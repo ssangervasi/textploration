@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { renameWrapper } from 'txpn/utils';
+import { renameWrapper, unsemanticGrid } from 'txpn/utils';
 
-// export default function classy(wrapperClassName, ...wrapperClassNames) {
-export default function classy(...classNames) {
+function classy(...classNames) {
   const wrapperClassName = flattenClassNames(classNames);
   return WrappedComponent => {
     function ClassNameWrapper({ className = '', ...wrappedProps }) {
@@ -23,4 +22,10 @@ function flattenClassNames(classNames) {
     .map(className => (className ? className.split(/\s+/) : []))
     .reduce((all, some) => all.concat(some), [])
     .join(' ');
+}
+
+// prettier-ignore
+export {
+  classy as default,
+  unsemanticGrid as grid,
 }

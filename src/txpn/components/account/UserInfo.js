@@ -2,6 +2,7 @@ import React from 'react';
 
 const UserInfo = ({ user }) => {
   const explorers = user.explorers;
+  console.log('User Info refreshed!', explorers);
   const explorerItems = explorers.map(explorer => (
     <li key={explorer.id}>{explorer.name}</li>
   ));
@@ -13,11 +14,11 @@ const UserInfo = ({ user }) => {
         <dd>{user.username}</dd>
         <dt>Explorers</dt>
         <dd>
-          <ul>{explorerItems}</ul>
+          <ul className="list-unstyled">{explorerItems}</ul>
         </dd>
       </dl>
     </div>
   );
 };
 
-export default (UserInfo);
+export default UserInfo;

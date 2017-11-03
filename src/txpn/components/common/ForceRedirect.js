@@ -8,7 +8,7 @@ import { Route, Redirect } from 'react-router-dom';
 export default function ForceRedirect({ toURL, fromPath }) {
   function Director({ match }) {
     if (match.url !== toURL) {
-      return <Redirect to={toURL} push="true" />;
+      return <Redirect to={toURL} push={true} />;
     } else {
       return null;
     }

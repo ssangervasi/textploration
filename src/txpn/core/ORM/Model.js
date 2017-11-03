@@ -21,7 +21,7 @@ export default class Model {
   /**
    * Updates the model's data by creating a shallow copy and assigning all
    * fields in `fieldValues` to the corresponding field. Any keys in
-   * `fieldValues` do not **** have a corresponding field definition are
+   * `fieldValues` do not have a corresponding field definition are
    * skipped.
    *
    * @param      {object}  fieldValues  Map of field names to values.
