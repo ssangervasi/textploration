@@ -1,4 +1,4 @@
-import { Model, Field } from 'txpn/core/ORM';
+import { Model, Field, ForeignKey } from 'txpn/core/ORM';
 import Explorer from './Explorer';
 import World from './World';
 
@@ -8,7 +8,7 @@ const AdventureStartSteps = {
   DONE: 'DONE',
 };
 
-class AdventureStartState {
+class AdventureStartState extends Model {
   static fields = {
     explorer: new ForeignKey(Explorer, 'adventureStartStates'),
     world: new ForeignKey(World, 'adventureStartStates'),

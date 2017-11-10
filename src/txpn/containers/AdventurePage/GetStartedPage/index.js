@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import gameEngine from 'txpn/runtime/gameEngine';
+import gameState from 'txpn/runtime/gameState';
 import { AdventureStartSteps } from 'txpn/core/models/AdventureStartState';
 
 import subscribeToProp from 'txpn/components/HOCs/subscribeToProp';
@@ -10,7 +11,7 @@ import StepList from 'txpn/components/common/StepList';
 
 import CreateExplorerPage from './CreateExplorerPage';
 import ChooseWorldPage from './ChooseWorldPage';
-import Done from './Done';
+import DonePage from './DonePage';
 
 const { CREATE_EXPLORER, CHOOSE_WORLD, DONE } = AdventureStartSteps;
 
@@ -22,38 +23,18 @@ const subPathsByStep = {
 
 class GetStartedPage extends React.Component {
   /* Helpers */
-
-  getNextStep() {
-    return gameEngine.getStarted().getNextStep();
-  }
-
-  getExplorer() {
-    return gameEngine.getStarted().explorer;
-  }
-
-  setExplorer(explorer) {
-    gameEngine.getStarted().setExplorer(explorer);
-  }
-
-  getWorld() {
-    return gameEngine.getStarted().world;
-  }
-
-  setWorld(world) {
-    gameEngine.getStarted().setWorld(world);
-  }
-
   getURLForCurrentStep() {
-    if (this.props.step === DONE) {
-      return '/adventure/continue';
-    }
+    const step = this.props.adventureStart.getNextStep();
+    // if (step === DONE) {
+    //   return '/adventure/continue';
+    // }
     const url = this.props.match.url;
-    const tail = subPathsByStep[this.props.step];
+    const tail = subPathsByStep[step];
     return `${url}/${tail}`;
   }
 
   getSteps() {
-    const step = this.props.step;
+    const step = this.props.adventureStart.getNextStep();
     return [
       {
         title: 'Create your explorer',
@@ -72,26 +53,11 @@ class GetStartedPage extends React.Component {
     ];
   }
 
-  /* Events */
-
-  handleSubmitExplorer = explorer => {
-    // TODO: Validate submission.
-    this.setExplorer(explorer);
-  };
-
-  handleConfirmDone = () => {
-    gameEngine.startAdventure();
-  };
-
-  handleRestart = () => {
-    gameEngine.restartGetStarted();
-  };
-
   /* Rendering */
 
   render() {
     const path = this.props.match.path;
-    const childUrl = this.getURLForCurrentStep();
+    const childURL = this.getURLForCurrentStep();
     const steps = this.getSteps();
     return (
       <section>
@@ -101,13 +67,11 @@ class GetStartedPage extends React.Component {
           <StepList steps={steps} />
         </section>
         <section>
-          <ForceRedirect fromPath={path} toURL={childUrl} />
+          <ForceRedirect fromPath={path} toURL={childURL} />
           <Switch>
             <Route
               path={`${path}/${subPathsByStep[CREATE_EXPLORER]}`}
-              render={() => (
-                <CreateExplorerPage handleSubmit={this.handleSubmitExplorer} />
-              )}
+              component={CreateExplorerPage}
             />
             <Route
               path={`${path}/${subPathsByStep[CHOOSE_WORLD]}`}
@@ -115,14 +79,7 @@ class GetStartedPage extends React.Component {
             />
             <Route
               path={`${path}/${subPathsByStep[DONE]}`}
-              render={() => (
-                <Done
-                  world={this.getWorld()}
-                  explorer={this.getExplorer()}
-                  handleConfirm={this.handleConfirmDone}
-                  handleRestart={this.handleRestart}
-                />
-              )}
+              component={DonePage}
             />
           </Switch>
         </section>
@@ -132,7 +89,7 @@ class GetStartedPage extends React.Component {
 }
 
 const SubscribedGetStartedPage = subscribeToProp({
-  prop: 'step',
-  subject: gameEngine.adventureStartStepSubject,
+  prop: 'adventureStart',
+  subject: gameState.adventureStart.subject,
 })(GetStartedPage);
 export { SubscribedGetStartedPage as default };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect, Switch, NavLink } from 'react-router-dom';
 
-import CreateExplorer from 'txpn/components/explorer/CreateExplorer';
+import CreateExplorerForm from 'txpn/components/explorer/CreateExplorerForm';
 import CreatorNav from 'txpn/components/creator/CreatorNav';
 import Help from 'txpn/components/creator/Help';
 import OverviewPage from './OverviewPage';
@@ -25,7 +25,7 @@ export default class CreatorPage extends React.Component {
           <Route path={`${path}/room`} />
           <Route
             path={`${path}/explorer`}
-            render={() => <CreateExplorer submit={this.receiveExplorer} />}
+            render={() => <CreateExplorerForm submit={this.receiveExplorer} />}
           />
           <Redirect to={`${path}/help`} />
         </Switch>

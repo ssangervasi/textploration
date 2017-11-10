@@ -51,21 +51,29 @@ export default class Model {
    * @throws     {ModelNotFoundError}
    */
   static get(id) {
-    throw new ModelNotRegisteredError(
-      `Cannot call 'get' on unregistered model: ${this.toString()}`
-    );
+    // Note: static `this` is the constructor class.
+    if (this.orm == null) {
+      throw new ModelNotRegisteredError(
+        `Cannot call 'get' on unregistered model: ${this.name}`
+      );
+    }
+    return this.orm.get(this, id);
   }
 
   /**
    * When registered with an ORM, this will persist the model
    * in the database.
    *
-   * @return     {Model}  `this`
+   * @return     {Model}  A new instance after save created with `get`.
    * @throws     {ModelNotRegisteredError}
    */
   save() {
-    throw new ModelNotRegisteredError(
-      `Cannot call 'save' on unregistered model: ${this.toString()}`
-    );
+    if (this.constructor.orm == null) {
+      throw new ModelNotRegisteredError(
+        `Cannot call 'save' on unregistered model: ${this.toString()}`
+      );
+    }
+    this.constructor.orm.save(this);
+    return this.constructor.get(this.id);
   }
 }

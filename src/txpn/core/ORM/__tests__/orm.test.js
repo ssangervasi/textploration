@@ -1,5 +1,6 @@
 import { multiBefore } from 'txpn/testHelpers';
 import ORM, { Database, Model, Field, ForeignKey } from 'txpn/core/ORM';
+import * as errors from 'txpn/core/ORM/errors';
 
 function createModels() {
   class Person extends Model {
@@ -27,6 +28,25 @@ function createModels() {
     Child: Child,
   };
 }
+
+describe('unregistered model', () => {
+  let Person;
+
+  beforeEach(() => {
+    Person = createModels().Person;
+  });
+
+  test('Model.save throws ModelNotRegisteredError', () => {
+    const person = new Person({ name: 'Percy' });
+    expect(() => person.save()).toThrow(errors.ModelNotRegisteredError);
+  });
+
+  test('Model.get throws ModelNotRegisteredError', () => {
+    expect(() => Person.get('invalid-id')).toThrow(
+      errors.ModelNotRegisteredError
+    );
+  });
+});
 
 describe('flat model', () => {
   let Person;
@@ -59,12 +79,18 @@ describe('flat model', () => {
     expect(personFromGet.data.name).toBe('Percy');
   });
 
-  test('Model.save() returns the instance', () => {
+  test('Model.save returns an equal instance', () => {
     const person = new Person({ name: 'Percy' });
     const savedPerson = person.save();
-    expect(savedPerson).toBe(person);
     expect(savedPerson.id).toBeDefined();
-  })
+    expect(savedPerson).toEqual(person);
+  });
+
+  test('Model.get throws InstanceNotFoundError', () => {
+    expect(() => Person.get('invalid-id')).toThrow(
+      errors.InstanceNotFoundError
+    );
+  });
 });
 
 describe('related models', () => {
@@ -85,43 +111,45 @@ describe('related models', () => {
    * registered in reverse order.
    */
   multiBefore(describe, beforeEach, beforeAll)
-  .configure([
-    { label: 'Register Parent before Child',
-      beforeEach: () => {
-        sharedBefore();
-        orm.register(Parent, Child);
+    .configure([
+      {
+        label: 'Register Parent before Child',
+        beforeEach: () => {
+          sharedBefore();
+          orm.register(Parent, Child);
+        },
       },
-    },
-    { label: 'Register Child before Parent',
-      beforeEach: () => {
-        sharedBefore();
-        orm.register(Child, Parent);
+      {
+        label: 'Register Child before Parent',
+        beforeEach: () => {
+          sharedBefore();
+          orm.register(Child, Parent);
+        },
       },
-    },
-  ])
-  .run(() => {
-    test('can save a Parent', () => {
-      const parent = new Parent({ name: 'Perry' });
-      parent.save();
-      expect(parent.id).toBeDefined();
-      expect(parent.name).toBe('Perry');
-    });
-
-    test('can save a Child', () => {
-      const parent = new Parent({ name: 'Perry' });
-      parent.save();
-      const child = new Child({
-        name: 'Charlie',
-        parent: parent.id,
+    ])
+    .run(() => {
+      test('can save a Parent', () => {
+        const parent = new Parent({ name: 'Perry' });
+        parent.save();
+        expect(parent.id).toBeDefined();
+        expect(parent.name).toBe('Perry');
       });
-      child.save();
-      expect(child.id).toBeDefined();
-      expect(child.data.parent).toBe(parent.id);
-      const childFromGet = Child.get(child.id);
-      expect(childFromGet.data.parent).toBe(parent.id);
-      const parentFromLookup = child.parent;
-      expect(parentFromLookup).toBeDefined();
-      expect(parentFromLookup.id).toBe(parent.id);
+
+      test('can save a Child', () => {
+        const parent = new Parent({ name: 'Perry' });
+        parent.save();
+        const child = new Child({
+          name: 'Charlie',
+          parent: parent.id,
+        });
+        child.save();
+        expect(child.id).toBeDefined();
+        expect(child.data.parent).toBe(parent.id);
+        const childFromGet = Child.get(child.id);
+        expect(childFromGet.data.parent).toBe(parent.id);
+        const parentFromLookup = child.parent;
+        expect(parentFromLookup).toBeDefined();
+        expect(parentFromLookup.id).toBe(parent.id);
+      });
     });
-  });
 });

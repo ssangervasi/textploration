@@ -21,6 +21,9 @@ export default class ModelSet {
   }
 
   get(id) {
+    if (!this.byId.has(id)) {
+      return null;
+    }
     const dataCopy = { ...this.byId.get(id) };
     return new this.Model(dataCopy);
   }

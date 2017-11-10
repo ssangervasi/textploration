@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class WorldList extends React.Component {
+export default class ChooseWorldForm extends React.Component {
   state = {
     done: false,
     selectedWorld: undefined,
@@ -11,10 +11,11 @@ export default class WorldList extends React.Component {
   };
 
   handleConfirmWorld = () => {
-    if (this.state.selectedWorld != null && this.props.submit != null) {
-      this.props.submit(this.state.selectedWorld);
-      this.setState({ done: true });
+    if (this.state.selectedWorld == null) {
+      throw 'Chose null world.';
     }
+    this.props.handleSubmit(this.state.selectedWorld);
+    this.setState({ done: true });
   };
 
   render() {
@@ -29,7 +30,7 @@ export default class WorldList extends React.Component {
     return (
       <div>
         <h3>Choose a world:</h3>
-        <WorldListHeader
+        <ChooseWorldHeader
           world={this.state.selectedWorld}
           disabled={this.state.done}
           handleConfirmWorld={this.handleConfirmWorld}
@@ -54,7 +55,7 @@ function WorldItem({ world, handleClickWorld, ...buttonProps }) {
   );
 }
 
-function WorldListHeader({ world, disabled, handleConfirmWorld }) {
+function ChooseWorldHeader({ world, disabled, handleConfirmWorld }) {
   if (world == null) {
     return <div>None selected</div>;
   } else {

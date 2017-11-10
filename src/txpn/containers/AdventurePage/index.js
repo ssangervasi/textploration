@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
-import gameEngine from 'txpn/runtime/gameEngine';
+import gameState from 'txpn/runtime/gameState';
 import subscribeToProp from 'txpn/components/HOCs/subscribeToProp';
 import Adventure from 'txpn/components/adventure/Adventure';
-import AdventureStart from 'txpn/components/adventure/AdventureStart';
+import GetStartedPage from './GetStartedPage';
 import AdventureChoices from 'txpn/components/adventure/AdventureChoices';
 
 class AdventurePage extends React.Component {
@@ -16,7 +16,7 @@ class AdventurePage extends React.Component {
     const path = this.props.match.path;
     return (
       <Switch>
-        <Route path={`${path}/start`} component={AdventureStart} />
+        <Route path={`${path}/start`} component={GetStartedPage} />
         <Route
           path={`${path}/continue`}
           render={() => {
@@ -41,6 +41,6 @@ class AdventurePage extends React.Component {
 
 const SubscribedAdventurePage = subscribeToProp({
   prop: 'adventure',
-  subject: gameEngine.adventureSubject,
+  subject: gameState.adventure.subject,
 })(AdventurePage);
 export { SubscribedAdventurePage as default };

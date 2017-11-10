@@ -1,4 +1,4 @@
-import { forEachOwn } from 'txpn/utils'
+import { forEachOwn } from 'txpn/utils';
 import { Field } from './fields';
 
 export default class ORM {
@@ -9,15 +9,8 @@ export default class ORM {
   register(...models) {
     models.forEach(Model => {
       // Attach database methods.
-      const database = this.database;
-      database.register(Model);
-      Model.prototype.save = function save() {
-        database.save(this);
-        return this;
-      };
-      Model.get = function get(id) {
-        return database.get(Model, id);
-      };
+      Model.orm = this;
+      this.database.register(Model);
       // Attach fields.
       if (!Model.fields.hasOwnProperty('id')) {
         Model.fields['id'] = new Field();
@@ -26,9 +19,17 @@ export default class ORM {
         field.attach({
           Model: Model,
           name: fieldName,
-          database: database,
+          database: this.database,
         });
       });
     });
+  }
+
+  get(Model, id) {
+    return this.database.get(Model, id);
+  }
+
+  save(instance) {
+    this.database.save(instance);
   }
 }

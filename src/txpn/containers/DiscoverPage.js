@@ -1,9 +1,15 @@
 import React from 'react';
 
-import Discover from 'txpn/components/discover/Discover';
+import gameEngine from 'txpn/runtime/gameEngine';
+import ChooseWorldForm from 'txpn/components/world/ChooseWorldForm';
 
 export default class DiscoverPage extends React.Component {
   render()  {
-    return <Discover />
+    const worlds = gameEngine.getWorlds();
+    return (
+      <section>
+        <ChooseWorldForm worlds={worlds} handleSubmit={console.log}/>
+      </section>
+    );
   }
 }

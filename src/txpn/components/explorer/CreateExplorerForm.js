@@ -5,7 +5,7 @@ import RegExpValidator from 'txpn/core/RegExpValidator';
 import Explorer from 'txpn/core/models/Explorer';
 import TextInput from 'txpn/components/common/TextInput';
 
-export default class CreateExplorer extends React.Component {
+export default class CreateExplorerForm extends React.Component {
   state = {
     name: '',
     isValid: false,

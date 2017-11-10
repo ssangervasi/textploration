@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import auth from 'txpn/runtime/auth';
+import gameEngine from 'txpn/runtime/gameEngine';
 
 export default class LoginPage extends React.Component {
   state = {
@@ -22,6 +23,7 @@ export default class LoginPage extends React.Component {
 
   logIn = () => {
     auth.authenticate().then(() => {
+      gameEngine.doAfterAuthenticate();
       this.redirect();
     });
   };

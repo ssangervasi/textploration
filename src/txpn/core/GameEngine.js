@@ -61,7 +61,7 @@ export default class GameEngine {
   }
 
   doAfterAuthenticate() {
-    const adventureState = this.gameState.adventure.get();
+    let adventureState = this.gameState.adventure.get();
     if (adventureState == null && this.auth.isAuthenticated) {
       adventureState = this.auth.user.getLastAdventure();
       if (adventureState != null) {
