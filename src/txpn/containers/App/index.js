@@ -3,11 +3,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 // Defines app state and data store.
 import 'txpn/runtime';
-
 import AppLayout from 'txpn/components/app/AppLayout';
-
 import AuthenticatedRoute from 'txpn/containers/AuthenticatedRoute';
-
 import HomePage from 'txpn/containers/HomePage';
 import AdventurePage from 'txpn/containers/AdventurePage';
 import CreatorPage from 'txpn/containers/CreatorPage';

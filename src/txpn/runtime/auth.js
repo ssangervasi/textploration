@@ -1,12 +1,11 @@
 import sampleData from './sampleData';
 import FakeAuth from 'txpn/core/FakeAuth';
 
-const shouldStartLoggedIn = true;
 let user;
 let defaultUser = sampleData.user;
 
-if (shouldStartLoggedIn) {
-  user = sampleData.user;
+if (process.env.NODE_ENV !== 'production') {
+  user = defaultUser;
 }
 
 const auth = new FakeAuth({ user, defaultUser });

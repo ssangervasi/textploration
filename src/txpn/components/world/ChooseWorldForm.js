@@ -12,7 +12,7 @@ export default class ChooseWorldForm extends React.Component {
 
   handleConfirmWorld = () => {
     if (this.state.selectedWorld == null) {
-      throw 'Chose null world.';
+      throw new Error('Chose null world.');
     }
     this.props.handleSubmit(this.state.selectedWorld);
     this.setState({ done: true });

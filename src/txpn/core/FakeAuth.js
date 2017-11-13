@@ -1,5 +1,5 @@
 import { promiseTimeout } from 'txpn/utils';
-import { User } from 'txpn/core/models';
+// import { User } from 'txpn/core/models';
 
 export default class FakeAuth {
   constructor({ user, defaultUser, delay = 100 }) {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 function Anchor({ to, children }) {
   return <a href={`#${to}`}>{children}</a>;

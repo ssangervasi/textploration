@@ -1,11 +1,10 @@
 import React from 'react';
-import { Route, Redirect, Switch, NavLink } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 
 import CreateExplorerForm from 'txpn/components/explorer/CreateExplorerForm';
 import CreatorNav from 'txpn/components/creator/CreatorNav';
 import Help from 'txpn/components/creator/Help';
 import OverviewPage from './OverviewPage';
-
 
 export default class CreatorPage extends React.Component {
   receiveExplorer = evt => {
@@ -16,7 +15,7 @@ export default class CreatorPage extends React.Component {
     const path = this.props.match.path;
     return (
       <div>
-        <CreatorNav path={path}/>
+        <CreatorNav path={path} />
         <Switch>
           <Route path={`${path}/overview`} component={OverviewPage} />
           <Route path={`${path}/help`} component={Help} />

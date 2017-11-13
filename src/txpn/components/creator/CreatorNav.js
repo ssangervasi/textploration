@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect, Switch, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import classy, { grid } from 'txpn/components/HOCs/classy';
 
