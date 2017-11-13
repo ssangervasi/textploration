@@ -1,5 +1,8 @@
 import { NotImplementedError } from 'txpn/core/errors';
-import { World, AdventureState, AdventureStartState } from 'txpn/core/models';
+import { World, AdventureState } from 'txpn/core/models';
+import AdventureStartState, {
+  AdventureStartSteps,
+} from 'txpn/core/models/AdventureStartState';
 
 export default class GameEngine {
   constructor({ orm, gameState, auth }) {
@@ -16,8 +19,7 @@ export default class GameEngine {
     const adventureStart = this.gameState.adventureStart.get();
     if (
       adventureStart == null ||
-      adventureStart.explorer == null ||
-      adventureStart.world == null
+      adventureStart.getNextStep() !== AdventureStartSteps.DONE
     ) {
       throw new NotImplementedError(`
         Starting an adventure without using the
@@ -43,21 +45,11 @@ export default class GameEngine {
     return this.orm.database.getModelSet(World).getAll();
   }
 
-  getAdventure() {
+  goThroughDoor(door) {
+    const destination = door.destination;
     const adventureState = this.gameState.adventure.get();
-    if (adventureState == null) {
-      return;
-    }
-    const { explorer, room } = adventureState;
-    const region = room.region;
-    const adventure = {
-      world: region.world,
-      doors: room.doors,
-      explorer,
-      room,
-      region,
-    };
-    return adventure;
+    adventureState.room = destination;
+    this.gameState.adventure.update(adventureState.save());
   }
 
   doAfterAuthenticate() {
@@ -80,12 +72,5 @@ export default class GameEngine {
     ) {
       this.gamestate.adventure.update(null);
     }
-  }
-
-  goThroughDoor(door) {
-    const destination = door.destination;
-    const adventureState = this.gameState.adventure.get();
-    adventureState.room = destination;
-    this.gameState.adventure.update(adventureState.save());
   }
 }

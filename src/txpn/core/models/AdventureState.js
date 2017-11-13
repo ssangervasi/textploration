@@ -7,4 +7,16 @@ export default class AdventureState extends Model {
     explorer: new ForeignKey(Explorer, 'adventureStates'),
     room: new ForeignKey(Room, 'adventureStates'),
   };
+
+  get region() {
+    return this.room.region;
+  }
+
+  get world() {
+    return this.region.world;
+  }
+
+  get doors() {
+    return this.room.doors;
+  }
 }

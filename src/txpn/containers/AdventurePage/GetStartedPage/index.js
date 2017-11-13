@@ -11,23 +11,24 @@ import StepList from 'txpn/components/common/StepList';
 
 import CreateExplorerPage from './CreateExplorerPage';
 import ChooseWorldPage from './ChooseWorldPage';
-import DonePage from './DonePage';
+import ConfirmPage from './ConfirmPage';
 
-const { CREATE_EXPLORER, CHOOSE_WORLD, DONE } = AdventureStartSteps;
+const { CREATE_EXPLORER, CHOOSE_WORLD, CONFIRM, DONE } = AdventureStartSteps;
 
 const subPathsByStep = {
   [CREATE_EXPLORER]: 'create-explorer',
   [CHOOSE_WORLD]: 'choose-world',
-  [DONE]: 'done',
+  [CONFIRM]: 'confirm',
 };
 
 class GetStartedPage extends React.Component {
   /* Helpers */
   getURLForCurrentStep() {
     const step = this.props.adventureStart.getNextStep();
-    // if (step === DONE) {
-    //   return '/adventure/continue';
-    // }
+    if (step === DONE) {
+      gameEngine.startAdventure();
+      return '/adventure/continue';
+    }
     const url = this.props.match.url;
     const tail = subPathsByStep[step];
     return `${url}/${tail}`;
@@ -44,11 +45,11 @@ class GetStartedPage extends React.Component {
       {
         title: 'Choose a world',
         active: step === CHOOSE_WORLD,
-        done: step === DONE,
+        done: step === CONFIRM,
       },
       {
         title: 'Adventure!',
-        active: step === DONE,
+        active: step === CONFIRM,
       },
     ];
   }
@@ -78,8 +79,8 @@ class GetStartedPage extends React.Component {
               component={ChooseWorldPage}
             />
             <Route
-              path={`${path}/${subPathsByStep[DONE]}`}
-              component={DonePage}
+              path={`${path}/${subPathsByStep[CONFIRM]}`}
+              component={ConfirmPage}
             />
           </Switch>
         </section>

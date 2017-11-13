@@ -23,7 +23,7 @@ class AdventurePage extends React.Component {
             if (!this.hasAdventureToContinue()) {
               return <Redirect to={path} />;
             }
-            return <Adventure {...this.props.adventure} />;
+            return <Adventure adventureState={this.props.adventure} />;
           }}
         />
         <Route

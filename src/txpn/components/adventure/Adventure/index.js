@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { AdventureState } from 'txpn/core/models';
 import TxpnConsole from 'txpn/components/common/TxpnConsole';
 import Overview from './Overview';
 import Room from './Room';
 
-export default function Adventure({ explorer, world, region, room, doors }) {
+export default function Adventure({ adventureState }) {
+  const { world, doors, explorer, room, region } = adventureState;
   return (
     <section>
       <h2>Adventure</h2>
@@ -20,12 +22,6 @@ export default function Adventure({ explorer, world, region, room, doors }) {
   );
 }
 
-const namedObject = PropTypes.shape({ name: PropTypes.string.isRequired })
-
 Adventure.PropTypes = {
-  explorer: namedObject.isRequired,
-  world: namedObject.isRequired,
-  region: namedObject.isRequired,
-  room: PropTypes.object.isRequired,
-  doors: PropTypes.object.isRequired,
+  adventureState: PropTypes.instanceOf(AdventureState).isRequired,
 };

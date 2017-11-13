@@ -1,19 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 
+import subscribeToProp from 'txpn/components/HOCs/subscribeToProp';
 import gameEngine from 'txpn/runtime/gameEngine';
 import gameState from 'txpn/runtime/gameState';
 
-export default class DonePage extends React.Component {
+export class ConfirmPage extends React.Component {
   /* Events */
-  state = {
-    done: false,
-  };
-
   handleConfirm = () => {
-    gameEngine.startAdventure();
-    this.setState({ done: true });
+    const adventureStart = this.props.adventureStart;
+    adventureStart.is_confirmed = true;
+    gameState.adventureStart.update(adventureStart.save());
   };
 
   handleRestart = () => {
@@ -21,11 +17,7 @@ export default class DonePage extends React.Component {
   };
 
   render() {
-    if (this.state.done) {
-      return <Redirect to={'/adventure/continue'} />;
-    }
-    const adventureStart = gameState.adventureStart.get();
-    const { explorer, world } = adventureStart;
+    const { explorer, world } = this.props.adventureStart;
     if (explorer == null || world == null) {
       return (
         <div>
@@ -60,9 +52,8 @@ export default class DonePage extends React.Component {
   }
 }
 
-DonePage.PropTypes = {
-  explorer: PropTypes.shape({ name: PropTypes.string.isRequired }),
-  world: PropTypes.shape({ name: PropTypes.string.isRequired }),
-  handleConfirm: PropTypes.func.isRequired,
-  handleRestart: PropTypes.func.isRequired,
-};
+const SubscribedConfirmPage = subscribeToProp({
+  prop: 'adventureStart',
+  subject: gameState.adventureStart.subject,
+})(ConfirmPage);
+export { SubscribedConfirmPage as default };
