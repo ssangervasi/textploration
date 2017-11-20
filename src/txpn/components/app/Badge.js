@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AppBadge = () => (
+const Badge = () => (
   <Link to="/">
     <h2 className="title">
       Textploration
@@ -11,4 +11,4 @@ const AppBadge = () => (
   </Link>
 );
 
-export default AppBadge;
+export default Badge;

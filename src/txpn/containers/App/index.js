@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 // Defines app state and data store.
 import 'txpn/runtime';
-import AppLayout from 'txpn/components/app/AppLayout';
+import Layout from 'txpn/components/app/Layout';
 import AuthenticatedRoute from 'txpn/containers/AuthenticatedRoute';
 import HomePage from 'txpn/containers/HomePage';
 import AdventurePage from 'txpn/containers/AdventurePage';
@@ -16,14 +16,14 @@ export default class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <AppLayout>
+        <Layout>
           <Route exact path="/" component={HomePage} />
           <Route path="/adventure" component={AdventurePage} />
           <Route path="/create" component={CreatorPage} />
           <Route path="/discover" component={DiscoverPage} />
           <AuthenticatedRoute path="/account" component={AccountPage} />
           <Route path="/login" component={LoginPage} />
-        </AppLayout>
+        </Layout>
       </BrowserRouter>
     );
   }
